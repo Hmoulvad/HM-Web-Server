@@ -1,0 +1,21 @@
+{
+  "name": "holidaymanager.server",
+  "version": "1.0.0",
+  "description": "IMPACT Holiday Manager",
+  "main": "index.js",
+  "scripts": {
+    "watch-ts": "tsc -w",
+    "watch-node": "nodemon dist/server.js",
+    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript, Node\" -c \"yello.bold, cyan.bold\" \"yarn run watch-ts\" \"yarn run watch-node\""
+  },
+  "author": "HBM",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "express": "^4.16.4",
+    "nodemon": "^1.18.9"
+  },
+  "dependencies": {
+    "@types/express": "^4.16.1"
+  }
+}
