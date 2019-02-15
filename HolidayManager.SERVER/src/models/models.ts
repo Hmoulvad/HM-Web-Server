@@ -1,4 +1,4 @@
-interface IUnit {
+export interface IUnit {
     id: string;
     projects: IProject[];
     devolopers: IDeveloper[];
@@ -6,14 +6,14 @@ interface IUnit {
     projectManagers: IProjectManager[];
 }
 
-interface IProject {
+export interface IProject {
     id: string;
     unit: IUnit;
     projectManager: IProjectManager;
     developers: IDeveloper[];
 }
 
-interface IEmployee {
+export interface IEmployee {
     id: string;
     name: string;
     holidayRequests: IHolidayRequest[];
@@ -21,34 +21,34 @@ interface IEmployee {
     referenceId: string;
 }
 
-enum Role {
+export enum Role {
     unitManager = "UnitManager",
     projectManager = "ProjectManager",
     developer = "Developer",
     businessConsultant = "BusinessConsultant",
 }
 
-interface IUnitEmployee extends IEmployee {
+export interface IUnitEmployee extends IEmployee {
     unit: IUnit;
 }
 
-interface IDeveloper extends IUnitEmployee {
+export interface IDeveloper extends IUnitEmployee {
     projectManagers: IProjectManager[];
 }
 
-interface IUnitManager extends IUnitEmployee {
+export interface IUnitManager extends IUnitEmployee {
     projects: IProject[];
 }
 
-interface IProjectManager extends IUnitEmployee {
+export interface IProjectManager extends IUnitEmployee {
     projects: IProject[];
 }
 
-interface IHolidayRequest {
+export interface IHolidayRequest {
     id: string;
     dates: IDate[];
 }
 
-interface IDate {
+export interface IDate {
     date: string;
 }
