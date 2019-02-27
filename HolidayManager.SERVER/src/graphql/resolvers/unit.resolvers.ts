@@ -1,6 +1,6 @@
 export default {
     Query: {
-        getUnit: async (parent, { _id }, { models }) => {
+        unit: async (parent, { _id }, { models }) => {
             const Unit = await models.Unit.findOne({ _id });
             return Unit;
         },

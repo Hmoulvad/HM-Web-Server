@@ -1,5 +1,5 @@
 export interface IUnit {
-    id: string;
+    name: string;
     projects: IProject[];
     devolopers: IDeveloper[];
     unitManager: IUnitManager;
@@ -7,7 +7,7 @@ export interface IUnit {
 }
 
 export interface IProject {
-    id: string;
+    name: String;
     unit: IUnit;
     projectManager: IProjectManager;
     developers: IDeveloper[];
