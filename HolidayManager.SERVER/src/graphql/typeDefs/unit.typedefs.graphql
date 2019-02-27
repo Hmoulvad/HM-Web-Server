@@ -1,0 +1,13 @@
+type Query {
+  getUnit(_id: String!): Unit
+}
+
+type Mutation {
+  createUnit(name: String!): Boolean!
+}
+
+type Unit {
+    _id: String!
+    name: String!
+    createdOn: String!
+}

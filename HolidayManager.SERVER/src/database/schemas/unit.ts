@@ -3,9 +3,8 @@ import * as Mongoose from "mongoose";
 const Schema = Mongoose.Schema;
 
 export const UnitSchema = new Schema({
-    _id: Mongoose.Types.ObjectId,
     name: String,
-    created_date: {
+    createdOn: {
         type: Date,
         default: Date.now
     }
