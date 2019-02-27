@@ -1,16 +1,20 @@
 import { GraphQLServer } from "graphql-yoga";
+import { startDB, models } from "./database";
+import resolvers from "./graphql/resolvers";
 
-const typeDefs = `
-  type Query {
-    hello(name: String): String!
-  }
-`;
+const db = startDB({
+  user: process.env.MONGO_ATLAS_USER,
+  pwd: process.env.MONGO_ATLAS_PW
+});
+const context = {
+  models,
+  db
+}
 
-const resolvers = {
-  Query: {
-    hello: (_: any, { name }: any) => `hello ${name || "World"}`
-  }
-};
+const server = new GraphQLServer({ 
+  typeDefs: `${__dirname}/graphql/schema.graphql`, 
+  resolvers,
+  context
+});
 
-const server = new GraphQLServer({ typeDefs, resolvers });
 server.start(() => console.log("Server is running on localhost:4000"));
