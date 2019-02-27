@@ -1,6 +1,8 @@
 import * as Mongoose from "mongoose";
 import Unit from "./schemas/unit.schema";
 import Project from "./schemas/project.schema";
+import UnitEmployee from "./schemas/unit-employee.schema";
+import ProjectManager from "./schemas/project-manager.schema";
 
 export const startDB = ({user, pwd}) => Mongoose.connect(
     `mongodb+srv://${user}:${pwd}@hm-impact-tvrfv.azure.mongodb.net/HM-IMPACT?retryWrites=true`,
@@ -11,5 +13,7 @@ export const startDB = ({user, pwd}) => Mongoose.connect(
 
 export const models = {
     Unit,
-    Project
+    Project,
+    UnitEmployee,
+    ProjectManager,
 }

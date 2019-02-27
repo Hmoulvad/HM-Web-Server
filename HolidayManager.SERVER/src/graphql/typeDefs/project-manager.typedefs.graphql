@@ -1,0 +1,18 @@
+type Query {
+  projectManager(_id: String!): ProjectManager
+}
+
+type Mutation {
+  createProjectManager(name: String!): Boolean!
+}
+
+type ProjectManager {
+    _id: String!
+    name: String!
+    unit: String
+    holidayRequests: [Test]
+    role: String
+    referenceId: String 
+    projects: [Test]
+    createdOn: String!
+}

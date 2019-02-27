@@ -12,6 +12,6 @@ export const ProjectSchema = new Mongoose.Schema({
         type: Date,
         default: Date.now
     }
-});
+}, { collection: "Projects" });
 
 export default Mongoose.model<IProjectModel>("Project", ProjectSchema);

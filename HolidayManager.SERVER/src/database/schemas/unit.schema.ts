@@ -13,6 +13,6 @@ export const UnitSchema = new Mongoose.Schema({
         type: Date,
         default: Date.now
     }
-});
+}, { collection: "Units" });
 
 export default Mongoose.model<IUnitModel>("Unit", UnitSchema);

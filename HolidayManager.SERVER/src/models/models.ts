@@ -14,7 +14,6 @@ export interface IProject {
 }
 
 export interface IEmployee {
-    id: string;
     name: string;
     holidayRequests: IHolidayRequest[];
     role: Role;
