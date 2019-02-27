@@ -1,6 +1,7 @@
 import { GraphQLServer } from "graphql-yoga";
 import { startDB, models } from "./database";
-import resolvers from "./graphql/resolvers";
+import { default as typeDefs } from "./graphql/typeDefs";
+import { default as resolvers } from "./graphql/resolvers";
 
 const db = startDB({
   user: process.env.MONGO_ATLAS_USER,
@@ -12,7 +13,7 @@ const context = {
 }
 
 const server = new GraphQLServer({ 
-  typeDefs: `${__dirname}/graphql/schema.graphql`, 
+  typeDefs, 
   resolvers,
   context
 });
