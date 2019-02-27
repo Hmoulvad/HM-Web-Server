@@ -44,7 +44,6 @@ export interface IProjectManager extends IUnitEmployee {
 }
 
 export interface IHolidayRequest {
-    id: string;
     dates: IDate[];
 }
 
