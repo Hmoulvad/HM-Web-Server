@@ -43,7 +43,10 @@ export interface IProjectManager extends IUnitEmployee {
     projects: IProject[];
 }
 
+
 export interface IHolidayRequest {
     referenceId: string, 
-    date: Date
+    dates: Date[];
 }
+
+

@@ -5,11 +5,17 @@ export interface IProjectManagerModel extends IProjectManager, Mongoose.Document
 
 export const ProjectManagerSchema = new Mongoose.Schema({
     name: String,
-    unit: Mongoose.Types.ObjectId,
-    holidayRequests: [Object],
+    unit: Mongoose.Schema.Types.ObjectId,
+    holidayRequests: [{
+        type: Mongoose.Schema.Types.ObjectId,
+        ref: "HolidayRequest"
+    }],
     role: String,
-    referenceId: Mongoose.Types.ObjectId,
-    projects: [Object],
+    referenceId: Mongoose.Schema.Types.ObjectId,
+    projects: [{
+        type: Mongoose.Schema.Types.ObjectId,
+        ref: "Project"
+    }],
     createdOn: {
         type: Date,
         default: Date.now
