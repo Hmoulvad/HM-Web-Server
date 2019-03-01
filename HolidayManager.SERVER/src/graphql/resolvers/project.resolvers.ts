@@ -1,18 +1,23 @@
+import { IProjectModel } from "../../database/schemas/project.schema";
+import { IDataModels } from "../../database/index";
+
 export default {
     Query: {
         project: async (parent, { _id }, { models }) => {
-            const Project = await models.Project.findOne({ _id });
+            const { MongooseModels }: IDataModels = models;
+            const Project: IProjectModel = await MongooseModels.Project.findOne({ _id });
             return Project;
         },
     },
     Mutation: {
         createProject: async (parent, { name }, { models }) => {
-            const Project = await models.Project.findOne({ name });
+            const { MongooseModels }: IDataModels = models;
+            const Project: IProjectModel = await MongooseModels.Project.findOne({ name });
             if ( Project ) {
                 throw new Error("Please provide a unique name.");
             }
 
-            const newProject = new models.Project({
+            const newProject: IProjectModel = new MongooseModels.Project({
                 name,
             })
 

@@ -1,10 +1,11 @@
 import * as Mongoose from "mongoose";
 import { IHolidayRequest } from "../../models/models";
 
-interface IHolidayRequestModel extends IHolidayRequest, Mongoose.Document { }
+export interface IHolidayRequestModel extends IHolidayRequest, Mongoose.Document { }
 
 export const HolidayRequestSchema = new Mongoose.Schema({
-    dates: [],
+    dates: [Object],
+    referenceId: Mongoose.Types.ObjectId,
     createdOn: {
         type: Date,
         default: Date.now

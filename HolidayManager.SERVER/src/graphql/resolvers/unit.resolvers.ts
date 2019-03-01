@@ -1,18 +1,23 @@
+import { IUnitModel } from "../../database/schemas/unit.schema";
+import { IDataModels } from "../../database/index";
+
 export default {
     Query: {
-        unit: async (parent, { _id }, { models }) => {
-            const Unit = await models.Unit.findOne({ _id });
+        unit: async (parent, { _id }, { models } )  => {
+            const { MongooseModels }: IDataModels = models;
+            const Unit: IUnitModel = await MongooseModels.Unit.findOne({ _id });
             return Unit;
         },
     },
     Mutation: {
         createUnit: async (parent, { name }, { models }) => {
-            const Unit = await models.Unit.findOne({ name });
+            const { MongooseModels }: IDataModels = models;
+            const Unit: IUnitModel = await MongooseModels.Unit.findOne({ name });
             if ( Unit ) {
                 throw new Error("Please provide a unique name.");
             }
 
-            const newUnit = new models.Unit({
+            const newUnit: IUnitModel = new MongooseModels.Unit({
                 name,
             })
 

@@ -1,15 +1,15 @@
 import * as Mongoose from "mongoose";
 import { IProjectManager } from "../../models/models";
 
-interface IProjectManagerModel extends IProjectManager, Mongoose.Document { }
+export interface IProjectManagerModel extends IProjectManager, Mongoose.Document { }
 
 export const ProjectManagerSchema = new Mongoose.Schema({
     name: String,
     unit: Mongoose.Types.ObjectId,
-    holidayRequests: [],
+    holidayRequests: [Object],
     role: String,
     referenceId: Mongoose.Types.ObjectId,
-    projects: [],
+    projects: [Object],
     createdOn: {
         type: Date,
         default: Date.now
