@@ -9,13 +9,9 @@ type Mutation {
 type Unit {
     _id: String!
     name: String!
-    developers: [Test]
-    projects: [Test]
-    projectManagers: [Test]
+    unitManager: String!
     createdOn: String!
-    unitManager: String
-}
-
-type Test {
-  name: String
+    developers: [Developer]
+    projects: [Project]
+    projectManagers: [ProjectManager]
 }

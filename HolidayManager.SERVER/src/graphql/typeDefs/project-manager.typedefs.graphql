@@ -9,10 +9,10 @@ type Mutation {
 type ProjectManager {
     _id: String!
     name: String!
-    unit: String
-    holidayRequests: [Test]
-    role: String
-    referenceId: String 
-    projects: [Test]
     createdOn: String!
+    role: String!
+    unit: String
+    referenceId: String 
+    projects: [Project]
+    holidayRequests: [HolidayRequest]
 }

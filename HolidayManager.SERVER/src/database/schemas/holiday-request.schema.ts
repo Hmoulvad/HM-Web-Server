@@ -5,7 +5,7 @@ export interface IHolidayRequestModel extends IHolidayRequest, Mongoose.Document
 
 export const HolidayRequestSchema = new Mongoose.Schema({
     dates: [Date],
-    referenceId: Mongoose.Schema.Types.ObjectId,
+    requestReference: Mongoose.Schema.Types.ObjectId,
     createdOn: {
         type: Date,
         default: Date.now

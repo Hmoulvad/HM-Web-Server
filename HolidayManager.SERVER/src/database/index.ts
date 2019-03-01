@@ -1,16 +1,18 @@
 import * as Mongoose from "mongoose";
 import Unit, { IUnitModel } from "./schemas/unit.schema";
 import Project, { IProjectModel } from "./schemas/project.schema";
-import UnitEmployee, { IUnitEmployeeModel } from "./schemas/unit-employee.schema";
+import Developer, { IDeveloperModel } from "./schemas/developer.schema";
 import ProjectManager, { IProjectManagerModel } from "./schemas/project-manager.schema";
 import HolidayRequest, { IHolidayRequestModel } from "./schemas/holiday-request.schema";
+import UnitManager, { IUnitManagerModel } from "./schemas/unit-manager.schema";
 
 export interface IMongooseModels {
     Unit: Mongoose.Model<IUnitModel, {}>;
     Project: Mongoose.Model<IProjectModel, {}>;
-    UnitEmployee: Mongoose.Model<IUnitEmployeeModel, {}>;
+    Developer: Mongoose.Model<IDeveloperModel, {}>;
     ProjectManager: Mongoose.Model<IProjectManagerModel, {}>;
     HolidayRequest: Mongoose.Model<IHolidayRequestModel, {}>;
+    UnitManager: Mongoose.Model<IUnitManagerModel, {}>;
 }
 
 export interface IDataModels {
@@ -28,8 +30,9 @@ export const models: IDataModels = {
   MongooseModels: {
     Unit,
     Project,
-    UnitEmployee,
+    Developer,
     ProjectManager,
-    HolidayRequest
+    HolidayRequest,
+    UnitManager,
   }
 }

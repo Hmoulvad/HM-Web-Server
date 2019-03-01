@@ -16,15 +16,14 @@ export interface IProject {
 export interface IEmployee {
     name: string;
     holidayRequests: IHolidayRequest[];
-    role: Role;
     referenceId: string;
+    role: String;
 }
 
 export enum Role {
     unitManager = "UnitManager",
     projectManager = "ProjectManager",
     developer = "Developer",
-    businessConsultant = "BusinessConsultant",
 }
 
 export interface IUnitEmployee extends IEmployee {
@@ -35,17 +34,14 @@ export interface IDeveloper extends IUnitEmployee {
     projectManagers: IProjectManager[];
 }
 
-export interface IUnitManager extends IUnitEmployee {
-    projects: IProject[];
-}
+export interface IUnitManager extends IUnitEmployee { }
 
 export interface IProjectManager extends IUnitEmployee {
     projects: IProject[];
 }
 
-
 export interface IHolidayRequest {
-    referenceId: string, 
+    requestReference: string, 
     dates: Date[];
 }
 
