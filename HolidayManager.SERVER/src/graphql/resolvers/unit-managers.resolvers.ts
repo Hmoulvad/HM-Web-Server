@@ -6,7 +6,7 @@ export default {
     Query: {
         unitManager: async (parent, { _id }, { models } )  => {
             const { MongooseModels }: IDataModels = models;
-            const UnitManager: IUnitManagerModel = await MongooseModels.UnitManager.findOne({ name });
+            const UnitManager: IUnitManagerModel = await MongooseModels.UnitManager.findOne({ _id });
             if ( UnitManager ) {
                 return UnitManager;
             }
@@ -40,9 +40,10 @@ export default {
                 } catch(e) {
                     throw new Error(e);
                 }
+                return true;
+            } else {
+                return false;
             }
-
-            return true;
         }
     }
 };
