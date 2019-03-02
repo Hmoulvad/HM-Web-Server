@@ -20,7 +20,7 @@ export interface IDataModels {
 }
 
 export const startDB = ({user, pwd}) => Mongoose.connect(
-    `mongodb+srv://${user}:${pwd}@hm-impact-tvrfv.azure.mongodb.net/HM-IMPACT?retryWrites=true`,
+    `mongodb+srv://${user}:${pwd}@hm-impact-tvrfv.azure.mongodb.net/HM-Impact?retryWrites=true`,
     {
       useNewUrlParser: true
     }

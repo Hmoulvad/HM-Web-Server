@@ -6,7 +6,10 @@ export default {
         unit: async (parent, { _id }, { models } )  => {
             const { MongooseModels }: IDataModels = models;
             const Unit: IUnitModel = await MongooseModels.Unit.findOne({ _id });
-            return Unit;
+            if ( Unit ) {
+                return Unit;
+            }
+            else throw new Error("Unit doesn't exist")
         },
     },
     Mutation: {
@@ -16,11 +19,9 @@ export default {
             if ( Unit ) {
                 throw new Error("Please provide a unique name.");
             }
-
             const newUnit: IUnitModel = new MongooseModels.Unit({
                 name,
             })
-
             try {
                 await newUnit.save();
             } catch(e) {

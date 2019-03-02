@@ -30,14 +30,12 @@ export default {
                 } catch(e) {
                     throw new Error(e);
                 }
-
                 Unit.projectManagers.push(newProjectManager);
                 try {
                     await Unit.save();
                 } catch(e) {
                     throw new Error(e);
                 }
-
                 return true;
             } else {
                 throw new Error ("Unit couldn't be found")

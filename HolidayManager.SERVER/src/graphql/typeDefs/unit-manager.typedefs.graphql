@@ -3,7 +3,7 @@ type Query {
 }
 
 type Mutation {
-  createUnitManager(name: String!): Boolean!
+  createUnitManager(name: String!, unit_id: String!, referenceId: String): Boolean!
 }
 
 type UnitManager {
