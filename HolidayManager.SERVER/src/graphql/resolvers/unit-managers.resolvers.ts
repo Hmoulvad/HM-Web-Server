@@ -14,19 +14,20 @@ export default {
         },
     },
     Mutation: {
-        createUnitManager: async (parent, { name, unit_id, reference_id }, { models }) => {
+        createUnitManager: async (parent, { name, unitId, referenceId }, { models }) => {
             const { MongooseModels }: IDataModels = models;
             const UnitManager: IUnitManagerModel = await MongooseModels.UnitManager.findOne({ name });
             if ( UnitManager ) {
                 throw new Error("Please provide a unique name.");
             }
-            const findUnit = { _id: unit_id };
+            const findUnit = { _id: unitId };
             const Unit: IUnitModel = await MongooseModels.Unit.findOne(findUnit);
             if ( Unit ) {
                 const newUnitManager: IUnitManagerModel = new MongooseModels.UnitManager({
                     name,
-                    unit: unit_id,
-                    role: "Unit Manager"
+                    unit: unitId,
+                    role: "Unit Manager",
+                    referenceId
                 })
                 try {
                     await newUnitManager.save();

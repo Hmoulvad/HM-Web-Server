@@ -1,9 +1,9 @@
 type Query {
-  developer(_id: String!, unit_id: String): Developer
+  developer(_id: String!, unitId: String): Developer
 }
 
 type Mutation {
-  createDeveloper(name: String!, unit_name: String!): Boolean!
+  createDeveloper(name: String!, unitId: String!, referenceId: String): Boolean!
 }
 
 type Developer {

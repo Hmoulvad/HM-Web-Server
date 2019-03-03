@@ -11,18 +11,18 @@ export default {
         },
     },
     Mutation: {
-        createDeveloper: async (parent, { name, unit_name }, { models }) => {
+        createDeveloper: async (parent, { name, unitId }, { models }) => {
             const { MongooseModels }: IDataModels = models;
             const findDeveloper = { name: name }
             const Developer: IDeveloperModel = await MongooseModels.Developer.findOne( findDeveloper );
             if ( Developer ) {
                 throw new Error("Please provide a unique name.");
             }
-            const findUnit = { name: unit_name }
+            const findUnit = { _id: unitId }
             const Unit: IUnitModel = await MongooseModels.Unit.findOne(findUnit)
             if ( Unit ) {
                 const newDeveloper: IDeveloperModel = new MongooseModels.Developer({
-                    name,
+                    name,   
                 })
                 try {
                     await newDeveloper.save();

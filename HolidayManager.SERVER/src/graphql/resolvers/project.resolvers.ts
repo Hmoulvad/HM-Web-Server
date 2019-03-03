@@ -14,18 +14,18 @@ export default {
         },
     },
     Mutation: {
-        createProject: async (parent, { name, unit_id }, { models }) => {
+        createProject: async (parent, { name, unitId }, { models }) => {
             const { MongooseModels }: IDataModels = models;
             const Project: IProjectModel = await MongooseModels.Project.findOne({ name });
             if ( Project ) {
                 throw new Error("Please provide a unique name.");
             }
-            const findUnit = { _id: unit_id };
+            const findUnit = { _id: unitId };
             const Unit: IUnitModel = await MongooseModels.Unit.findOne(findUnit);
             if ( Unit ) {
                 const newProject: IProjectModel = new MongooseModels.Project({
                     name,
-                    unit: unit_id,
+                    unit: unitId,
                 })
                 try {
                     await newProject.save();

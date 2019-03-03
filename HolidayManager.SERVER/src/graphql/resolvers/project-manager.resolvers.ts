@@ -11,19 +11,20 @@ export default {
         },
     },
     Mutation: {
-        createProjectManager: async (parent, { name, unit_id }, { models }) => {
+        createProjectManager: async (parent, { name, unitId, referenceId }, { models }) => {
             const { MongooseModels }: IDataModels = models;
             const ProjectManager = await MongooseModels.ProjectManager.findOne({ name });
             if ( ProjectManager ) {
                 throw new Error("Please provide a unique name.");
             }
-            const _id = unit_id;
+            const _id = unitId;
             const Unit: IUnitModel = await MongooseModels.Unit.findOne({ _id });
             if ( Unit ) {
                 const newProjectManager: IProjectManagerModel = new MongooseModels.ProjectManager({
                     name,
-                    role: "ProjectManager",
-                    unit: Unit
+                    role: "Project Manager",
+                    unit: Unit,
+                    referenceId: referenceId
                 });
                 try {
                     await newProjectManager.save();
@@ -40,6 +41,6 @@ export default {
             } else {
                 throw new Error ("Unit couldn't be found")
             }   
-        }
+        },
     }
 };
