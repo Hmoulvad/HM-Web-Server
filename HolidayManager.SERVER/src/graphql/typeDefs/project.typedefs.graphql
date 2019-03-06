@@ -4,6 +4,7 @@ type Query {
 
 type Mutation {
   createProject(name: String!, unitId: String!): Boolean!
+  setProjectManager(name: String!, projectManagerId: String!): Boolean!
 }
 
 type Project {

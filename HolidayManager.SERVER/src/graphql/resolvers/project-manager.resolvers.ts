@@ -1,7 +1,7 @@
 import { IUnitModel } from "../../database/schemas/unit.schema";
 import { IProjectManagerModel } from "../../database/schemas/project-manager.schema";
 import { IDataModels } from "../../database/index";
-import { saveObjectToDB } from "../helper.functions.ts/helper";
+import { saveObjectToDB, findReferenceInDB } from "../helper.functions.ts/helper";
 
 export default {
     Query: {
@@ -21,17 +21,19 @@ export default {
             const _id = unitId;
             const Unit: IUnitModel = await MongooseModels.Unit.findOne({ _id });
             if ( Unit ) {
-                const newProjectManager: IProjectManagerModel = new MongooseModels.ProjectManager({
-                    name,
-                    role: "Project Manager",
-                    unit: Unit,
-                    referenceId: referenceId
-                });
-                await saveObjectToDB(newProjectManager);
-                Unit.projectManagers.push(newProjectManager);
-                
-                await saveObjectToDB(Unit);
-                return true;
+                if ( findReferenceInDB(referenceId, models) ) {
+                    const newProjectManager: IProjectManagerModel = new MongooseModels.ProjectManager({
+                        name,
+                        role: "Project Manager",
+                        unit: Unit,
+                        referenceId: referenceId
+                    });
+                    await saveObjectToDB(newProjectManager);
+                    Unit.projectManagers.push(newProjectManager);
+                    
+                    await saveObjectToDB(Unit);
+                    return true;
+                }
             } else {
                 throw new Error ("Unit couldn't be found")
             }   

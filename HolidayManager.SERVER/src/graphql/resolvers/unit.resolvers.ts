@@ -12,6 +12,11 @@ export default {
             }
             else throw new Error("Unit doesn't exist")
         },
+        units: async (parent, {}, { models }) => {
+            const { MongooseModels }: IDataModels = models;
+            const Units: IUnitModel[] = await MongooseModels.Unit.find({});
+            return Units;
+        },
     },
     Mutation: {
         createUnit: async (parent, { name }, { models }) => {
