@@ -1,6 +1,7 @@
 import { IUnitManagerModel } from "../../database/schemas/unit-manager.schema";
 import { IDataModels } from "../../database/index";
 import { IUnitModel } from "../../database/schemas/unit.schema";
+import { saveObjectToDB, findReferenceInDB } from "../helper.functions.ts/helper";
 
 export default {
     Query: {
@@ -17,11 +18,13 @@ export default {
         createUnitManager: async (parent, { name, unitId, referenceId }, { models }) => {
             const { MongooseModels }: IDataModels = models;
             const UnitManager: IUnitManagerModel = await MongooseModels.UnitManager.findOne({ name });
+            // Checks if the UnitManager names exists.
             if ( UnitManager ) {
                 throw new Error("Please provide a unique name.");
             }
             const findUnit = { _id: unitId };
             const Unit: IUnitModel = await MongooseModels.Unit.findOne(findUnit);
+            // Checks if the Unit exists.
             if ( Unit ) {
                 const newUnitManager: IUnitManagerModel = new MongooseModels.UnitManager({
                     name,
@@ -29,21 +32,14 @@ export default {
                     role: "Unit Manager",
                     referenceId
                 })
-                try {
-                    await newUnitManager.save();
-                } catch(e) {
-                    throw new Error(e);
-                }
+                await saveObjectToDB(newUnitManager);
+                //Gets the newly added UnitManager and it's ID and maps it to the Units UnitManager and saves it.
                 const UnitManager: IUnitManagerModel = await MongooseModels.UnitManager.findOne({ name });
                 Unit.unitManager = UnitManager.id;
-                try {
-                    await Unit.save();
-                } catch(e) {
-                    throw new Error(e);
-                }
+                await saveObjectToDB(Unit);
                 return true;
             } else {
-                return false;
+                throw new Error("Unit doesn't exist");
             }
         }
     }

@@ -1,6 +1,5 @@
 import { IHolidayRequestModel } from "../../database/schemas/holiday-request.schema";
 import { IDataModels } from "../../database/index";
-import { IUnitModel } from "../../database/schemas/unit.schema";
 
 export default {
     Query: {

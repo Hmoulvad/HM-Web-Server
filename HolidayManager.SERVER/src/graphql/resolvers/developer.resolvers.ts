@@ -1,6 +1,7 @@
 import { IDeveloperModel } from "../../database/schemas/developer.schema";
 import { IDataModels } from "../../database/index";
 import { IUnitModel } from "../../database/schemas/unit.schema";
+import { saveObjectToDB } from "../helper.functions.ts/helper";
 
 export default {
     Query: {
@@ -24,13 +25,9 @@ export default {
                 const newDeveloper: IDeveloperModel = new MongooseModels.Developer({
                     name,   
                 })
-                try {
-                    await newDeveloper.save();
-                } catch(e) {
-                    throw new Error(e);
-                }
-
+                await saveObjectToDB(newDeveloper);
                 Unit.devolopers.push(newDeveloper);
+                await saveObjectToDB(Unit);
             }
             return true;
         }

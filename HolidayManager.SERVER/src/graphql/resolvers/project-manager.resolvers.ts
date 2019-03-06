@@ -1,6 +1,7 @@
 import { IUnitModel } from "../../database/schemas/unit.schema";
 import { IProjectManagerModel } from "../../database/schemas/project-manager.schema";
 import { IDataModels } from "../../database/index";
+import { saveObjectToDB } from "../helper.functions.ts/helper";
 
 export default {
     Query: {
@@ -26,17 +27,10 @@ export default {
                     unit: Unit,
                     referenceId: referenceId
                 });
-                try {
-                    await newProjectManager.save();
-                } catch(e) {
-                    throw new Error(e);
-                }
+                await saveObjectToDB(newProjectManager);
                 Unit.projectManagers.push(newProjectManager);
-                try {
-                    await Unit.save();
-                } catch(e) {
-                    throw new Error(e);
-                }
+                
+                await saveObjectToDB(Unit);
                 return true;
             } else {
                 throw new Error ("Unit couldn't be found")

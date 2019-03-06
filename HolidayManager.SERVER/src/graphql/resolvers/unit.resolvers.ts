@@ -1,5 +1,6 @@
 import { IUnitModel } from "../../database/schemas/unit.schema";
 import { IDataModels } from "../../database/index";
+import { saveObjectToDB } from "../helper.functions.ts/helper";
 
 export default {
     Query: {
@@ -22,12 +23,7 @@ export default {
             const newUnit: IUnitModel = new MongooseModels.Unit({
                 name,
             })
-            try {
-                await newUnit.save();
-            } catch(e) {
-                throw new Error(e);
-            }
-
+            await saveObjectToDB(newUnit);
             return true;
         }
     }

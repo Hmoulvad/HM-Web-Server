@@ -3,8 +3,7 @@ type Query {
 }
 
 type Mutation {
-  createProjectManager(name: String!, unitId: String!, referenceId: String): Boolean!
-  setReferenceProjectManager(_id: String!, referenceId: String!): Boolean!
+  createProjectManager(name: String!, unitId: String!, referenceId: String!): Boolean!
 }
 
 type ProjectManager {

@@ -1,6 +1,7 @@
 import { IProjectModel } from "../../database/schemas/project.schema";
 import { IDataModels } from "../../database/index";
 import { IUnitModel } from "../../database/schemas/unit.schema";
+import { findReferenceInDB, saveObjectToDB } from "../helper.functions.ts/helper";
 
 export default {
     Query: {
@@ -11,7 +12,7 @@ export default {
                 return Project;
             }
             else throw new Error ("Couldn't find Project");
-        },
+        }
     },
     Mutation: {
         createProject: async (parent, { name, unitId }, { models }) => {
@@ -27,22 +28,15 @@ export default {
                     name,
                     unit: unitId,
                 })
-                try {
-                    await newProject.save();
-                } catch(e) {
-                    throw new Error(e);
-                }
+                await saveObjectToDB(newProject);
+                
                 const Project: IProjectModel = await MongooseModels.Project.findOne({ name });
                 Unit.projects.push(Project);
-                try {
-                    await Unit.save();
-                } catch(e) {
-                    throw new Error(e);
-                }
+                await saveObjectToDB(Project);
                 return true;
             } else  {
                 return false;
             }
-        }
+        },
     }
 };
