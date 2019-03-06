@@ -12,10 +12,6 @@ export const DeveloperSchema = new Mongoose.Schema({
         type: Mongoose.Schema.Types.ObjectId,
         ref: "HolidayRequest"
     }],
-    projectManagers: [{
-        type: Mongoose.Schema.Types.ObjectId,
-        ref: "ProjectManager"
-    }],
     projects: [{
         type: Mongoose.Schema.Types.ObjectId,
         ref: "Project"

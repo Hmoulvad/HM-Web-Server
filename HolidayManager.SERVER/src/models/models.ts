@@ -1,7 +1,7 @@
 export interface IUnit {
     name: string;
     projects: IProject[];
-    devolopers: IDeveloper[];
+    developers: IDeveloper[];
     unitManager: IUnitManager;
     projectManagers: IProjectManager[];
 }
@@ -31,7 +31,7 @@ export interface IUnitEmployee extends IEmployee {
 }
 
 export interface IDeveloper extends IUnitEmployee {
-    projectManagers: IProjectManager[];
+    Projects: IProject[];
 }
 
 export interface IUnitManager extends IUnitEmployee { }

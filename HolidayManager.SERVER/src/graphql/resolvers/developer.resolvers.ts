@@ -1,7 +1,8 @@
 import { IDeveloperModel } from "../../database/schemas/developer.schema";
 import { IDataModels } from "../../database/index";
 import { IUnitModel } from "../../database/schemas/unit.schema";
-import { saveObjectToDB } from "../helper.functions.ts/helper";
+import { saveObjectToDB, findReferenceInDB } from "../helper.functions.ts/helper";
+import { IProjectModel } from "../../database/schemas/project.schema";
 
 export default {
     Query: {
@@ -12,24 +13,32 @@ export default {
         },
     },
     Mutation: {
-        createDeveloper: async (parent, { name, unitId }, { models }) => {
+        createDeveloper: async (parent, { name, unitId, projectId }, { models }) => {
             const { MongooseModels }: IDataModels = models;
             const findDeveloper = { name: name }
             const Developer: IDeveloperModel = await MongooseModels.Developer.findOne( findDeveloper );
             if ( Developer ) {
                 throw new Error("Please provide a unique name.");
             }
-            const findUnit = { _id: unitId }
-            const Unit: IUnitModel = await MongooseModels.Unit.findOne(findUnit)
+            const Unit: IUnitModel = await MongooseModels.Unit.findOne({ _id: unitId })
             if ( Unit ) {
-                const newDeveloper: IDeveloperModel = new MongooseModels.Developer({
-                    name,   
-                })
-                await saveObjectToDB(newDeveloper);
-                Unit.devolopers.push(newDeveloper);
-                await saveObjectToDB(Unit);
+                    const Project: IProjectModel = await MongooseModels.Project.findOne({ _id: projectId })
+                    if ( Project ) {
+                        const newDeveloper: IDeveloperModel = new MongooseModels.Developer({
+                            name,
+                            role: "Developer",
+                            unit: Unit.id,
+                            referenceId: Unit.unitManager,
+                            projects: projectId,   
+                        });
+                        await saveObjectToDB(newDeveloper);
+                        Project.developers.push(newDeveloper);
+                        await saveObjectToDB(Project);
+                        Unit.developers.push(newDeveloper);
+                        await saveObjectToDB(Unit);
+                        return true;
+                    }
             }
-            return true;
         }
     }
 };

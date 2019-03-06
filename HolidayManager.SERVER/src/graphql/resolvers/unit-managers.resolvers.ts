@@ -22,20 +22,18 @@ export default {
             if ( UnitManager ) {
                 throw new Error("Please provide a unique name.");
             }
-            const findUnit = { _id: unitId };
-            const Unit: IUnitModel = await MongooseModels.Unit.findOne(findUnit);
+            const Unit: IUnitModel = await MongooseModels.Unit.findOne({ _id: unitId });
             // Checks if the Unit exists.
             if ( Unit ) {
                 const newUnitManager: IUnitManagerModel = new MongooseModels.UnitManager({
                     name,
-                    unit: unitId,
+                    unit: Unit.id,
                     role: "Unit Manager",
                     referenceId
                 })
                 await saveObjectToDB(newUnitManager);
                 //Gets the newly added UnitManager and it's ID and maps it to the Units UnitManager and saves it.
-                const UnitManager: IUnitManagerModel = await MongooseModels.UnitManager.findOne({ name });
-                Unit.unitManager = UnitManager.id;
+                Unit.unitManager = newUnitManager.id;
                 await saveObjectToDB(Unit);
                 return true;
             } else {

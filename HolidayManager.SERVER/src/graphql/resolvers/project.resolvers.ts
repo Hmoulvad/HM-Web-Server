@@ -22,18 +22,15 @@ export default {
             if ( Project ) {
                 throw new Error("Please provide a unique name.");
             }
-            const findUnit = { _id: unitId };
-            const Unit: IUnitModel = await MongooseModels.Unit.findOne(findUnit);
+            const Unit: IUnitModel = await MongooseModels.Unit.findOne({ _id: unitId });
             if ( Unit ) {
                 const newProject: IProjectModel = new MongooseModels.Project({
                     name,
-                    unit: unitId,
+                    unit: Unit.id,
                 })
                 await saveObjectToDB(newProject);
-                
-                const Project: IProjectModel = await MongooseModels.Project.findOne({ name });
-                Unit.projects.push(Project);
-                await saveObjectToDB(Project);
+                Unit.projects.push(newProject);
+                await saveObjectToDB(Unit);
                 return true;
             } else  {
                 return false;

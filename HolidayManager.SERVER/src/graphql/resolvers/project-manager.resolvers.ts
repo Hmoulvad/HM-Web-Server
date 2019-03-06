@@ -18,8 +18,7 @@ export default {
             if ( ProjectManager ) {
                 throw new Error("Please provide a unique name.");
             }
-            const _id = unitId;
-            const Unit: IUnitModel = await MongooseModels.Unit.findOne({ _id });
+            const Unit: IUnitModel = await MongooseModels.Unit.findOne({ _id: unitId });
             if ( Unit ) {
                 if ( findReferenceInDB(referenceId, models) ) {
                     const newProjectManager: IProjectManagerModel = new MongooseModels.ProjectManager({
