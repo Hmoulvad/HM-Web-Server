@@ -2,16 +2,19 @@ import { GraphQLServer } from "graphql-yoga";
 import { startDB, models } from "./database";
 import { default as typeDefs } from "./graphql/typeDefs";
 import { default as resolvers } from "./graphql/resolvers";
+import { Request } from "express";
 
 const db = startDB({
   user: process.env.MONGO_ATLAS_USER,
   pwd: process.env.MONGO_ATLAS_PW
 });
 
-const context = {
+
+const context = (req : any) => ({
   models,
-  db
-}
+  db,
+  req 
+})
 
 const server = new GraphQLServer({ 
   typeDefs, 

@@ -5,6 +5,7 @@ import Developer, { IDeveloperModel } from "./schemas/developer.schema";
 import ProjectManager, { IProjectManagerModel } from "./schemas/project-manager.schema";
 import HolidayRequest, { IHolidayRequestModel } from "./schemas/holiday-request.schema";
 import UnitManager, { IUnitManagerModel } from "./schemas/unit-manager.schema";
+import User, { IUserModel } from "./schemas/user.schema";
 
 export interface IMongooseModels {
     Unit: Mongoose.Model<IUnitModel, {}>;
@@ -13,6 +14,7 @@ export interface IMongooseModels {
     ProjectManager: Mongoose.Model<IProjectManagerModel, {}>;
     HolidayRequest: Mongoose.Model<IHolidayRequestModel, {}>;
     UnitManager: Mongoose.Model<IUnitManagerModel, {}>;
+    User: Mongoose.Model<IUserModel, {}>;
 }
 
 export interface IDataModels {
@@ -34,5 +36,6 @@ export const models: IDataModels = {
     ProjectManager,
     HolidayRequest,
     UnitManager,
+    User,
   }
 }
