@@ -16,8 +16,8 @@ export default {
             if (jwt.verify(request.headers.authorization, process.env.Jwt_Secret)) {
                 const decodedJWT: any = await jwt.decode(request.headers.authorization);
             
-                let ObjectID = Mongoose.Types.ObjectId;
-                let toObjectID = decodedJWT.data.toString().toLowerCase();
+                const ObjectID = Mongoose.Types.ObjectId;
+                const toObjectID = decodedJWT.data.toString().toLowerCase();
                 if (!ObjectID.isValid(toObjectID)) {
                     throw new Error("String is not an ObjectID");
                 }
