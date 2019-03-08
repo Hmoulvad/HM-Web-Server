@@ -1,7 +1,7 @@
 import { IUnitModel } from "../../database/schemas/unit.schema";
 import { IProjectManagerModel } from "../../database/schemas/project-manager.schema";
 import { IDataModels } from "../../database/index";
-import { saveObjectToDB, findReferenceInDB } from "../helper.functions.ts/helper";
+import { saveObjectToDB, findReferenceInDB } from "../helpers/database.functions";
 
 export default {
     Query: {
