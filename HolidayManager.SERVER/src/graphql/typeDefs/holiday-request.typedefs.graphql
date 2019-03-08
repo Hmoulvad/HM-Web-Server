@@ -1,0 +1,9 @@
+type HolidayRequest {
+    _id: String!
+    requestReference: String!
+    dates: [Date!]!
+}
+
+type Date {
+    date: String!
+}

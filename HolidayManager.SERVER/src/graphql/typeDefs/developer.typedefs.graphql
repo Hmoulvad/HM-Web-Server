@@ -1,0 +1,18 @@
+type Query {
+  developer(_id: String!, unitId: String): Developer
+}
+
+type Mutation {
+  createDeveloper(name: String!, unitId: String!, projectId: String!): Boolean!
+}
+
+type Developer {
+    _id: String!
+    name: String!
+    role: String!
+    referenceId: String!
+    createdOn: String!
+    unit: String!
+    holidayRequests: [HolidayRequest]
+    projects: [Project]   
+}
