@@ -1,3 +1,9 @@
+export interface IUser {
+    username: string;
+    password: string;
+    referenceId?: string;
+}
+
 export interface IUnit {
     name: string;
     projects: IProject[];
@@ -7,7 +13,7 @@ export interface IUnit {
 }
 
 export interface IProject {
-    name: String;
+    name: string;
     unit: IUnit;
     projectManager: IProjectManager;
     developers: IDeveloper[];
@@ -17,7 +23,7 @@ export interface IEmployee {
     name: string;
     holidayRequests: IHolidayRequest[];
     referenceId: string;
-    role: String;
+    role: string;
 }
 
 export enum Role {

@@ -1,0 +1,14 @@
+type User {
+    username: String!
+    password: String!
+    referenceId: String
+}
+
+type Query {
+    isLoggedIn: User
+}
+
+type Mutation {
+    login(username: String!, password: String!): String!
+    signup(username: String!, password: String!): String!
+}
