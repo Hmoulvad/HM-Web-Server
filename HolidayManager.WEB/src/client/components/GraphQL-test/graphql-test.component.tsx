@@ -1,21 +1,11 @@
 import * as React from "react";
-import gql from "graphql-tag";
+import { GraphQLSchema } from "../../graphql/index";
 import { Query } from "react-apollo";
-import { DocumentNode } from "graphql";
-
-const gqlUnits: DocumentNode = gql `
-    {
-        units {
-            _id,
-            name
-        }
-    }
-`;
 
 const GraphQLComponent: React.FC<any> = (props: any) => {
 
     return (
-        <Query query={gqlUnits}>
+        <Query query={GraphQLSchema.gqlUnits}>
             {({ loading, error, data}) => {
                 if ( loading ) return <p>Loading...</p>;
                 if ( error ) return <p>Error...</p>;
