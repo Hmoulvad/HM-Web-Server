@@ -1,24 +1,37 @@
 import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
-const gqlUnits: DocumentNode = gql `
+const LOGIN: DocumentNode = gql `
+    mutation LogIn($username: String!, $password: String!) 
+    {
+        login(username: $username, password: $password)
+    }
+`;
+const SIGN_UP: DocumentNode = gql `
+    mutation SignUp($username: String!, $password: String!)
+    {
+        signup(username: $username, password: $password)
+    }
+`
+const GQL_UNITS: DocumentNode = gql `
 {
     units {
         _id,
         name
     }
 }
-`
-
-const login: DocumentNode = gql `
+`;
+const WHO_AM_I: DocumentNode = gql `
 {
     isLoggedIn {
         username,
     }
 }
-`
+`;
 
 export const GraphQLSchema = {
-    gqlUnits,
-    login
+    GQL_UNITS,
+    WHO_AM_I,
+    LOGIN,
+    SIGN_UP,
 }

@@ -1,21 +1,43 @@
 import * as React from 'react';
 import { GraphQLSchema } from '../graphql/index';
-import { Query } from 'react-apollo';
+import { Mutation } from 'react-apollo';
 
 interface IAppProps {
 }
 
 const LoginComponent: React.FC<IAppProps> = (props) => {
+  let emailRef: HTMLInputElement | null;
+  let passwordRef: HTMLInputElement | null;
+
   return (
-    <Query query={GraphQLSchema.login}>
-        {({ loading, error, data}) => {
-            if ( loading ) return <p>Loading...</p>;
-            if ( error ) return <p>{error.message}</p>;
-            return (
-                <h2>{data.isLoggedIn.username}</h2>
-            );
-        }}
-    </Query>
+    <Mutation mutation={ GraphQLSchema.LOGIN }>
+     {( login, { data, error, loading } ) => (
+       <React.Fragment>
+         <form onSubmit={e => {
+          e.preventDefault();
+          login({
+            variables: { 
+              username: emailRef!.value,
+              password: passwordRef!.value,
+            }
+          });
+        }}>
+         <input type="email" ref={ node => emailRef = node }/>
+         <input type="password" ref={node => passwordRef = node }/>
+         <button type="submit">Login</button>
+         { loading && (
+           <p>{ loading }</p>
+         )}
+         { error && (
+           <p>{ error.message }</p>
+         )}
+         { data && (
+           <p>{ data.login }</p>
+         )}
+        </form>
+       </React.Fragment>
+     )}
+    </Mutation>
   );
 };
 

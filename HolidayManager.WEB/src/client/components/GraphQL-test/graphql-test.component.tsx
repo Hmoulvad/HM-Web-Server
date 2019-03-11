@@ -5,7 +5,7 @@ import { Query } from "react-apollo";
 const GraphQLComponent: React.FC<any> = (props: any) => {
 
     return (
-        <Query query={GraphQLSchema.gqlUnits}>
+        <Query query={GraphQLSchema.GQL_UNITS}>
             {({ loading, error, data}) => {
                 if ( loading ) return <p>Loading...</p>;
                 if ( error ) return <p>Error...</p>;

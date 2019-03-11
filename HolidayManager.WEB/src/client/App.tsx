@@ -1,42 +1,50 @@
 import * as React from "react";
 import '../styles/App.css';
 import { ApolloProvider } from "react-apollo";
-import ApolloClient from "apollo-client";
 import GraphQLComponent from "./components/GraphQL-test/graphql-test.component";
-import { createHttpLink } from "apollo-link-http";
-import { setContext } from 'apollo-link-context';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import client from "./apolloClient/apolloClient";
 import LoginComponent from "./components/login.component";
+import { Route, BrowserRouter as Router } from "react-router-dom";
+import AuthenticatedRoute from "./helpers/authenticated.route";
+import { UserProvider } from "./context/userContext";
 
-const httpLink = createHttpLink({
-  uri: "http://localhost:4000/"
-});
+interface IUser {
+  isAuthenticated: boolean;
+}
 
-const authLink = setContext((_, { headers }: any) => {
-  const token = localStorage.getItem("token");
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? token : "",
+interface IAppState {
+  user: IUser;
+  setAuth: (auth: boolean) => void;
+}
+
+class App extends React.PureComponent<any, IAppState> {
+
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      user: {
+        isAuthenticated: false
+      },
+      setAuth: (auth: boolean) => {
+        this.setState({user: {
+          isAuthenticated: auth
+        }})
+      }
     }
   }
-})
 
-const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache()
-});
-
-const App: React.FC<any> = () => {
-  return (
-    <ApolloProvider client={client}>
-      <div>
-        <LoginComponent />
-        <h2>My first Apollo app 🚀</h2>
-        <GraphQLComponent />
-      </div>
-    </ApolloProvider>
-  );
+  render() {
+    return (
+      <ApolloProvider client={client}>
+        <Router>
+          <UserProvider value={this.state}>
+            <Route path="/login" component={LoginComponent}/>
+            <AuthenticatedRoute path="/protected" component={GraphQLComponent} />
+          </UserProvider>
+        </Router>
+      </ApolloProvider>
+    );
+  }
 }
 
 export default App;
