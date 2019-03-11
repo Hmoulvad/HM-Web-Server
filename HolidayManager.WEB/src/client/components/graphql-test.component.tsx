@@ -1,5 +1,5 @@
 import * as React from "react";
-import { GraphQLSchema } from "../../graphql/index";
+import { GraphQLSchema } from "../graphql/index";
 import { Query } from "react-apollo";
 
 const GraphQLComponent: React.FC<any> = (props: any) => {

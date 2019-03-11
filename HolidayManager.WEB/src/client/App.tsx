@@ -1,7 +1,7 @@
 import * as React from "react";
 import '../styles/App.css';
 import { ApolloProvider } from "react-apollo";
-import GraphQLComponent from "./components/GraphQL-test/graphql-test.component";
+import GraphQLComponent from "./components/graphql-test.component";
 import client from "./apolloClient/apolloClient";
 import LoginComponent from "./components/login.component";
 import { Route, BrowserRouter as Router } from "react-router-dom";
@@ -12,7 +12,7 @@ interface IUser {
   isAuthenticated: boolean;
 }
 
-interface IAppState {
+export interface IAppState {
   user: IUser;
   setAuth: (auth: boolean) => void;
 }
@@ -25,20 +25,24 @@ class App extends React.PureComponent<any, IAppState> {
       user: {
         isAuthenticated: false
       },
-      setAuth: (auth: boolean) => {
-        this.setState({user: {
-          isAuthenticated: auth
-        }})
-      }
+      setAuth: this.setAuth,
     }
   }
+
+  setAuth = (auth: boolean) => {
+    this.setState({
+      user: {
+        isAuthenticated: auth
+      }
+    });
+  };
 
   render() {
     return (
       <ApolloProvider client={client}>
         <Router>
           <UserProvider value={this.state}>
-            <Route path="/login" component={LoginComponent}/>
+            <Route path="/login" render={ props => <LoginComponent {...props}/>}/>
             <AuthenticatedRoute path="/protected" component={GraphQLComponent} />
           </UserProvider>
         </Router>
