@@ -1,12 +1,7 @@
 import * as React from 'react';
-import { GraphQLSchema } from '../graphql/index';
+import { GraphQLSchema } from '../../graphql/index';
 import { Mutation } from 'react-apollo';
-import { UserConsumer } from '../context/userContext';
-
-const redirect = (data: any, props: any) => {
-  localStorage.setItem("token", data.login);
-  props.history.push("/protected");
-}
+import { UserConsumer } from '../../context/userContext';
 
 const LoginComponent: React.FC<any> = (props: any) => {
   let emailRef: HTMLInputElement | null;
@@ -17,7 +12,7 @@ const LoginComponent: React.FC<any> = (props: any) => {
       {({ setAuth }) => {
         return (
           <Mutation mutation={ GraphQLSchema.LOGIN }>
-            {( login, { data, error, loading } ) => (
+            {( login, { error, loading } ) => (
               <React.Fragment>
                 <form onSubmit={e => {
                   e.preventDefault();
@@ -26,7 +21,12 @@ const LoginComponent: React.FC<any> = (props: any) => {
                       username: emailRef!.value,
                       password: passwordRef!.value,
                     }
-                  });
+                  }).then ((res: any) => {
+                    if (res != null) {
+                      localStorage.setItem("token", res.data.login)
+                      setAuth(true);
+                    }
+                  }).catch(e => {e.message});
                 }}>
                 <input type="email" ref={ node => emailRef = node }/>
                 <input type="password" ref={ node => passwordRef = node }/>
@@ -35,9 +35,8 @@ const LoginComponent: React.FC<any> = (props: any) => {
                   <p>{ loading }</p>
                 )}
                 { error && (
-                  <p>{ error.message }, { props.history.length }</p>
+                  <p>{ error.message }</p>
                 )}
-                { data && redirect(data, props)}
                 </form>
               </React.Fragment>
             )}

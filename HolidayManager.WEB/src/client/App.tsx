@@ -3,10 +3,10 @@ import '../styles/App.css';
 import { ApolloProvider } from "react-apollo";
 import GraphQLComponent from "./components/graphql-test.component";
 import client from "./apolloClient/apolloClient";
-import LoginComponent from "./components/login.component";
-import { Route, BrowserRouter as Router } from "react-router-dom";
-import AuthenticatedRoute from "./helpers/authenticated.route";
+import LoginComponent from "./components/login/login.component";
+import { BrowserRouter as Router } from "react-router-dom";
 import { UserProvider } from "./context/userContext";
+import Routes from "./routes/routes";
 
 interface IUser {
   isAuthenticated: boolean;
@@ -42,8 +42,7 @@ class App extends React.PureComponent<any, IAppState> {
       <ApolloProvider client={client}>
         <Router>
           <UserProvider value={this.state}>
-            <Route path="/login" render={ props => <LoginComponent {...props}/>}/>
-            <AuthenticatedRoute path="/protected" component={GraphQLComponent} />
+            <Routes />
           </UserProvider>
         </Router>
       </ApolloProvider>
