@@ -5,49 +5,20 @@ import GraphQLComponent from "./components/graphql-test.component";
 import client from "./apolloClient/apolloClient";
 import LoginComponent from "./components/login/login.component";
 import { BrowserRouter as Router } from "react-router-dom";
-import { UserProvider } from "./context/userContext";
 import Routes from "./routes/routes";
+import { UserContext, defaultContext } from "./context/userContext";
 
-interface IUser {
-  isAuthenticated: boolean;
-}
+const App: React.FC<any> = (props) => {
 
-export interface IAppState {
-  user: IUser;
-  setAuth: (auth: boolean) => void;
-}
-
-class App extends React.PureComponent<any, IAppState> {
-
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      user: {
-        isAuthenticated: false
-      },
-      setAuth: this.setAuth,
-    }
-  }
-
-  setAuth = (auth: boolean) => {
-    this.setState({
-      user: {
-        isAuthenticated: auth
-      }
-    });
-  };
-
-  render() {
-    return (
-      <ApolloProvider client={client}>
-        <Router>
-          <UserProvider value={this.state}>
-            <Routes />
-          </UserProvider>
-        </Router>
-      </ApolloProvider>
-    );
-  }
+	return (
+		<ApolloProvider client={client}>
+			<UserContext.Provider value={defaultContext}>
+				<Router>
+					<Routes />
+				</Router>
+			</UserContext.Provider>
+		</ApolloProvider>
+	);
 }
 
 export default App;

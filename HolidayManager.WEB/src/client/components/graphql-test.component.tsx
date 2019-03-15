@@ -2,7 +2,7 @@ import * as React from "react";
 import { GraphQLSchema } from "../graphql/index";
 import { Query } from "react-apollo";
 
-const GraphQLComponent: React.FC<any> = (props: any) => {
+const GraphQLComponent: React.FC<any> = (props) => {
 
     return (
         <Query query={GraphQLSchema.GQL_UNITS}>

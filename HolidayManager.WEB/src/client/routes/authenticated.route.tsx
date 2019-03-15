@@ -1,25 +1,18 @@
 import * as React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { UserConsumer } from '../context/userContext';
-import { isAuthenticated } from "../helpers/authentication";
 
 interface IAuthenticatedRoute {
     component: any;
     path: string;
+    isAuth: boolean;
 }
 
-const AuthenticatedRoute: React.FC<IAuthenticatedRoute> = ({component: Component, ...rest}) => {
+const AuthenticatedRoute: React.FC<IAuthenticatedRoute> = ({component: Component, isAuth, ...rest}) => {
     return (
-        <UserConsumer>
-            { context => {
-                return (
-                    <Route {...rest} render={(props) => context.user.isAuthenticated
-                        ? <Component {...props} />
-                        : <Redirect to={{pathname: '/login', state: {from: props.location}}} />}
-                    />
-                );
-            }}
-        </UserConsumer>
+        <Route {...rest} render={(props) => ( isAuth ) 
+            ? <Component {...props} />
+            : <Redirect to={{pathname: '/login', state: {from: props.location}}} />}
+        />
     );
 }
 
