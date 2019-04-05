@@ -10,21 +10,18 @@ export default {
         isLoggedIn: async (parent, args, { req, models }) => {
             const { MongooseModels}: IDataModels = models;
             const { request }: any = req;
-
-            if (jwt.verify(request.headers.authorization, process.env.Jwt_Secret)) {
-                const decodedJWT: any = await jwt.decode(request.headers.authorization);
-            
-                const ObjectID = Mongoose.Types.ObjectId;
-                const toObjectID = decodedJWT.data.toString().toLowerCase();
-                if (!ObjectID.isValid(toObjectID)) {
-                    throw new Error("String is not an ObjectID");
-                }
-                const User: IUserModel = await MongooseModels.User.findOne({_id: toObjectID}); 
-                if ( User ) {
-                    return User;
-                } else {
-                    throw new Error("You're not logged in");
-                }
+            const decodedJWT: any = await jwt.decode(request.headers.authorization);
+        
+            const ObjectID = Mongoose.Types.ObjectId;
+            const toObjectID = decodedJWT.data.toString().toLowerCase();
+            if (!ObjectID.isValid(toObjectID)) {
+                throw new Error("String is not an ObjectID");
+            }
+            const User: IUserModel = await MongooseModels.User.findOne({_id: toObjectID}); 
+            if ( User ) {
+                return User;
+            } else {
+                throw new Error("You're not logged in");
             }
         },   
     },
