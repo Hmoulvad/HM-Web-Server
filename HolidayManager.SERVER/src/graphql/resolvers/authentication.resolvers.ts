@@ -10,8 +10,6 @@ export default {
         isLoggedIn: async (parent, args, { req, models }) => {
             const { MongooseModels}: IDataModels = models;
             const { request }: any = req;
-            console.log(request.headers.authorization);
-            
 
             if (jwt.verify(request.headers.authorization, process.env.Jwt_Secret)) {
                 const decodedJWT: any = await jwt.decode(request.headers.authorization);
