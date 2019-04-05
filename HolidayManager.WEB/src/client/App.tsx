@@ -1,9 +1,7 @@
 import * as React from "react";
-import '../styles/App.css';
+import '../styles/App.styles.scss';
 import { ApolloProvider } from "react-apollo";
-import GraphQLComponent from "./components/graphql-test.component";
 import client from "./apolloClient/apolloClient";
-import LoginComponent from "./components/login/login.component";
 import { BrowserRouter as Router } from "react-router-dom";
 import Routes from "./routes/routes";
 import { UserContext, defaultContext } from "./context/userContext";
