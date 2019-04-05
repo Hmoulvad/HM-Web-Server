@@ -1,13 +1,15 @@
 import * as React from "react";
-import { IAppState } from "../App";
 
-const defaultValue: IAppState = {
-    user: {
-        isAuthenticated: false
-    },
-    setAuth: (auth: boolean) => {},
+interface IUserContext  {
+    userIsAuthenticated: boolean;
+    setAuth: ( auth: boolean ) => void;
 }
 
-export const UserContext = React.createContext(defaultValue);
-export const UserProvider = UserContext.Provider;
-export const UserConsumer = UserContext.Consumer;
+export const defaultContext: IUserContext = {
+    userIsAuthenticated: false,
+    setAuth: (auth: boolean) => {
+        defaultContext.userIsAuthenticated = auth
+    },
+}
+
+export const UserContext = React.createContext(defaultContext);
