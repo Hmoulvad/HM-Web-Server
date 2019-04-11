@@ -1,6 +1,6 @@
 import * as React from "react";
 
-interface IUserContext  {
+export interface IUserContext  {
     userIsAuthenticated: boolean;
     setAuth: ( auth: boolean ) => void;
 }

@@ -7,15 +7,13 @@ import LayoutContainer from '../../layout';
 const LoginComponent: React.FC<any> = (props: any) => {
 	let emailRef: HTMLInputElement | null;
 	let passwordRef: HTMLInputElement | null;
-
-	const { userIsAuthenticated, setAuth } = React.useContext(UserContext);
-	console.log(userIsAuthenticated, "UserIsAuthenticated", setAuth, "setAuth");
+	const { setAuth } = React.useContext(UserContext);
 
 	return (
 		<LayoutContainer>
 		<div className="login">
 			<Mutation mutation={ GraphQLSchema.LOGIN }>
-				{( login, { error, loading } ) => (
+				{( login, { error } ) => (
 					<div className="login__container">
 						<h4 className="login__header">Signin to IMPACT HM</h4>
 						<form className="login__form" onSubmit={e => {
@@ -34,9 +32,6 @@ const LoginComponent: React.FC<any> = (props: any) => {
 							<input className="login__input" placeholder="E-mail address" type="email" ref={ node => emailRef = node }/>
 							<input className="login__input" placeholder="Password" type="password" ref={ node => passwordRef = node }/>
 							<button className="login__submit" type="submit">Login</button>
-							{ loading && (
-							<p>{ loading }</p>
-							)}
 							{ error && (
 							<p>{ error.message }</p>
 						)}
