@@ -4,6 +4,7 @@ import client from "./apolloClient/apolloClient";
 import { BrowserRouter as Router } from "react-router-dom";
 import Routes from "./routes/routes";
 import { UserContext, defaultContext } from "./context/userContext";
+import Navigation from "./components/navigation";
 
 const App: React.FC<any> = (props) => {
 
@@ -11,7 +12,10 @@ const App: React.FC<any> = (props) => {
 		<ApolloProvider client={client}>
 			<UserContext.Provider value={defaultContext}>
 				<Router>
-					<Routes />
+					<div className="app">
+						<Navigation />
+						<Routes />
+					</div>
 				</Router>
 			</UserContext.Provider>
 		</ApolloProvider>

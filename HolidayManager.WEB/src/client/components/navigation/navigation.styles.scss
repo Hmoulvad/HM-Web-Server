@@ -1,0 +1,32 @@
+.navigation {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: $navigation-height;
+
+    &__logo {
+        @include logo;
+        color: white;
+    }
+
+    &__links {
+        display: flex;
+    }
+
+    &__link {
+        height: 24px;
+        margin: 0 20px;
+        color: white;
+        white-space: nowrap;
+        text-transform: uppercase;
+
+        &:hover {
+            border-bottom: 2px solid $brand-color;
+            text-decoration: none;
+            color: white;
+        }
+    }
+
+
+}
