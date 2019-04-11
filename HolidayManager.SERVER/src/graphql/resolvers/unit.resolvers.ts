@@ -1,6 +1,6 @@
 import { IUnitModel } from "../../database/schemas/unit.schema";
 import { IDataModels } from "../../database/index";
-import { saveObjectToDB } from "../helpers/database.functions";
+import { saveObjectToDB } from "../helpers/database";
 
 export default {
     Query: {

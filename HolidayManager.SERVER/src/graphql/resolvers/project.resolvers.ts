@@ -1,7 +1,7 @@
 import { IProjectModel } from "../../database/schemas/project.schema";
 import { IDataModels } from "../../database/index";
 import { IUnitModel } from "../../database/schemas/unit.schema";
-import { findReferenceInDB, saveObjectToDB } from "../helpers/database.functions";
+import { findReferenceInDB, saveObjectToDB } from "../helpers/database";
 import { IProjectManagerModel } from "../../database/schemas/project-manager.schema";
 
 export default {

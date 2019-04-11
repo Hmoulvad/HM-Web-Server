@@ -1,7 +1,7 @@
 import * as Bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
 import { IDataModels } from "../../database";
-import { saveObjectToDB } from "../helpers/database.functions";
+import { saveObjectToDB } from "../helpers/database";
 import { IUserModel } from "../../database/schemas/user.schema";
 import * as Mongoose from "mongoose";
 

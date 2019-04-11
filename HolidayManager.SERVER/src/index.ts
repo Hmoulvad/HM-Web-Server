@@ -2,7 +2,7 @@ import { GraphQLServer } from "graphql-yoga";
 import { startDB, models } from "./database";
 import { default as typeDefs } from "./graphql/typeDefs";
 import { default as resolvers } from "./graphql/resolvers";
-import { permissions } from "./graphql/helpers/authentication.functions";
+import { permissions } from "./graphql/helpers/authentication";
 
 const db = startDB({
   user: process.env.MONGO_ATLAS_USER,

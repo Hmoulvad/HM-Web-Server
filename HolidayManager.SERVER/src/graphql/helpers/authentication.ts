@@ -1,5 +1,6 @@
 
 import * as jwt from "jsonwebtoken";
+
 const isAuthenticated = async (resolve, parent, args, { req }) => {
     const NOT_AUTHORIZED = "Not Authorized"
     const { request }: any = req;
