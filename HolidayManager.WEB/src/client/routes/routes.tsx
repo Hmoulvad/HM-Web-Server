@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom';
 import AuthenticatedRoute from './authenticated.route';
 import LoginComponent from '../components/login/login.component';
 import GraphQLComponent from '../components/graphql-test.component';
-import { UserContext } from '../context/userContext';
 import Home from '../components/home';
 import HolidayRequest from '../components/holiday-request';
 

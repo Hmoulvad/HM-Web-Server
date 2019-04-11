@@ -3,11 +3,18 @@ import { GraphQLSchema } from '../../graphql/index';
 import { Mutation } from 'react-apollo';
 import { UserContext } from '../../context/userContext';
 import LayoutContainer from '../../layout';
+import { Redirect } from 'react-router';
 
 const LoginComponent: React.FC<any> = (props: any) => {
 	let emailRef: HTMLInputElement | null;
 	let passwordRef: HTMLInputElement | null;
-	const { setAuth } = React.useContext(UserContext);
+	const { setAuth, userIsAuthenticated } = React.useContext(UserContext);
+
+	if ( userIsAuthenticated ) {
+		return (
+			<Redirect to="/overview" />
+		)
+	}
 
 	return (
 		<LayoutContainer>
