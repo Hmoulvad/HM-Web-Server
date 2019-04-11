@@ -5,9 +5,9 @@
     background-color: white;
     border-radius: 5px;
 
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(xs) {
         margin: 0 auto;
-        @include make-col(10);
+        @include make-col(12);
         height: auto;
         background-color: white;
         border-radius: 5px;

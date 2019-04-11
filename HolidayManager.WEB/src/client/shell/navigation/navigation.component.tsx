@@ -12,7 +12,7 @@ const className = "navigation";
     return (
         <LayoutContainer>
             <div className={className}>
-                <div className={`${className}__logo`}>IMPACT</div>
+                <Link className={`${className}__logo`} to="/">IMPACT</Link>
                 <div className={`${className}__links`}>
                     <Link className={`${className}__link`} to="/">Home</Link>
                     <Link className={`${className}__link`} to="/overview">Overview</Link>

@@ -25,3 +25,10 @@ input {
 button {
 
 }
+
+a {
+    &:hover {
+        text-decoration: none;
+        color: white;
+    }
+}
