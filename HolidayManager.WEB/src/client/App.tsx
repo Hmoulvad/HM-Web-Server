@@ -1,5 +1,4 @@
 import * as React from "react";
-import '../styles/App.styles.scss';
 import { ApolloProvider } from "react-apollo";
 import client from "./apolloClient/apolloClient";
 import { BrowserRouter as Router } from "react-router-dom";
