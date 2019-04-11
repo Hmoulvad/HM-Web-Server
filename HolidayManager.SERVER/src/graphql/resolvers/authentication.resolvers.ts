@@ -28,7 +28,7 @@ export default {
     Mutation: {
         login: async (parent, { username, password }, { models }) => {
             const { MongooseModels}: IDataModels = models;
-            const User: IUserModel = await MongooseModels.User.findOne({ username });
+            const User: IUserModel = await MongooseModels.User.findOne({ username: username.toLowerCase() });
             if ( User ) {
                 if ( await Bcrypt.compareSync(password, User.password)) {
                     const token = jwt.sign(
@@ -47,7 +47,7 @@ export default {
         },
         signup: async (parent, { username, password }, { models }) => {
             const { MongooseModels}: IDataModels = models;
-            const User = await MongooseModels.User.findOne({ username });
+            const User = await MongooseModels.User.findOne({ username: username.toLowerCase() });
             if ( User ) {
                 throw new Error("Please provide another username.");
             } else {

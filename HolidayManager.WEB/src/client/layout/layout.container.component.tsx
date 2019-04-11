@@ -8,7 +8,7 @@ interface IGrid {
 
 const LayoutContainer: React.FC<IGrid> = ({noPadding, className, children}) => {
   return (
-      <div className={`layout ${className} ${noPadding ? "layout--no-padding" : ""}`}>
+      <div className={`layout ${className ? className : ""} ${noPadding ? "layout--no-padding" : ""}`}>
         {children}
       </div>
   )
