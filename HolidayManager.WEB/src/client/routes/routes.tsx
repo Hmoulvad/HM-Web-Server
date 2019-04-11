@@ -5,6 +5,8 @@ import LoginComponent from '../components/login/login.component';
 import GraphQLComponent from '../components/graphql-test.component';
 import { isAuthenticated } from '../helpers/authentication';
 import { UserContext } from '../context/userContext';
+import Home from '../components/home';
+import HolidayRequest from '../components/holiday-request';
 
 const Routes: React.FunctionComponent<any> = (props) => {
 	const [ isAuth, setIsAuth ] = React.useState<boolean>(false);
@@ -17,7 +19,9 @@ const Routes: React.FunctionComponent<any> = (props) => {
 	}, [isAuth, userIsAuthenticated])
 	return (
 		<Switch>
+			<Route exact path="/" render={ props => <Home {...props}/>}/>
 			<Route path="/login" render={ props => <LoginComponent {...props}/>}/>
+			<AuthenticatedRoute path="/holidayrequest" component={ HolidayRequest } isAuth={isAuth} />
 			<AuthenticatedRoute path="/overview" component={ GraphQLComponent } isAuth={isAuth} />
 		</Switch>
 	)

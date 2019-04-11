@@ -4,6 +4,7 @@
     align-items: center;
     justify-content: space-between;
     height: $navigation-height;
+    margin-bottom: $spacing-navigation;
 
     &__logo {
         @include logo;
@@ -19,7 +20,7 @@
         margin: 0 20px;
         color: white;
         white-space: nowrap;
-        text-transform: uppercase;
+        letter-spacing: 1.5px;
 
         &:hover {
             border-bottom: 2px solid $brand-color;

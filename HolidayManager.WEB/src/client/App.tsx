@@ -4,7 +4,7 @@ import client from "./apolloClient/apolloClient";
 import { BrowserRouter as Router } from "react-router-dom";
 import Routes from "./routes/routes";
 import { UserContext, defaultContext } from "./context/userContext";
-import Navigation from "./components/navigation";
+import Navigation from "./shell/navigation";
 
 const App: React.FC<any> = (props) => {
 
