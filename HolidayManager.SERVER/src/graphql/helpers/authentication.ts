@@ -2,16 +2,16 @@
 import * as jwt from "jsonwebtoken";
 
 const isAuthenticated = async (resolve, parent, args, { req }) => {
-    const NOT_AUTHORIZED = "Not Authorized"
     const { request }: any = req;
-    if (request.headers.authorization !== undefined) {
-        const permit = jwt.verify(request.headers.authorization, process.env.Jwt_Secret);
-        if (!permit) {
-            throw new Error(NOT_AUTHORIZED);
-        }
+    if (request.headers.authorization !== undefined) { 
+        jwt.verify(request.headers.authorization, process.env.Jwt_Secret, function(err, decoded) {
+            if (err) {
+                throw new Error(err)
+            } 
+        });
         return resolve();
-    } else  {
-        throw new Error(NOT_AUTHORIZED);
+    } else {
+        throw new Error("No token added")
     }
 };
 

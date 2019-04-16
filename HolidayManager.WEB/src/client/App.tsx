@@ -15,10 +15,10 @@ class App extends React.PureComponent<any, IUserContext > {
 		},
 	}
 
-	componentDidMount() {
+	async componentDidMount() {
 		const token = localStorage.getItem("token")
 		if (!!token) {
-			if (isAuthenticated()) {
+			if (await isAuthenticated()) {
 				this.setState({userIsAuthenticated: true})
 			}
 		}
