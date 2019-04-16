@@ -26,17 +26,17 @@ const Links = () => {
     if ( userIsAuthenticated ) {
         return (
             <React.Fragment>
-                <NavLink exact={true} activeClassName="link--active" className={`${className}__link`} to="/">Home</NavLink>
-                <NavLink activeClassName="link--active" className={`${className}__link`} to="/overview">Overview</NavLink>
-                <NavLink activeClassName="link--active" className={`${className}__link`} to="/holidayrequest">Holiday Request</NavLink>
+                <NavLink onClick={toggleMenu} exact={true} activeClassName="link--active" className={`${className}__link`} to="/">Home</NavLink>
+                <NavLink onClick={toggleMenu} activeClassName="link--active" className={`${className}__link`} to="/overview">Overview</NavLink>
+                <NavLink onClick={toggleMenu} activeClassName="link--active" className={`${className}__link`} to="/holidayrequest">Holiday Request</NavLink>
                 <div className={`${className}__link`} onClick={signOut} > Logout </div> 
             </React.Fragment>
         )
     } else {
         return (
             <React.Fragment>
-                <NavLink exact={true} activeClassName="link--active" className={`${className}__link`} to="/">Home</NavLink>
-                <NavLink activeClassName="link--active" className={`${className}__link`} to="/login">Login</NavLink>
+                <NavLink onClick={toggleMenu} exact={true} activeClassName="link--active" className={`${className}__link`} to="/">Home</NavLink>
+                <NavLink onClick={toggleMenu} activeClassName="link--active" className={`${className}__link`} to="/login">Login</NavLink>
             </React.Fragment>
         )
     }
