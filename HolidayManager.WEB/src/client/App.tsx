@@ -6,6 +6,7 @@ import Routes from "./routes/routes";
 import { UserContext, IUserContext } from "./context/userContext";
 import Navigation from "./shell/navigation";
 import { isAuthenticated } from "./helpers/authentication";
+import Media from "react-media";
 
 class App extends React.PureComponent<any, IUserContext > {
 	state = {
@@ -30,10 +31,14 @@ class App extends React.PureComponent<any, IUserContext > {
 					userIsAuthenticated: this.state.userIsAuthenticated,
 					setAuth: this.state.setAuth}}>
 					<Router>
-						<div className="app">
-							<Navigation />
-							<Routes userIsAuthenticated={this.state.userIsAuthenticated}/>
-						</div>
+					<Media query="(min-width: 576px)">
+						{matches =>
+							<React.Fragment>
+								<Navigation mobile={!matches} />
+								<Routes userIsAuthenticated={this.state.userIsAuthenticated}/>
+							</React.Fragment>
+						}
+					</Media>
 					</Router>
 				</UserContext.Provider>
 			</ApolloProvider>

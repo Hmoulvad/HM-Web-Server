@@ -13,7 +13,7 @@ interface IRoutes {
 const Routes: React.FC<IRoutes> = ({userIsAuthenticated}) => {
 	return (
 		<Switch>
-			<Route exact path="/" render={ props => <Home {...props}/>}/>
+			<Route exact={true} path="/" render={ props => <Home {...props}/>}/>
 			<Route path="/login" render={ props => <LoginComponent {...props}/>}/>
 			<AuthenticatedRoute path="/holidayrequest" component={ HolidayRequest } isAuth={userIsAuthenticated} />
 			<AuthenticatedRoute path="/overview" component={ GraphQLComponent } isAuth={userIsAuthenticated} />
