@@ -19,7 +19,7 @@ class App extends React.PureComponent<any, IUserContext > {
 	async componentDidMount() {
 		const token = localStorage.getItem("token")
 		if (!!token) {
-			if (await isAuthenticated()) {
+			if (await isAuthenticated) {
 				this.setState({userIsAuthenticated: true})
 			}
 		}
@@ -31,14 +31,16 @@ class App extends React.PureComponent<any, IUserContext > {
 					userIsAuthenticated: this.state.userIsAuthenticated,
 					setAuth: this.state.setAuth}}>
 					<Router>
-					<Media query="(min-width: 576px)">
-						{matches =>
-							<React.Fragment>
-								<Navigation mobile={!matches} />
-								<Routes userIsAuthenticated={this.state.userIsAuthenticated}/>
-							</React.Fragment>
-						}
-					</Media>
+						<div className="app">
+							<Media query="(min-width: 576px)">
+								{matches =>
+									<React.Fragment>
+										<Navigation mobile={!matches} />
+										<Routes userIsAuthenticated={this.state.userIsAuthenticated}/>
+									</React.Fragment>
+								}
+							</Media>
+						</div>
 					</Router>
 				</UserContext.Provider>
 			</ApolloProvider>

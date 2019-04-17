@@ -12,7 +12,7 @@ const LoginComponent: React.FC<any> = (props: any) => {
 
 	if ( userIsAuthenticated ) {
 		return (
-			<Redirect to="/overview" />
+			<Redirect to="/holidayrequest" />
 		)
 	}
 

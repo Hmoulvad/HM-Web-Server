@@ -12,11 +12,4 @@ export async function isAuthenticated () {
     }).catch(e => {
         console.log(e)
     })
-    return false;
 }
-
-// export async function authorziation () {
-//     const resulst = await client.query({
-//         query: GraphQLSchema
-//     })
-// }
