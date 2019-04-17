@@ -19,6 +19,9 @@ const server = new GraphQLServer({
   typeDefs, 
   resolvers,
   context,
+  resolverValidationOptions :{
+    requireResolversForResolveType: false
+  },
   middlewares: [permissions],
 });
 

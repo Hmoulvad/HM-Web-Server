@@ -23,7 +23,8 @@ export const permissions = {
         project: isAuthenticated,
         unitManager: isAuthenticated,
         unit: isAuthenticated,
-        units: isAuthenticated
+        units: isAuthenticated,
+        getReference: isAuthenticated,
     },
     Mutation: {
         createDeveloper: isAuthenticated,
@@ -31,7 +32,8 @@ export const permissions = {
         createProject: isAuthenticated,
         setProjectManager: isAuthenticated,
         createUnitManager: isAuthenticated,
-        createUnit: isAuthenticated
+        createUnit: isAuthenticated,
+        setReference: isAuthenticated,
     }
 }
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import LayoutContainer from '../../layout';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { UserContext } from '../../context/userContext';
 import Logo from "../../../assets/icons/menu.svg";
 

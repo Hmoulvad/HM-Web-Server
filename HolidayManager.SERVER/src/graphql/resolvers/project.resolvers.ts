@@ -1,7 +1,7 @@
 import { IProjectModel } from "../../database/schemas/project.schema";
 import { IDataModels } from "../../database/index";
 import { IUnitModel } from "../../database/schemas/unit.schema";
-import { findReferenceInDB, saveObjectToDB } from "../helpers/database";
+import { doesReferenceExistsInDB, saveObjectToDB } from "../helpers/database";
 import { IProjectManagerModel } from "../../database/schemas/project-manager.schema";
 
 export default {
@@ -40,7 +40,7 @@ export default {
             const { MongooseModels }: IDataModels = models;
             const Project: IProjectModel = await MongooseModels.Project.findOne({ name });
             if ( Project ) {
-                if ( findReferenceInDB( projectManagerId, models)) {
+                if ( await doesReferenceExistsInDB( projectManagerId, models)) {
                     Project.projectManager = projectManagerId;
                     await saveObjectToDB(Project);
                     const findProjectManager = { _id: projectManagerId }

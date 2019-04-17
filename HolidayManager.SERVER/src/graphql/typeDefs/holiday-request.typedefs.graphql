@@ -7,3 +7,11 @@ type HolidayRequest {
 type Date {
     date: String!
 }
+
+type Query {
+    holidayRequest(id: String!): HolidayRequest
+} 
+
+type Mutation {
+    createHolidayRequest(name: String!): HolidayRequest
+}

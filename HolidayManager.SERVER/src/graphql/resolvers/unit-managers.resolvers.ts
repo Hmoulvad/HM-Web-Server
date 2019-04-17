@@ -1,7 +1,7 @@
 import { IUnitManagerModel } from "../../database/schemas/unit-manager.schema";
 import { IDataModels } from "../../database/index";
 import { IUnitModel } from "../../database/schemas/unit.schema";
-import { saveObjectToDB, findReferenceInDB } from "../helpers/database";
+import { saveObjectToDB } from "../helpers/database";
 
 export default {
     Query: {

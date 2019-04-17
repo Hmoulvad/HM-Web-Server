@@ -19,17 +19,17 @@ export interface IProject {
     developers: IDeveloper[];
 }
 
-export interface IEmployee {
-    name: string;
-    holidayRequests: IHolidayRequest[];
-    referenceId: string;
-    role: string;
-}
-
 export enum Role {
     unitManager = "UnitManager",
     projectManager = "ProjectManager",
     developer = "Developer",
+}
+
+export interface IEmployee {
+    name: string;
+    holidayRequests: IHolidayRequest[];
+    referenceId: string;
+    role: Role;
 }
 
 export interface IUnitEmployee extends IEmployee {

@@ -4,11 +4,15 @@ type User {
     referenceId: String
 }
 
+union Reference = Developer | ProjectManager | UnitManager
+
 type Query {
     isLoggedIn: User
+    getReference(referenceId: String!): Reference
 }
 
 type Mutation {
     login(username: String!, password: String!): String!
     signup(username: String!, password: String!): String!
+    setReference(referenceId: String!): String!
 }

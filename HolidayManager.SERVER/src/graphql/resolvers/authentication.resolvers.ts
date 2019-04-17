@@ -1,14 +1,14 @@
 import * as Bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
 import { IDataModels } from "../../database";
-import { saveObjectToDB } from "../helpers/database";
+import { saveObjectToDB, findReferenceInDB } from "../helpers/database";
 import { IUserModel } from "../../database/schemas/user.schema";
 import * as Mongoose from "mongoose";
 
 export default {
     Query: {
         isLoggedIn: async (parent, args, { req, models }) => {
-            const { MongooseModels}: IDataModels = models;
+            const { MongooseModels }: IDataModels = models;
             const { request }: any = req;
             const decodedJWT: any = await jwt.decode(request.headers.authorization);
         
@@ -24,6 +24,10 @@ export default {
                 throw new Error("You're not logged in");
             }
         },   
+        getReference: async (parent, { referenceId }, { models }, context) => {
+            console.log(context);
+            return await findReferenceInDB(referenceId, models);   
+        }   
     },
     Mutation: {
         login: async (parent, { username, password }, { models }) => {
@@ -44,6 +48,26 @@ export default {
                 throw new Error("Password and username does not match.")
             }
             throw new Error("No such user exists.")
+        },
+        setReference: async (parent, { referenceId }, { req, models }) => {
+            const { MongooseModels }: IDataModels = models;
+            const { request }: any = req;
+            const decodedJWT: any = await jwt.decode(request.headers.authorization);
+
+            const ObjectID = Mongoose.Types.ObjectId;
+            const toObjectID = decodedJWT.data.toString().toLowerCase();
+            if (!ObjectID.isValid(toObjectID)) {
+                throw new Error("String is not an ObjectID");
+            }
+            const User: IUserModel = await MongooseModels.User.findOne({_id: toObjectID}); 
+            if ( User ) {
+                User.referenceId = referenceId
+                await saveObjectToDB(User);
+                return "User was set"
+            } else {
+                throw new Error("You're not logged in");
+            }
+
         },
         signup: async (parent, { username, password }, { models }) => {
             const { MongooseModels}: IDataModels = models;
