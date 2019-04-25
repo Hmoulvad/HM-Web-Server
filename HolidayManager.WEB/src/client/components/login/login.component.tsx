@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { GraphQLSchema } from '../../graphql/index';
 import { Mutation } from 'react-apollo';
-import { UserContext } from '../../context/userContext';
+import { UserContext } from '../../context/appContext';
 import LayoutContainer from '../../layout';
 import { Redirect } from 'react-router';
 

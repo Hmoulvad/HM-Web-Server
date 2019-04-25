@@ -1,7 +1,7 @@
 import * as React from 'react';
 import LayoutContainer from '../../layout';
 import { NavLink } from 'react-router-dom';
-import { UserContext } from '../../context/userContext';
+import { UserContext } from '../../context/appContext';
 import Logo from "../../../assets/icons/menu.svg";
 
 interface INavigationProps {

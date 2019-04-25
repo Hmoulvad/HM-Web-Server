@@ -3,20 +3,32 @@ import { ApolloProvider } from "react-apollo";
 import client from "./apolloClient/apolloClient";
 import { BrowserRouter as Router } from "react-router-dom";
 import Routes from "./routes/routes";
-import { UserContext, IUserContext } from "./context/userContext";
+import { UserContext, IAppContext } from "./context/appContext";
 import Navigation from "./shell/navigation";
 import { isAuthenticated } from "./helpers/authentication";
 import Media from "react-media";
 
-class App extends React.PureComponent<any, IUserContext > {
-	state = {
+interface IAppProps {}
+
+class App extends React.PureComponent<IAppProps, IAppContext > {
+	state: IAppContext = {
 		userIsAuthenticated: false,
+		isApp: false,
+		setIsApp: (app: boolean) => {
+			this.setState({isApp: app})
+		},
 		setAuth: (auth: boolean) => {
 			this.setState({userIsAuthenticated: auth})
 		},
 	}
 
 	async componentDidMount() {
+		window.addEventListener("message", (event) => {
+		const urlParams = new URLSearchParams(document.location.search);
+		if (urlParams.has("app")) {
+			this.state.setIsApp(true);
+		}
+		}, false)
 		const token = localStorage.getItem("token")
 		if (!!token) {
 			if (await isAuthenticated) {
@@ -25,17 +37,16 @@ class App extends React.PureComponent<any, IUserContext > {
 		}
 	}
 	render()  {
+		const { isApp } = this.state;
 		return (
 			<ApolloProvider client={client}>
-				<UserContext.Provider value={{
-					userIsAuthenticated: this.state.userIsAuthenticated,
-					setAuth: this.state.setAuth}}>
+				<UserContext.Provider value={this.state}>
 					<Router>
 						<div className="app">
 							<Media query="(min-width: 576px)">
 								{matches =>
 									<React.Fragment>
-										<Navigation mobile={!matches} />
+										{!isApp && <Navigation mobile={!matches} />}
 										<Routes userIsAuthenticated={this.state.userIsAuthenticated}/>
 									</React.Fragment>
 								}
