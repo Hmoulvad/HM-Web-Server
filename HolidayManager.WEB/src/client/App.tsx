@@ -7,6 +7,7 @@ import { UserContext, IAppContext } from "./context/appContext";
 import Navigation from "./shell/navigation";
 import { isAuthenticated } from "./helpers/authentication";
 import Media from "react-media";
+import {isAndroid, isIOS} from "react-device-detect";
 
 interface IAppProps {}
 
@@ -23,12 +24,22 @@ class App extends React.PureComponent<IAppProps, IAppContext > {
 	}
 
 	async componentDidMount() {
-		window.addEventListener("message", (event) => {
-		const urlParams = new URLSearchParams(document.location.search);
-		if (urlParams.has("app")) {
-			this.state.setIsApp(true);
+		if ( isAndroid )  {
+			document.addEventListener("message", (event) => {
+				const urlParams = new URLSearchParams(document.location.search);
+				if (urlParams.has("app")) {
+					this.state.setIsApp(true);
+				}
+				}, false)
 		}
-		}, false)
+		if ( isIOS ) {
+			window.addEventListener("message", (event) => {
+				const urlParams = new URLSearchParams(document.location.search);
+				if (urlParams.has("app")) {
+					this.state.setIsApp(true);
+				}
+				}, false)
+		}
 		const token = localStorage.getItem("token")
 		if (!!token) {
 			if (await isAuthenticated) {
