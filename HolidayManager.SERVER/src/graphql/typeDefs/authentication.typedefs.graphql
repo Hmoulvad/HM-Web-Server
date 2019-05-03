@@ -9,6 +9,7 @@ union Reference = Developer | ProjectManager | UnitManager
 type Query {
     isLoggedIn: User
     getReference(referenceId: String!): Reference
+    isTokenValid(token: String!): Boolean!
 }
 
 type Mutation {

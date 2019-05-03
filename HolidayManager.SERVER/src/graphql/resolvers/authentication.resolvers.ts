@@ -27,6 +27,13 @@ export default {
         getReference: async (parent, { referenceId }, { models }, context) => {
             console.log(context);
             return await findReferenceInDB(referenceId, models);   
+        },
+        isTokenValid: async (parent, { token }, { models }, context) => {
+            if ( jwt.verify(token, process.env.Jwt_Secret) ) {
+                return true;
+            } else {
+                throw new Error("Not a valid token")
+            }
         }   
     },
     Mutation: {
