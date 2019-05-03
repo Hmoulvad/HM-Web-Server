@@ -10,6 +10,7 @@ const HolidayRequest: React.FunctionComponent<any> = (props) => {
     const toggleRequest = () => {
         setAddRequest(!addRequest);
     }
+
     const className = "holiday-request";
     return (
         <LayoutContainer>
