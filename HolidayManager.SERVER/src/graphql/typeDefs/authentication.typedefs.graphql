@@ -5,16 +5,16 @@ type User {
     role: String
 }
 
-union Reference = Developer | ProjectManager | UnitManager
-
 type Query {
     isLoggedIn: User
-    getReference(referenceId: String!): Reference
+    getReference(referenceId: String!): Role
     isTokenValid(token: String!): Boolean!
 }
 
 type Mutation {
     login(username: String!, password: String!): String!
-    signup(username: String!, password: String!): String!
+    signup(username: String!, password: String!, role: String!): String!
     setReference(referenceId: String!): String!
 }
+
+union Role = Developer | ProjectManager | UnitManager

@@ -68,7 +68,7 @@ export default {
             }
             const User: IUserModel = await MongooseModels.User.findOne({_id: toObjectID}); 
             if ( User ) {
-                User.referenceId = referenceId
+                User.ref = referenceId
                 await saveObjectToDB(User);
                 return "User was set"
             } else {
@@ -76,7 +76,7 @@ export default {
             }
 
         },
-        signup: async (parent, { username, password }, { models }) => {
+        signup: async (parent, { username, password, role }, { models }) => {
             const { MongooseModels}: IDataModels = models;
             const User = await MongooseModels.User.findOne({ username: username.toLowerCase() });
             if ( User ) {
@@ -85,7 +85,8 @@ export default {
                 const bcryptPassword = await Bcrypt.hashSync(password, 5);
                 const newUser: IUserModel = new MongooseModels.User({
                     username,
-                    password: bcryptPassword
+                    password: bcryptPassword,
+                    role
                 });
                 await saveObjectToDB(newUser);
                 const token = jwt.sign(
