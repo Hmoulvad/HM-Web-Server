@@ -3,10 +3,6 @@ import LayoutContainer from '../../layout';
 
 const Home: React.FunctionComponent<any> = (props) => {
 
-    const sendMessageToRN = () => {
-        window.postMessage("HEY","*");
-    }
-
     return (
         <LayoutContainer>
             <h3 className="home__header">Welcome to IMPACT’s Holiday Manager</h3>
@@ -19,7 +15,6 @@ const Home: React.FunctionComponent<any> = (props) => {
                 lots of problems and they’re bringing those problems with us. They’re bringing mistakes. 
                 They’re bringing misspellings. They’re typists… And some, I assume, are good words.
             </p>
-            <button onClick={sendMessageToRN}>Message To ReactNative</button>
         </LayoutContainer>
 )
 };

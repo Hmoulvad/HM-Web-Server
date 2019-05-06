@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { GraphQLSchema } from '../../graphql/index';
 import { Mutation } from 'react-apollo';
-import { UserContext } from '../../context/appContext';
+import { AppContext } from '../../context/appContext';
 import LayoutContainer from '../../layout';
 import { Redirect } from 'react-router';
 
 const LoginComponent: React.FC<any> = (props: any) => {
 	let emailRef: HTMLInputElement | null;
 	let passwordRef: HTMLInputElement | null;
-	const { setAuth, userIsAuthenticated } = React.useContext(UserContext);
+	const { setAuth, isAuth, isApp } = React.useContext(AppContext);
 
-	if ( userIsAuthenticated ) {
+	if ( isAuth && isApp === false) {
 		return (
 			<Redirect to="/holidayrequest" />
 		)

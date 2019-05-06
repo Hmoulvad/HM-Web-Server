@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { AppContext } from '../context/appContext';
 
 interface IGrid {
     noPadding?: boolean;
@@ -7,8 +8,9 @@ interface IGrid {
 }
 
 const LayoutContainer: React.FC<IGrid> = ({noPadding, className, children}) => {
+  const { isApp } = React.useContext(AppContext);
   return (
-      <div className={`layout ${className ? className : ""} ${noPadding ? "layout--no-padding" : ""}`}>
+      <div style={ isApp ? { marginTop: 50} : undefined} className={`layout ${className ? className : ""} ${noPadding ? "layout--no-padding" : ""}`}>
         {children}
       </div>
   )

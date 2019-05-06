@@ -29,9 +29,17 @@ const WHO_AM_I: DocumentNode = gql `
 }
 `;
 
+const VALIDATE_TOKEN: DocumentNode = gql `
+    mutation IsTokenValid($token: String!) 
+    {
+        isTokenValid(token: $token)
+    }
+`;
+
 export const GraphQLSchema = {
     GQL_UNITS,
     WHO_AM_I,
     LOGIN,
     SIGN_UP,
+    VALIDATE_TOKEN
 }

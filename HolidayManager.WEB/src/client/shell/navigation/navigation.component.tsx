@@ -1,7 +1,7 @@
 import * as React from 'react';
 import LayoutContainer from '../../layout';
 import { NavLink } from 'react-router-dom';
-import { UserContext } from '../../context/appContext';
+import { AppContext } from '../../context/appContext';
 import Logo from "../../../assets/icons/menu.svg";
 
 interface INavigationProps {
@@ -9,7 +9,7 @@ interface INavigationProps {
 }
 
 const Navigation: React.FunctionComponent<INavigationProps> = ({mobile}) => {
-const { userIsAuthenticated, setAuth} = React.useContext(UserContext);
+const { isAuth, setAuth} = React.useContext(AppContext);
 const [ isMenuOpen, setIsMenuOpen ] = React.useState<boolean>(false);
 const className = mobile ? "navigation--mobile" : "navigation";
 
@@ -23,7 +23,7 @@ const toggleMenu = () => {
 }
 
 const Links = () => {
-    if ( userIsAuthenticated ) {
+    if ( isAuth ) {
         return (
             <React.Fragment>
                 <NavLink onClick={toggleMenu} exact={true} activeClassName="link--active" className={`${className}__link`} to="/">Home</NavLink>

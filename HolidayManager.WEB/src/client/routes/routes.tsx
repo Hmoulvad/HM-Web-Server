@@ -5,18 +5,20 @@ import LoginComponent from '../components/login/login.component';
 import GraphQLComponent from '../components/graphql-test.component';
 import Home from '../components/home';
 import HolidayRequest from '../components/holiday-request';
+import { AppContext } from '../context/appContext';
 
 interface IRoutes {
-	userIsAuthenticated: boolean
 }
 
-const Routes: React.FC<IRoutes> = ({userIsAuthenticated}) => {
+const Routes: React.FC<IRoutes> = (props) => {
+	const { isAuth } = React.useContext(AppContext);
+
 	return (
 		<Switch>
 			<Route exact={true} path="/" render={ props => <Home {...props}/>}/>
-			<Route path="/login" render={ props => <LoginComponent {...props}/>}/>
-			<AuthenticatedRoute path="/holidayrequest" component={ HolidayRequest } isAuth={userIsAuthenticated} />
-			<AuthenticatedRoute path="/overview" component={ GraphQLComponent } isAuth={userIsAuthenticated} />
+			<Route path="/login" render={ props => <LoginComponent {...props}/>}/>}
+			<AuthenticatedRoute path="/holidayrequest" component={ HolidayRequest } isAuth={isAuth} />
+			<AuthenticatedRoute path="/overview" component={ GraphQLComponent } isAuth={isAuth} />
 		</Switch>
 	)
 };
