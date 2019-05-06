@@ -7,6 +7,7 @@ export const UserSchema = new Mongoose.Schema({
     username: String,
     password: String,
     referenceId: Mongoose.Schema.Types.ObjectId,
+    role: String,
     createdOn: {
         type: Date,
         default: Date.now

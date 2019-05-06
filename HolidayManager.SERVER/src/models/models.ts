@@ -2,6 +2,7 @@ export interface IUser {
     username: string;
     password: string;
     referenceId?: string;
+    role: Role;
 }
 
 export interface IUnit {
@@ -29,7 +30,6 @@ export interface IEmployee {
     name: string;
     holidayRequests: IHolidayRequest[];
     referenceId: string;
-    role: Role;
 }
 
 export interface IUnitEmployee extends IEmployee {
@@ -47,7 +47,10 @@ export interface IProjectManager extends IUnitEmployee {
 }
 
 export interface IHolidayRequest {
-    requestReference: string, 
+    unitManagerRef: string;
+    unitManagerApproved: boolean | null | undefined;
+    projectManageRef: string;
+    projectManagerApproved: boolean | null | undefined;
     dates: Date[];
 }
 
