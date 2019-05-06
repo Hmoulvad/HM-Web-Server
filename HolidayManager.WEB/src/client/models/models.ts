@@ -21,8 +21,8 @@ export interface IProject {
 }
 
 export enum Role {
-    unitManager = "UnitManager",
-    projectManager = "ProjectManager",
+    unitManager = "Unit Manager",
+    projectManager = "Project Manager",
     developer = "Developer",
 }
 
