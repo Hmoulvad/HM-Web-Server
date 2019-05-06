@@ -91,7 +91,10 @@ export default {
                 await saveObjectToDB(newUser);
                 const token = jwt.sign(
                     {
-                        data: newUser.id
+                        data: {
+                            id: newUser.id,
+                            role: newUser.role
+                        }
                     }, 
                     process.env.Jwt_Secret, 
                     { 
