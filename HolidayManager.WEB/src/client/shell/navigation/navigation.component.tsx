@@ -9,12 +9,12 @@ interface INavigationProps {
 }
 
 const Navigation: React.FunctionComponent<INavigationProps> = ({mobile}) => {
-const { isAuth, setAuth} = React.useContext(AppContext);
+const { isAuth, setAuth, logout} = React.useContext(AppContext);
 const [ isMenuOpen, setIsMenuOpen ] = React.useState<boolean>(false);
 const className = mobile ? "navigation--mobile" : "navigation";
 
 const signOut = () => {
-    setAuth(false);
+    logout();
     localStorage.removeItem("token");
 }
 

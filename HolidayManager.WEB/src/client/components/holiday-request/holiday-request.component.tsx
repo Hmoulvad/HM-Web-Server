@@ -3,7 +3,6 @@ import LayoutContainer from '../../layout';
 import AddRequest from './add-request';
 import ActiveRequest from './active-request';
 
-
 const HolidayRequest: React.FunctionComponent<any> = (props) => {
     const [ addRequest, setAddRequest ] = React.useState<boolean>(false);
 

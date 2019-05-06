@@ -7,20 +7,39 @@ import { AppContext, IAppContext } from "./context/appContext";
 import Navigation from "./shell/navigation";
 import { isAuthenticated } from "./helpers/authentication";
 import Media from "react-media";
-import {isAndroid, isIOS} from "react-device-detect";
+import { IToken } from "./models/shared";
+import * as jwt from "jsonwebtoken";
 
 interface IAppProps {}
 
-class App extends React.PureComponent<IAppProps, IAppContext > {
+class App extends React.PureComponent<IAppProps, IAppContext> {
 	state: IAppContext = {
 		isAuth: false,
 		isApp: false,
+		userId: undefined,
+		role: undefined,
+		logout: () => {
+			this.setState({
+				isAuth: false,
+				isApp: false,
+				userId: undefined,
+				role: undefined
+			})
+		},
 		setIsApp: (app: boolean) => {
 			this.setState({isApp: app})
 		},
 		setAuth: (auth: boolean) => {
 			this.setState({isAuth: auth})
 		},
+	}
+
+	async componentWillUpdate() {
+		const token = localStorage.getItem("token")
+			if (!!token) {
+				const { data } = jwt.decode(token) as IToken;
+				this.setState({ userId: data.id, role: data.role})
+			}
 	}
 
 	async componentWillMount() {
@@ -37,6 +56,8 @@ class App extends React.PureComponent<IAppProps, IAppContext > {
 		} else {
 			const token = localStorage.getItem("token")
 			if (!!token) {
+				const { data } = jwt.decode(token) as IToken;
+				this.setState({ userId: data.id, role: data.role})
 				if (await isAuthenticated) {
 					this.setState({isAuth: true})
 				}

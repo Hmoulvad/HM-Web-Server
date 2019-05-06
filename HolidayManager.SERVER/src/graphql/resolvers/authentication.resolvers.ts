@@ -44,7 +44,10 @@ export default {
                 if ( await Bcrypt.compareSync(password, User.password)) {
                     const token = jwt.sign(
                     {
-                        data: User.id
+                        data: {
+                            id: User.id,
+                            role: User.role
+                        }
                     }, 
                     process.env.Jwt_Secret, 
                     { 
