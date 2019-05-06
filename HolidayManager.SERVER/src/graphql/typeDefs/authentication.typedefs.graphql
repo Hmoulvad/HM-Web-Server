@@ -1,7 +1,8 @@
 type User {
     username: String!
     password: String!
-    referenceId: String
+    ref: String
+    role: String
 }
 
 union Reference = Developer | ProjectManager | UnitManager

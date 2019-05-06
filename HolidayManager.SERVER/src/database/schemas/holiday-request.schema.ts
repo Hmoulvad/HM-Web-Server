@@ -6,9 +6,9 @@ export interface IHolidayRequestModel extends IHolidayRequest, Mongoose.Document
 export const HolidayRequestSchema = new Mongoose.Schema({
     dates: [Date],
     unitManagerRef: Mongoose.Schema.Types.ObjectId,
-    unitManagerApproved: Boolean || undefined,
-    projectManageRef: Mongoose.Schema.Types.ObjectId,
-    projectManagerApproved: Boolean || undefined,
+    unitManagerApproval: Boolean || undefined,
+    ref: Mongoose.Schema.Types.ObjectId,
+    refApproval: Boolean || undefined,
     createdOn: {
         type: Date,
         default: Date.now

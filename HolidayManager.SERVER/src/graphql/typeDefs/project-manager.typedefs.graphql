@@ -1,18 +1,21 @@
 type Query {
-  projectManager(_id: String!): ProjectManager
+    projectManager(_id: String!): ProjectManager
 }
 
 type Mutation {
-  createProjectManager(name: String!, unitId: String!, referenceId: String!): Boolean!
+    createProjectManager(
+        name: String!
+        unitId: String!
+        referenceId: String!
+    ): Boolean!
 }
 
 type ProjectManager {
     _id: String!
     name: String!
     createdOn: String!
-    role: String!
     unit: String
-    referenceId: String 
+    ref: String
     projects: [Project]
     holidayRequests: [HolidayRequest]
 }

@@ -6,7 +6,7 @@ export interface IDeveloperModel extends IDeveloper, Mongoose.Document { }
 export const DeveloperSchema = new Mongoose.Schema({
     name: String,
     unit: Mongoose.Schema.Types.ObjectId,
-    referenceId: Mongoose.Schema.Types.ObjectId,
+    ref: Mongoose.Schema.Types.ObjectId,
     holidayRequests: [{
         type: Mongoose.Schema.Types.ObjectId,
         ref: "HolidayRequest"

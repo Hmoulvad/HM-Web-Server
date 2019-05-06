@@ -1,7 +1,7 @@
 export interface IUser {
     username: string;
     password: string;
-    referenceId?: string;
+    ref?: string;
     role: Role;
 }
 
@@ -29,7 +29,7 @@ export enum Role {
 export interface IEmployee {
     name: string;
     holidayRequests: IHolidayRequest[];
-    referenceId: string;
+    ref: string;
 }
 
 export interface IUnitEmployee extends IEmployee {
@@ -47,10 +47,10 @@ export interface IProjectManager extends IUnitEmployee {
 }
 
 export interface IHolidayRequest {
-    unitManagerRef: string;
-    unitManagerApproved: boolean | null | undefined;
-    projectManageRef: string;
-    projectManagerApproved: boolean | null | undefined;
+    unitManagerRef: string | undefined;
+    unitManagerApproval: boolean | undefined;
+    ref: string;
+    refApproval: boolean | undefined;
     dates: Date[];
 }
 

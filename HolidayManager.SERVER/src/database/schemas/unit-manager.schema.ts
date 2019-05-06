@@ -6,7 +6,7 @@ export interface IUnitManagerModel extends IUnitManager, Mongoose.Document { }
 export const UnitManagerSchema = new Mongoose.Schema({
     name: String,
     unit: Mongoose.Schema.Types.ObjectId,
-    referenceId: Mongoose.Schema.Types.ObjectId,
+    ref: Mongoose.Schema.Types.ObjectId,
     holidayRequests: [{
         type: Mongoose.Schema.Types.ObjectId,
         ref: "HolidayRequest"
