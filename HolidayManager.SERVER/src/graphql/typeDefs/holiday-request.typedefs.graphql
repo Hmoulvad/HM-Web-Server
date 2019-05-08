@@ -4,17 +4,20 @@ type HolidayRequest {
     unitManagerApproval: Boolean
     ref: String
     refApproval: Boolean
-    dates: [Date!]!
-}
-
-type Date {
-    date: String!
+    from: String!
+    to: String!
 }
 
 type Query {
-    holidayRequest(id: String!): HolidayRequest
+    holidayRequest(_id: String!): HolidayRequest
 }
 
 type Mutation {
-    createHolidayRequest(name: String!): HolidayRequest
+    createHolidayRequest(
+        _id: String!
+        role: String!
+        projectId: String
+        from: String!
+        to: String!
+    ): HolidayRequest
 }

@@ -51,7 +51,8 @@ export interface IHolidayRequest {
     unitManagerApproval: boolean | undefined;
     ref: string;
     refApproval: boolean | undefined;
-    dates: Date[];
+    from: Date,
+    to: Date
 }
 
 
