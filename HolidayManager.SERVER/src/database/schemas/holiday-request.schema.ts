@@ -7,7 +7,7 @@ export const HolidayRequestSchema = new Mongoose.Schema({
     from: Date,
     to: Date,
     creatorRef: Mongoose.Schema.Types.ObjectId,
-    unitManagerRef: Mongoose.Schema.Types.ObjectId,
+    unitManagerRef: Mongoose.Schema.Types.ObjectId || undefined,
     unitManagerApproval: Boolean || undefined,
     ref: Mongoose.Schema.Types.ObjectId || undefined,
     refApproval: Boolean || undefined,

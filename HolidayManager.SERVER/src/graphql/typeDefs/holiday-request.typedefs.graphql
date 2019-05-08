@@ -1,7 +1,7 @@
 type HolidayRequest {
     _id: String!
     creatorRef: String!
-    unitManagerRef: String!
+    unitManagerRef: String
     unitManagerApproval: Boolean
     ref: String
     refApproval: Boolean
@@ -10,7 +10,7 @@ type HolidayRequest {
 }
 
 type Query {
-    holidayRequest(_id: String!): HolidayRequest
+    getUserHolidayRequests(_id: String!): [HolidayRequest]
 }
 
 type Mutation {
@@ -20,5 +20,5 @@ type Mutation {
         projectId: String
         from: String!
         to: String!
-    ): HolidayRequest
+    ): Boolean
 }
