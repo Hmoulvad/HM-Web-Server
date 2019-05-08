@@ -1,5 +1,6 @@
 type HolidayRequest {
     _id: String!
+    creatorRef: String!
     unitManagerRef: String!
     unitManagerApproval: Boolean
     ref: String

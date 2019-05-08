@@ -2,16 +2,18 @@ import * as React from 'react';
 import Helmet from 'react-helmet';
 import * as DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
+import { Mutation } from 'react-apollo';
+import GraphqlSchema from "../../../graphql";
+import { AppContext } from '../../../context/appContext';
 
-interface IAddRequestProsp {
+interface IAddRequestProps {
 }
-
 interface IState {
     from: Date;
     to: Date;
 }
 
-const AddRequest: React.FunctionComponent<IAddRequestProsp> = (props) => {
+const AddRequest: React.FunctionComponent<IAddRequestProps> = (props) => {
     const className = "add-request";
     const initialState: IState = {
         from: new Date,
@@ -19,11 +21,12 @@ const AddRequest: React.FunctionComponent<IAddRequestProsp> = (props) => {
     };
     const numberOfMonths = 2;
     const [ state, setState ] = React.useState<IState>(initialState);
-    console.log(state);
+    const { user, objectRefId, role } = React.useContext(AppContext);
 
     const handleDayClick = (date: Date) => {
         const range = DayPicker.default.DateUtils.addDayToRange(date, state);
         setState(range);
+        console.log(range);
     }
 
     const handleResetClick = () => {
@@ -32,7 +35,7 @@ const AddRequest: React.FunctionComponent<IAddRequestProsp> = (props) => {
     const { from, to } = state;
     const modifiers = { start: from, end: to};
     return (
-        <div className="RangeExample">
+        <div className={`${className}`}>
           <p>
             {!from && !to && 'Please select the first day.'}
             {from && !to && 'Please select the last day.'}
@@ -71,6 +74,25 @@ const AddRequest: React.FunctionComponent<IAddRequestProsp> = (props) => {
                 }
             `}</style>
           </Helmet>
+          <Mutation mutation={GraphqlSchema.ADD_HOLIDAY_REQUEST}>
+          {( addHolidayRequest, { error }) => (
+            <button className={`${className}__add-button`} onClick={e => {
+              e.preventDefault();
+              addHolidayRequest({
+                variables: {
+                    _id: objectRefId,
+                    role,
+                    projectId: "5cd07a568ec4f39170c11171",
+                    to,
+                    from,
+                }
+              }).catch( e => {
+                  console.log(e.message);
+              })
+            }}>Add Request</button>
+          )}
+
+          </Mutation>
         </div>
       );
 };

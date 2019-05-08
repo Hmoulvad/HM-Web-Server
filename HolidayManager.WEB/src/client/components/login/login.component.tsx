@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { GraphQLSchema } from '../../graphql/index';
+import GraphQLSchema from '../../graphql';
 import { Mutation } from 'react-apollo';
 import { AppContext } from '../../context/appContext';
 import LayoutContainer from '../../layout';

@@ -1,5 +1,5 @@
 import client from "../apolloClient/apolloClient";
-import { GraphQLSchema } from "../graphql";
+import GraphQLSchema from "../graphql";
 import { DocumentNode } from "graphql";
 
 export async function isAuthenticated() {

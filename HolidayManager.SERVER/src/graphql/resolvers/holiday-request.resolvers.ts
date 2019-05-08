@@ -19,6 +19,7 @@ export default {
                 const project = await MongooseModels.Project.findById(projectId)
                 if ( developer && project) {
                     const newHolidayRequest: IHolidayRequest = new MongooseModels.HolidayRequest({
+                        creatorRef: developer.id,
                         unitManagerRef: developer.ref,
                         unitManagerApproval: undefined,
                         ref: project.projectManager,

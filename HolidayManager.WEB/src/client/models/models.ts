@@ -28,8 +28,8 @@ export enum Role {
 
 export interface IEmployee {
     name: string;
-    holidayRequests: IHolidayRequest[];
-    ref: string;
+    holidayRequests?: IHolidayRequest[];
+    ref?: string;
 }
 
 export interface IUnitEmployee extends IEmployee {
@@ -37,7 +37,7 @@ export interface IUnitEmployee extends IEmployee {
 }
 
 export interface IDeveloper extends IUnitEmployee {
-    Projects: IProject[];
+    projects: IProject[];
 }
 
 export interface IUnitManager extends IUnitEmployee { }
@@ -51,7 +51,8 @@ export interface IHolidayRequest {
     unitManagerApproval: boolean | undefined;
     ref: string;
     refApproval: boolean | undefined;
-    dates: Date[];
+    from: Date,
+    to: Date
 }
 
 

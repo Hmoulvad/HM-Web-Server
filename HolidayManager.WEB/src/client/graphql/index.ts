@@ -7,12 +7,14 @@ const LOGIN: DocumentNode = gql `
         login(username: $username, password: $password)
     }
 `;
+
 const SIGN_UP: DocumentNode = gql `
     mutation SignUp($username: String!, $password: String!)
     {
         signup(username: $username, password: $password)
     }
-`
+`;
+
 const GQL_UNITS: DocumentNode = gql `
 {
     units {
@@ -21,12 +23,21 @@ const GQL_UNITS: DocumentNode = gql `
     }
 }
 `;
+
 const WHO_AM_I: DocumentNode = gql `
 {
     isLoggedIn {
         username,
     }
 }
+`;
+
+const ADD_HOLIDAY_REQUEST: DocumentNode = gql `
+    mutation createHolidayRequest($_id: String!, $role: String!, $projectId: String, $to: String!, $from: String!)
+    {
+        createHolidayRequest(_id: $_id, role: $role, projectId: $projectId, to: $to, from: $from)
+    }
+    
 `;
 
 const VALIDATE_TOKEN: DocumentNode = gql `
@@ -52,7 +63,7 @@ const GET_DEVELOPER: DocumentNode = gql `
             }
         }    
     }
-`
+`;
 
 const GET_UNIT_MANAGER: DocumentNode = gql `
     query unitManager($_id: String!)
@@ -67,7 +78,7 @@ const GET_UNIT_MANAGER: DocumentNode = gql `
             }
         }    
     }
-`
+`;
 
 const GET_PROJECT_MANAGER: DocumentNode = gql `
     query projectManager($_id: String!)
@@ -85,9 +96,10 @@ const GET_PROJECT_MANAGER: DocumentNode = gql `
             }
         }    
     }
-`
+`;
 
-export const GraphQLSchema = {
+const GraphQLSchema = {
+    ADD_HOLIDAY_REQUEST,
     GQL_UNITS,
     WHO_AM_I,
     LOGIN,
@@ -97,4 +109,6 @@ export const GraphQLSchema = {
     GET_UNIT_MANAGER,
     GET_PROJECT_MANAGER
 }
+
+export default GraphQLSchema;
 
