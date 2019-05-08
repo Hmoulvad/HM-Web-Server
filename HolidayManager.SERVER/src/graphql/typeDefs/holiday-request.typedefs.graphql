@@ -2,7 +2,7 @@ type HolidayRequest {
     _id: String!
     unitManagerRef: String!
     unitManagerApproval: Boolean
-    ref: String!
+    ref: String
     refApproval: Boolean
     dates: [Date!]!
 }

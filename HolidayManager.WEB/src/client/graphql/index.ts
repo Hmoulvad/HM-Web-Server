@@ -36,10 +36,65 @@ const VALIDATE_TOKEN: DocumentNode = gql `
     }
 `;
 
+const GET_DEVELOPER: DocumentNode = gql `
+    query developer($_id: String!)
+    {
+        developer(_id: $_id) 
+        {
+            name,
+            ref,
+            unit,
+            projects {
+                _id
+            },
+            holidayRequests {
+                _id
+            }
+        }    
+    }
+`
+
+const GET_UNIT_MANAGER: DocumentNode = gql `
+    query unitManager($_id: String!)
+    {
+        unitManager(_id: $_id) 
+        {
+            name,
+            ref,
+            unit,
+            holidayRequests {
+                _id
+            }
+        }    
+    }
+`
+
+const GET_PROJECT_MANAGER: DocumentNode = gql `
+    query projectManager($_id: String!)
+    {
+        projectManager(_id: $_id) 
+        {
+            name,
+            ref,
+            unit,
+            projects {
+                _id
+            },
+            holidayRequests {
+                _id
+            }
+        }    
+    }
+`
+
 export const GraphQLSchema = {
     GQL_UNITS,
     WHO_AM_I,
     LOGIN,
     SIGN_UP,
-    VALIDATE_TOKEN
+    VALIDATE_TOKEN,
+    GET_DEVELOPER,
+    GET_UNIT_MANAGER,
+    GET_PROJECT_MANAGER
 }
+

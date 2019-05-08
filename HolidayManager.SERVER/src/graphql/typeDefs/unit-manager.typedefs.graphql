@@ -13,7 +13,6 @@ type Mutation {
 type UnitManager {
     _id: String!
     name: String!
-    role: String!
     createdOn: String!
     ref: String
     unit: String

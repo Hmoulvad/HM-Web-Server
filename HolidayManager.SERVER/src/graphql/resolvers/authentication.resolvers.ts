@@ -11,9 +11,8 @@ export default {
             const { MongooseModels }: IDataModels = models;
             const { request }: any = req;
             const decodedJWT: any = await jwt.decode(request.headers.authorization);
-        
             const ObjectID = Mongoose.Types.ObjectId;
-            const toObjectID = decodedJWT.data.toString().toLowerCase();
+            const toObjectID = decodedJWT.data.id.toString().toLowerCase();
             if (!ObjectID.isValid(toObjectID)) {
                 throw new Error("String is not an ObjectID");
             }
@@ -46,6 +45,7 @@ export default {
                     {
                         data: {
                             id: User.id,
+                            objectRefId: User.ref,
                             role: User.role
                         }
                     }, 
@@ -95,7 +95,6 @@ export default {
                 const token = jwt.sign(
                     {
                         data: {
-                            id: newUser.id,
                             role: newUser.role
                         }
                     }, 
