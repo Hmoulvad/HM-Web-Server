@@ -56,7 +56,8 @@ const GET_DEVELOPER: DocumentNode = gql `
             ref,
             unit,
             projects {
-                _id
+                _id,
+                name,
             },
             holidayRequests {
                 _id
@@ -98,7 +99,22 @@ const GET_PROJECT_MANAGER: DocumentNode = gql `
     }
 `;
 
+const GET_HOLIDAY_REQUESTS: DocumentNode = gql `
+    query getUserHolidayRequests($_id: String!)
+    {
+        getUserHolidayRequests(_id: $_id) {
+            unitManagerRef,
+            unitManagerApproval,
+            ref,
+            refApproval,
+            from,
+            to,
+        }
+    }
+`;
+
 const GraphQLSchema = {
+    GET_HOLIDAY_REQUESTS,
     ADD_HOLIDAY_REQUEST,
     GQL_UNITS,
     WHO_AM_I,

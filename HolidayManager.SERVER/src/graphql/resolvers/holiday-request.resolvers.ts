@@ -1,6 +1,6 @@
 import { IHolidayRequestModel } from "../../database/schemas/holiday-request.schema";
 import { IDataModels } from "../../database/index";
-import { Role, IDeveloper, IUnitManager, IProjectManager, IHolidayRequest } from "../../models/models";
+import { Role, IHolidayRequest } from "../../models/models";
 import { saveObjectToDB } from "../helpers/database";
 
 export default {
@@ -9,7 +9,11 @@ export default {
             const { MongooseModels }: IDataModels = models;
             try {
                 const holidayRequests: IHolidayRequestModel[] = await MongooseModels.HolidayRequest.find({creatorRef: _id})
-                return holidayRequests;
+                if ( holidayRequests ) {
+                    return holidayRequests;
+                } else {
+                    new Error("No such user exists")
+                }
             } catch (error) {
                 new Error(error)
             }
@@ -21,20 +25,24 @@ export default {
             if ( role === Role.developer ) {
                 const developer = await MongooseModels.Developer.findById(_id)
                 const project = await MongooseModels.Project.findById(projectId)
-                try {
-                    const newHolidayRequest: IHolidayRequest = new MongooseModels.HolidayRequest({
-                        creatorRef: developer.id,
-                        unitManagerRef: developer.ref,
-                        ref: project.projectManager,
-                        from: from as Date,
-                        to: to as Date,
-                    })
-                    await saveObjectToDB(newHolidayRequest);
-                    developer.holidayRequests.push(newHolidayRequest);
-                    await saveObjectToDB(developer);
-                    return true;
-                } catch (error) {
-                    new Error(error)
+                if ( developer && project ) {
+                    try {
+                        const newHolidayRequest: IHolidayRequest = new MongooseModels.HolidayRequest({
+                            creatorRef: developer.id,
+                            unitManagerRef: developer.ref,
+                            ref: project.projectManager,
+                            from: from as Date,
+                            to: to as Date,
+                        })
+                        await saveObjectToDB(newHolidayRequest);
+                        developer.holidayRequests.push(newHolidayRequest);
+                        await saveObjectToDB(developer);
+                        return true;
+                    } catch (error) {
+                        new Error(error)
+                    }
+                } else {
+                    new Error("Such developer or project doesn't exists");
                 }
             }
             if ( role === Role.projectManager ) {

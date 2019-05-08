@@ -1,4 +1,3 @@
-import { IDeveloperModel } from "../../database/schemas/developer.schema";
 import { IDataModels } from "../../database/index";
 import { IUnitModel } from "../../database/schemas/unit.schema";
 import { saveObjectToDB } from "../helpers/database";
@@ -8,15 +7,23 @@ export default {
     Query: {
         developer: async (parent, { _id }, { models }) => {
             const { MongooseModels }: IDataModels = models;
-            const Developer: IDeveloperModel = await MongooseModels.Developer.findOne({ _id });
-            return Developer;
+            const developer = await MongooseModels.Developer.findOne({ _id });
+            if ( developer ) {
+                let projects = []
+                for (let i = 0; i < developer.projects.length; i++) {
+                    const project = await MongooseModels.Project.findById(developer.projects[i])
+                    projects.push(project);
+                }
+                developer.projects = projects;
+                return developer;
+            }
         },
     },
     Mutation: {
         createDeveloper: async (parent, { name, unitId, projectId }, { models }) => {
             const { MongooseModels }: IDataModels = models;
             const findDeveloper = { name: name }
-            const Developer: IDeveloperModel = await MongooseModels.Developer.findOne( findDeveloper );
+            const Developer = await MongooseModels.Developer.findOne( findDeveloper );
             if ( Developer ) {
                 throw new Error("Please provide a unique name.");
             }
@@ -24,7 +31,7 @@ export default {
             if ( Unit ) {
                     const Project: IProjectModel = await MongooseModels.Project.findOne({ _id: projectId })
                     if ( Project ) {
-                        const newDeveloper: IDeveloperModel = new MongooseModels.Developer({
+                        const newDeveloper = new MongooseModels.Developer({
                             name,
                             role: "Developer",
                             unit: Unit.id,

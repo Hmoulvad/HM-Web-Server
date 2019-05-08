@@ -1,9 +1,13 @@
 import * as React from 'react';
-import { mockData, IHolidayRequest } from "./active-request.mock";
-import { dateDifference } from "../../../helpers/date";
+import { dateDifference, convertUnixToDate } from "../../../helpers/date";
+import { Query } from 'react-apollo';
+import GraphqlSchema from "../../../graphql";
+import { AppContext } from '../../../context/appContext';
+import { IHolidayRequest } from '../../../models/models';
 
 const ActiveRequest: React.FunctionComponent<any> = (props) => {
     const className = "active-request";
+    const { objectRefId } = React.useContext(AppContext);
 
     const holidayStatus = (status: boolean | undefined | null) => {
         if ( status === null || status === undefined) {
@@ -21,7 +25,7 @@ const ActiveRequest: React.FunctionComponent<any> = (props) => {
         <div className={`${className}`}>
             <h5 className={`${className}__title`}>Active Holiday Requests</h5>
             <p className={`${className}__text`}>
-                <span className={`${className}__request-amount`}>{mockData.holidayRequests.length}</span>
+                <span className={`${className}__request-amount`}></span>
                 - Active Holiday Requests at the moment
             </p>
             <div className={`${className}__headlines`}>
@@ -31,20 +35,26 @@ const ActiveRequest: React.FunctionComponent<any> = (props) => {
                 <div className={`${className}__headline`}>Project Manager</div>
             </div>
             <div className={`${className}__requests`}>
-                { mockData && mockData.holidayRequests.map((hR: IHolidayRequest, index: number) => {
+            <Query query={GraphqlSchema.GET_HOLIDAY_REQUESTS} variables={{_id: objectRefId}}>
+            {({ loading, error, data }) => {
+                if (loading) return null;
+                if (error) return <p>{error}</p>;
+                if (data) return data.getUserHolidayRequests.map((hR: IHolidayRequest, index: number) => {
                     return (
-                    <div className={`${className}__request`} key={index}>
-                        <p className={`${className}__request-text`}>{hR.from.toLocaleDateString()} to {hR.to.toLocaleDateString()}</p>
-                        <p className={`${className}__request-text`}>{dateDifference(hR.from, hR.to)}</p>
-                        <p className={`${className}__request-text`}>{hR.unitManagerRef} - {holidayStatus(hR.unitManagerApproved)}</p>
-                        {hR.projectManagerRef ? 
-                        <p className={`${className}__request-text`}>{hR.projectManagerRef} - {holidayStatus(hR.projectManagerApproved)}</p> 
-                        :  
-                        <p className={`${className}__request-text`}>NaN</p>}
-                        <button className={`${className}__request-button`}>Edit</button>
-                    </div>
+                        <div className={`${className}__request`} key={index}>
+                            <p className={`${className}__request-text`}>{convertUnixToDate(hR.from).toLocaleDateString()} to {convertUnixToDate(hR.to).toLocaleDateString()}</p>
+                            <p className={`${className}__request-text`}>{dateDifference(hR.from, hR.to)}</p>
+                            <p className={`${className}__request-text`}>{hR.unitManagerRef} - {holidayStatus(hR.unitManagerApproval)}</p>
+                            {hR.ref ? 
+                            <p className={`${className}__request-text`}>{hR.ref} - {holidayStatus(hR.refApproval)}</p> 
+                            :  
+                            <p className={`${className}__request-text`}>NaN</p>}
+                            <button className={`${className}__request-button`}>Edit</button>
+                        </div>
                     )
-                })}
+                })
+            }}
+            </Query>
             </div>
         </div>
 )
