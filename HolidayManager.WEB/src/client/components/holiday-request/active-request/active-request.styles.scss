@@ -7,26 +7,34 @@
 
     &__headline {
         font-weight: 500;
-        flex: 20%;
+        flex: 22.5%;
+
+        &_days {
+            flex: 10%;
+        }
     }
 
     &__request {
         position: relative;
         display: flex;
+        justify-content: space-between;
 
         &-text {
-            flex: 20%;
+            flex: 22.5%;
+        }
+        &-days {
+            flex: 10%;
         }
 
         &-button {
             position: absolute;
-            right: 0;
+            right: 10px;
             top: -3px;
             border-radius: 5px;
+            background-color: yellowgreen;
         }
     }
 
     &__requests {
-
     }
 }

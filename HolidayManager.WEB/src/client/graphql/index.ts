@@ -2,18 +2,26 @@ import { DocumentNode } from "graphql";
 import gql from "graphql-tag";
 
 const LOGIN: DocumentNode = gql `
-    mutation LogIn($username: String!, $password: String!) 
+    mutation logIn($username: String!, $password: String!) 
     {
         login(username: $username, password: $password)
     }
 `;
 
 const SIGN_UP: DocumentNode = gql `
-    mutation SignUp($username: String!, $password: String!)
+    mutation signUp($username: String!, $password: String!)
     {
         signup(username: $username, password: $password)
     }
 `;
+
+const DELETE_HOLIDAY_REQUEST: DocumentNode = gql `
+    mutation deleteHolidayRequest($_id: String!)
+    {
+        deleteHolidayRequest(_id: $_id)
+    }
+`;
+
 
 const GQL_UNITS: DocumentNode = gql `
 {
@@ -41,7 +49,7 @@ const ADD_HOLIDAY_REQUEST: DocumentNode = gql `
 `;
 
 const VALIDATE_TOKEN: DocumentNode = gql `
-    mutation IsTokenValid($token: String!) 
+    mutation isTokenValid($token: String!) 
     {
         isTokenValid(token: $token)
     }
@@ -103,6 +111,7 @@ const GET_HOLIDAY_REQUESTS: DocumentNode = gql `
     query getUserHolidayRequests($_id: String!)
     {
         getUserHolidayRequests(_id: $_id) {
+            _id,
             unitManagerRef,
             unitManagerName
             unitManagerApproval,
@@ -125,7 +134,8 @@ const GraphQLSchema = {
     VALIDATE_TOKEN,
     GET_DEVELOPER,
     GET_UNIT_MANAGER,
-    GET_PROJECT_MANAGER
+    GET_PROJECT_MANAGER,
+    DELETE_HOLIDAY_REQUEST
 }
 
 export default GraphQLSchema;

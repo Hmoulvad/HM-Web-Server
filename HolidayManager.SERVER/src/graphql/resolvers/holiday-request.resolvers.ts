@@ -18,9 +18,7 @@ export default {
                         const ref = await findReferenceInDB(request.ref, models)
                         request.refName = ref.name;
                     }
-                    saveObjectToDB(request).then( res => {
-                        console.log(res);
-                    });
+                    saveObjectToDB(request)
                 }
                 return holidayRequests;
             } else {
@@ -89,6 +87,17 @@ export default {
                 }
             }
             return false;
+        },
+        deleteHolidayRequest: async (parent, { _id }, { models }): Promise<void> => {
+            const { MongooseModels }: IDataModels = models
+            const holidayRequest = await MongooseModels.HolidayRequest.findById(_id)
+            if ( holidayRequest ) {
+                const creator = await findReferenceInDB(holidayRequest.creatorRef, models);
+                const requestsToBeSaved = creator.holidayRequests.filter(s => s._id.toString() !== _id);
+                creator.holidayRequests = requestsToBeSaved;
+                await saveObjectToDB(creator);
+                await holidayRequest.remove();
+            }
         }
     }
 };

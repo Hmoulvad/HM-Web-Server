@@ -4,6 +4,7 @@ import { Query } from 'react-apollo';
 import GraphqlSchema from "../../../graphql";
 import { AppContext } from '../../../context/appContext';
 import { IHolidayRequest } from '../../../models/models';
+import client from "../../../apolloClient";
 
 const ActiveRequest: React.FunctionComponent<any> = (props) => {
     const className = "active-request";
@@ -21,6 +22,17 @@ const ActiveRequest: React.FunctionComponent<any> = (props) => {
         }
     }
 
+    async function deleteHolidayRequest(index: number, data: IHolidayRequest[]): Promise<void> {
+        await client.query({
+            query: GraphqlSchema.DELETE_HOLIDAY_REQUEST,
+            variables: {
+                _id: data[index]._id
+            }
+        }).catch(e => {
+            console.log(e.message);
+        })
+    }
+
     return (
         <div className={`${className}`}>
             <h5 className={`${className}__title`}>Active Holiday Requests</h5>
@@ -30,7 +42,7 @@ const ActiveRequest: React.FunctionComponent<any> = (props) => {
             </p>
             <div className={`${className}__headlines`}>
                 <div className={`${className}__headline`}>Period</div>
-                <div className={`${className}__headline`}>Days</div>
+                <div className={`${className}__headline_days`}>Days</div>
                 <div className={`${className}__headline`}>Unit Manager</div>
                 <div className={`${className}__headline`}>Project Manager</div>
             </div>
@@ -43,13 +55,13 @@ const ActiveRequest: React.FunctionComponent<any> = (props) => {
                     return (
                         <div className={`${className}__request`} key={index}>
                             <p className={`${className}__request-text`}>{convertUnixToDate(hR.from).toLocaleDateString()} to {convertUnixToDate(hR.to).toLocaleDateString()}</p>
-                            <p className={`${className}__request-text`}>{dateDifference(hR.from, hR.to)}</p>
+                            <p className={`${className}__request-days`}>{dateDifference(hR.from, hR.to)}</p>
                             <p className={`${className}__request-text`}>{hR.unitManagerName} - {holidayStatus(hR.unitManagerApproval)}</p>
                             {hR.ref ? 
                             <p className={`${className}__request-text`}>{hR.refName} - {holidayStatus(hR.refApproval)}</p> 
                             :  
                             <p className={`${className}__request-text`}>NaN</p>}
-                            <button className={`${className}__request-button`}>Edit</button>
+                            <button onClick={() => deleteHolidayRequest(index, data.getUserHolidayRequests)} className={`${className}__request-button`}>Delete</button>
                         </div>
                     )
                 })

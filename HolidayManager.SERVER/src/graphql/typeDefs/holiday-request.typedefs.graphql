@@ -23,4 +23,5 @@ type Mutation {
         from: String!
         to: String!
     ): Boolean
+    deleteHolidayRequest(_id: String!): Boolean
 }
