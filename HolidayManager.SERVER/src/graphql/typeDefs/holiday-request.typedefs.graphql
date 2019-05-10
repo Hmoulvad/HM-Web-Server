@@ -1,8 +1,10 @@
 type HolidayRequest {
     _id: String!
     creatorRef: String!
+    unitManagerName: String
     unitManagerRef: String
     unitManagerApproval: Boolean
+    refName: String
     ref: String
     refApproval: Boolean
     from: String!
@@ -18,7 +20,7 @@ type Mutation {
         _id: String!
         role: String!
         projectId: String
-        from: Int!
-        to: Int!
+        from: String!
+        to: String!
     ): Boolean
 }

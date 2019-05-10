@@ -44,9 +44,9 @@ const ActiveRequest: React.FunctionComponent<any> = (props) => {
                         <div className={`${className}__request`} key={index}>
                             <p className={`${className}__request-text`}>{convertUnixToDate(hR.from).toLocaleDateString()} to {convertUnixToDate(hR.to).toLocaleDateString()}</p>
                             <p className={`${className}__request-text`}>{dateDifference(hR.from, hR.to)}</p>
-                            <p className={`${className}__request-text`}>{hR.unitManagerRef} - {holidayStatus(hR.unitManagerApproval)}</p>
+                            <p className={`${className}__request-text`}>{hR.unitManagerName} - {holidayStatus(hR.unitManagerApproval)}</p>
                             {hR.ref ? 
-                            <p className={`${className}__request-text`}>{hR.ref} - {holidayStatus(hR.refApproval)}</p> 
+                            <p className={`${className}__request-text`}>{hR.refName} - {holidayStatus(hR.refApproval)}</p> 
                             :  
                             <p className={`${className}__request-text`}>NaN</p>}
                             <button className={`${className}__request-button`}>Edit</button>

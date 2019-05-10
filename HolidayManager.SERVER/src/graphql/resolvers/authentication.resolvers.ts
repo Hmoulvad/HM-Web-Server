@@ -4,10 +4,14 @@ import { IDataModels } from "../../database";
 import { saveObjectToDB, findReferenceInDB } from "../helpers/database";
 import { IUserModel } from "../../database/schemas/user.schema";
 import * as Mongoose from "mongoose";
+import { IDeveloperModel } from "../../database/schemas/developer.schema";
+import { IUnitManager, IProjectManager } from "../../models/models";
+import { IUnitManagerModel } from "../../database/schemas/unit-manager.schema";
+import { IProjectManagerModel } from "../../database/schemas/project-manager.schema";
 
 export default {
     Query: {
-        isLoggedIn: async (parent, args, { req, models }) => {
+        isLoggedIn: async (parent, args, { req, models }): Promise<IUserModel> => {
             const { MongooseModels }: IDataModels = models;
             const { request }: any = req;
             const decodedJWT: any = await jwt.decode(request.headers.authorization);
@@ -23,10 +27,10 @@ export default {
                 throw new Error("You're not logged in");
             }
         },   
-        getReference: async (parent, { referenceId }, { models }, context) => {
+        getReference: async (parent, { referenceId }, { models }, context): Promise<IDeveloperModel | IUnitManagerModel | IProjectManagerModel> => {
             return await findReferenceInDB(referenceId, models);   
         },
-        isTokenValid: async (parent, { token }, { models }, context) => {
+        isTokenValid: async (parent, { token }, { models }, context): Promise<boolean> => {
             if ( jwt.verify(token, process.env.Jwt_Secret) ) {
                 return true;
             } else {
@@ -35,7 +39,7 @@ export default {
         }   
     },
     Mutation: {
-        login: async (parent, { username, password }, { models }) => {
+        login: async (parent, { username, password }, { models }): Promise<string> => {
             const { MongooseModels}: IDataModels = models;
             const User: IUserModel = await MongooseModels.User.findOne({ username: username.toLowerCase() });
             if ( User ) {
@@ -58,7 +62,7 @@ export default {
             }
             throw new Error("No such user exists.")
         },
-        setReference: async (parent, { referenceId }, { req, models }) => {
+        setReference: async (parent, { referenceId }, { req, models }): Promise<void> => {
             const { MongooseModels }: IDataModels = models;
             const { request }: any = req;
             const decodedJWT: any = await jwt.decode(request.headers.authorization);
@@ -72,13 +76,12 @@ export default {
             if ( User ) {
                 User.ref = referenceId
                 await saveObjectToDB(User);
-                return "User was set"
             } else {
                 throw new Error("You're not logged in");
             }
 
         },
-        signup: async (parent, { username, password, role }, { models }) => {
+        signup: async (parent, { username, password, role }, { models }): Promise<string> => {
             const { MongooseModels}: IDataModels = models;
             const User = await MongooseModels.User.findOne({ username: username.toLowerCase() });
             if ( User ) {
@@ -99,7 +102,7 @@ export default {
                     }, 
                     process.env.Jwt_Secret, 
                     { 
-                        expiresIn: '1h' 
+                        expiresIn: '365days' 
                     });
                 return token;
             }

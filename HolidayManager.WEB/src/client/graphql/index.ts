@@ -104,7 +104,9 @@ const GET_HOLIDAY_REQUESTS: DocumentNode = gql `
     {
         getUserHolidayRequests(_id: $_id) {
             unitManagerRef,
+            unitManagerName
             unitManagerApproval,
+            refName,
             ref,
             refApproval,
             from,

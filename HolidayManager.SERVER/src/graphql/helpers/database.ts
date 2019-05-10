@@ -1,7 +1,10 @@
 import { IDataModels } from "../../database";
 import * as Mongoose from "mongoose" 
+import { IDeveloperModel } from "../../database/schemas/developer.schema";
+import { IProjectManagerModel } from "../../database/schemas/project-manager.schema";
+import { IUnitManagerModel } from "../../database/schemas/unit-manager.schema";
 
-export async function saveObjectToDB (object: any) {
+export async function saveObjectToDB (object: any): Promise<void> {
     try {
         await object.save();
     } catch(e) {
@@ -9,8 +12,7 @@ export async function saveObjectToDB (object: any) {
     }
 };
 
-
-export async function doesReferenceExistsInDB (_id: string, models: any) {
+export async function doesReferenceExistsInDB (_id: string, models: any): Promise<boolean> {
     const { MongooseModels }: IDataModels = models;
     let ObjectID = Mongoose.Types.ObjectId;
     let stringId = _id.toString().toLowerCase();
@@ -28,7 +30,7 @@ export async function doesReferenceExistsInDB (_id: string, models: any) {
     }
 }
 
-export async function findReferenceInDB (_id: string, models: any) {
+export async function findReferenceInDB (_id: string, models: any): Promise<IDeveloperModel | IUnitManagerModel | IProjectManagerModel> {
     const { MongooseModels }: IDataModels = models;
     let ObjectID = Mongoose.Types.ObjectId;
     let stringId = _id.toString().toLowerCase();
