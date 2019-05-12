@@ -18,10 +18,10 @@ const Routes: React.FC<IRoutes> = (props) => {
 	return (
 		<Switch>
 			<Route exact={true} path="/" render={ props => <Home {...props}/>}/>
-			<Route path="/login" render={ props => <LoginComponent {...props}/>}/>}
-			{role !== Role.developer && <AuthenticatedRoute path="/pending" component={ Pending } isAuth={isAuth} />}
+			<Route path="/login" render={ props => <LoginComponent {...props}/>}/>
 			<AuthenticatedRoute path="/request" component={ HolidayRequest } isAuth={isAuth} />
-			<AuthenticatedRoute path="/overview" component={ GraphQLComponent } isAuth={isAuth} />
+			{role !== Role.developer && <AuthenticatedRoute path="/pending" component={ Pending } isAuth={isAuth} />}
+			{role !== Role.developer && <AuthenticatedRoute path="/overview" component={ GraphQLComponent } isAuth={isAuth} />}
 			<Redirect to="/" />
 		</Switch>
 	)

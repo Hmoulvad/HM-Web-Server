@@ -27,7 +27,9 @@ const AddRequest: React.FunctionComponent<IAddRequestProps> = (props) => {
     const [ activeProject, setActiveProject ] = React.useState<any | undefined>(undefined);
 
     React.useEffect(() => {
-        setActiveProject((user as IDeveloper).projects[0])
+        if ((user as IDeveloper).projects !== undefined) {
+          setActiveProject((user as IDeveloper).projects[0])
+        }
     }, [])
 
     const handleDayClick = (date: Date) => {

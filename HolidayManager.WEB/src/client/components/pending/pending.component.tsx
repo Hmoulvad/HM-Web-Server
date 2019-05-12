@@ -3,28 +3,43 @@ import { Query } from 'react-apollo';
 import GraphqlSchema from "../../graphql";
 import { AppContext } from '../../context/appContext';
 import { IHolidayRequest } from '../../models/models';
+import LayoutContainer from '../../layout';
+import { convertUnixToDate, dateDifference } from '../../helpers/date';
+import { holidayStatus } from '../../helpers/request';
+import Modal from '../../shared/modal/modal.component';
+import RequestList from '../../shared/request-list';
 
-interface IPending {
-}
+const Pending: React.FC<any> = (props) => {
+    const { objectRefId } = React.useContext(AppContext);
+    const [ activeRequest, setActiveRequest ] = React.useState<any>(undefined);
+    const ref = React.createRef<Modal>();
 
-const Pending: React.FC<IPending> = (props) => {
-  const { objectRefId } = React.useContext(AppContext);
-  return (
-      <Query query={GraphqlSchema.GET_HOLIDAY_REQUESTS_MANAGER} variables={{_id: objectRefId}}>
-       {({ loading, error, data}) => {
-                if ( loading ) return <p>Loading...</p>;
-                if ( error ) return <p>Error...</p>;
-                if ( data ) return (data.getPendingHolidayRequests as IHolidayRequest[]).map((request: IHolidayRequest, index: number) => {
-                    return (
-                        <div key={index}>
-                            <div>{request.refName}</div>
+    const toggleRequest = (data: IHolidayRequest[], index: number): void => {
+        if (!!ref!.current) {
+            ref.current.open();
+        }
+        setActiveRequest(data[index])
+    }
+
+    const className = "pending";
+        return (
+            <LayoutContainer>
+                <div className={`${className}`}>
+                    <div className={`${className}__wrapper`}>
+                        <div className={`${className}__header`}>
+                            <h5 className={`${className}__title`}>Pending Holiday Requests</h5>
+                            <p className={`${className}__description`}>Get an overview of pending holiday requests that you can approve</p>
                         </div>
-                    )
-                })
-                
-            }}
-      </Query>
-  )
+                        <RequestList toggleRequest={toggleRequest} dataType={"getPendingHolidayRequests"} query={GraphqlSchema.GET_HOLIDAY_REQUESTS_MANAGER} variables={{_id: objectRefId}}/>
+                        <Modal className={`${className}__modal`} ref={ref}>
+                            <div className={`${className}__modal-response`}>
+                            
+                            </div>
+                        </Modal>
+                    </div>
+                </div>
+            </LayoutContainer>
+        )
 };
 
 export default Pending;
