@@ -3,7 +3,6 @@
     width: 100%;
     border-radius: 5px;
     padding: 30px;
-    overflow-y: scroll;
 
     @include media-breakpoint-down(sm) {
         padding: 15px;
@@ -19,11 +18,9 @@
     }
 
     &__title {
-
     }
 
     &__description {
-
     }
 
     &__add-request {

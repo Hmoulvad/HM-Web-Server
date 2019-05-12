@@ -103,11 +103,6 @@ const GET_PROJECT_MANAGER: DocumentNode = gql `
             unit,
             projects {
                 _id,
-                name,
-                projectManager {
-                    _id,
-                    name,
-                }
             },
             holidayRequests {
                 _id

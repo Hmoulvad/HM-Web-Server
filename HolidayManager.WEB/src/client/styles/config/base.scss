@@ -8,10 +8,11 @@ body {
 }
 
 html {
-    background: url(https://i.imgur.com/SQoaH4b.png) no-repeat center center fixed;
+    background: url(https://i.imgur.com/SQoaH4b.png) no-repeat center center
+        fixed;
     background-size: cover;
     height: 100%;
-    overflow: hidden;
+    width: 100%;
 }
 
 input {
@@ -23,7 +24,6 @@ input {
 }
 
 button {
-
 }
 
 a {
