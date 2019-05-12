@@ -25,6 +25,21 @@ export default {
                 new Error("No such user exists")
             }
         },
+        getPendingHolidayRequests: async (parent, { _id }, { models }): Promise<IHolidayRequestModel[]> => {
+            const { MongooseModels }: IDataModels = models;
+            const allHolidayRequests = await MongooseModels.HolidayRequest.find({});
+            if ( allHolidayRequests ) {
+                let specificHolidayRequests: IHolidayRequestModel[] = [];
+                allHolidayRequests.forEach((request: IHolidayRequestModel) => {
+                    if ( request.unitManagerRef.toString() === _id || request.ref.toString() === _id) {
+                        specificHolidayRequests.push(request);
+                    }
+                });
+                return specificHolidayRequests;
+            } else {
+                new Error("No HolidayRequests exists for this manager ID")
+            }
+        }
     },
     Mutation: {
         createHolidayRequest: async (parent, { _id, role, projectId, from, to }, { models }): Promise<boolean> => {
@@ -92,7 +107,7 @@ export default {
             const { MongooseModels }: IDataModels = models
             const holidayRequest = await MongooseModels.HolidayRequest.findById(_id)
             if ( holidayRequest ) {
-                const creator = await findReferenceInDB(holidayRequest.creatorRef, models);
+                const creator: any = await findReferenceInDB(holidayRequest.creatorRef, models);
                 const requestsToBeSaved = creator.holidayRequests.filter(s => s._id.toString() !== _id);
                 creator.holidayRequests = requestsToBeSaved;
                 await saveObjectToDB(creator);

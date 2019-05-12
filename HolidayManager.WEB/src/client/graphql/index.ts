@@ -66,6 +66,10 @@ const GET_DEVELOPER: DocumentNode = gql `
             projects {
                 _id,
                 name,
+                projectManager {
+                    _id,
+                    name,
+                }
             },
             holidayRequests {
                 _id
@@ -98,7 +102,12 @@ const GET_PROJECT_MANAGER: DocumentNode = gql `
             ref,
             unit,
             projects {
-                _id
+                _id,
+                name,
+                projectManager {
+                    _id,
+                    name,
+                }
             },
             holidayRequests {
                 _id
@@ -124,6 +133,24 @@ const GET_HOLIDAY_REQUESTS: DocumentNode = gql `
     }
 `;
 
+const GET_HOLIDAY_REQUESTS_MANAGER: DocumentNode = gql`
+    query getPendingHolidayRequests($_id: String!)
+    {
+        getPendingHolidayRequests(_id: $_id) {
+            _id,
+            unitManagerRef,
+            unitManagerName
+            unitManagerApproval,
+            refName,
+            ref,
+            refApproval,
+            from,
+            to,
+        }
+    }
+`;
+
+
 const GraphQLSchema = {
     GET_HOLIDAY_REQUESTS,
     ADD_HOLIDAY_REQUEST,
@@ -135,7 +162,8 @@ const GraphQLSchema = {
     GET_DEVELOPER,
     GET_UNIT_MANAGER,
     GET_PROJECT_MANAGER,
-    DELETE_HOLIDAY_REQUEST
+    DELETE_HOLIDAY_REQUEST,
+    GET_HOLIDAY_REQUESTS_MANAGER
 }
 
 export default GraphQLSchema;

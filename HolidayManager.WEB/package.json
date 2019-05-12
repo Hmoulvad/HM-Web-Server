@@ -28,6 +28,7 @@
     "react-day-picker": "^7.3.0",
     "react-device-detect": "^1.6.2",
     "react-dom": "^16.8.1",
+    "react-dropdown": "^1.6.4",
     "react-helmet": "^5.2.0",
     "react-media": "^1.9.2",
     "react-redux": "^6.0.1",

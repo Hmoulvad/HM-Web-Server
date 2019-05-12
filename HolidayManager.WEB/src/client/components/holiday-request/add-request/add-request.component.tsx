@@ -5,23 +5,30 @@ import 'react-day-picker/lib/style.css';
 import { Mutation } from 'react-apollo';
 import GraphqlSchema from "../../../graphql";
 import { AppContext } from '../../../context/appContext';
+import { Role, IProject, IDeveloper } from '../../../models/models';
+import Dropdown from '../../../shared/dropdown/dropdown.component';
 
 interface IAddRequestProps {
 }
-interface IState {
+interface IRangeState {
     from: Date;
     to: Date;
 }
 
 const AddRequest: React.FunctionComponent<IAddRequestProps> = (props) => {
     const className = "add-request";
-    const initialState: IState = {
+    const initialState: IRangeState = {
         from: new Date,
         to: new Date,
     };
     const numberOfMonths = 2;
-    const [ state, setState ] = React.useState<IState>(initialState);
+    const [ state, setState ] = React.useState<IRangeState>(initialState);
     const { user, objectRefId, role } = React.useContext(AppContext);
+    const [ activeProject, setActiveProject ] = React.useState<any | undefined>(undefined);
+
+    React.useEffect(() => {
+        setActiveProject((user as IDeveloper).projects[0])
+    }, [])
 
     const handleDayClick = (date: Date) => {
         const range = DayPicker.default.DateUtils.addDayToRange(date, state);
@@ -29,7 +36,22 @@ const AddRequest: React.FunctionComponent<IAddRequestProps> = (props) => {
         console.log(range);
     }
 
-    const handleResetClick = () => {
+    const handleDropdownChange = (value: string) => {
+        const projects = (user as IDeveloper).projects;
+        const findProject = projects.find(s => s.projectManager.name === value);
+        setActiveProject(findProject);
+    }
+
+    function dropdownOptions(): any[] {
+        const projects = (user as IDeveloper).projects;
+        let options: any[] = [];
+        projects.forEach(project => {
+            options.push(project.projectManager.name)
+        });
+        return options;
+    }
+
+    const handleResetClick = (): void => {
         setState(initialState);
     }
     const { from, to } = state;
@@ -55,25 +77,6 @@ const AddRequest: React.FunctionComponent<IAddRequestProps> = (props) => {
             modifiers={modifiers}
             onDayClick={handleDayClick}
           />
-          <Helmet>
-            <style>{`
-                .Selectable .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
-                background-color: #f0f8ff !important;
-                color: #4a90e2;
-                }
-                .Selectable .DayPicker-Day {
-                border-radius: 0 !important;
-                }
-                .Selectable .DayPicker-Day--start {
-                border-top-left-radius: 50% !important;
-                border-bottom-left-radius: 50% !important;
-                }
-                .Selectable .DayPicker-Day--end {
-                border-top-right-radius: 50% !important;
-                border-bottom-right-radius: 50% !important;
-                }
-            `}</style>
-          </Helmet>
           <Mutation mutation={GraphqlSchema.ADD_HOLIDAY_REQUEST}>
           {( addHolidayRequest, { error }) => (
             <button className={`${className}__add-button`} onClick={e => {
@@ -82,7 +85,7 @@ const AddRequest: React.FunctionComponent<IAddRequestProps> = (props) => {
                 variables: {
                     _id: objectRefId,
                     role,
-                    projectId: "5cd07a568ec4f39170c11171",
+                    projectId: activeProject._id,
                     to,
                     from,
                 }
@@ -91,8 +94,10 @@ const AddRequest: React.FunctionComponent<IAddRequestProps> = (props) => {
               })
             }}>Add Request</button>
           )}
-
           </Mutation>
+          {role === Role.developer && (
+            <Dropdown handleChange={handleDropdownChange} className={`${className}__dropdown`} options={dropdownOptions()}></Dropdown>
+          )}
         </div>
       );
 };

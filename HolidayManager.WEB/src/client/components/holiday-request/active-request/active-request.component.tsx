@@ -5,6 +5,7 @@ import GraphqlSchema from "../../../graphql";
 import { AppContext } from '../../../context/appContext';
 import { IHolidayRequest } from '../../../models/models';
 import client from "../../../apolloClient";
+import { DocumentNode } from 'graphql';
 
 const ActiveRequest: React.FunctionComponent<any> = (props) => {
     const className = "active-request";
@@ -23,8 +24,9 @@ const ActiveRequest: React.FunctionComponent<any> = (props) => {
     }
 
     async function deleteHolidayRequest(index: number, data: IHolidayRequest[]): Promise<void> {
-        await client.query({
-            query: GraphqlSchema.DELETE_HOLIDAY_REQUEST,
+        let mutation: DocumentNode = GraphqlSchema.DELETE_HOLIDAY_REQUEST;
+        await client.mutate({
+            mutation,
             variables: {
                 _id: data[index]._id
             }

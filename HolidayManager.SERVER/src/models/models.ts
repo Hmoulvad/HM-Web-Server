@@ -47,7 +47,6 @@ export interface IProjectManager extends IUnitEmployee {
 }
 
 export interface IHolidayRequest {
-    _id: string;
     creatorRef: string;
     unitManagerName?: string;
     unitManagerRef?: string;

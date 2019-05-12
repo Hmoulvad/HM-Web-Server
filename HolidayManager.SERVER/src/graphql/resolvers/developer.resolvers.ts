@@ -11,7 +11,9 @@ export default {
             if ( developer ) {
                 let projects = []
                 for (let i = 0; i < developer.projects.length; i++) {
-                    const project = await MongooseModels.Project.findById(developer.projects[i])
+                    const project = await MongooseModels.Project.findById(developer.projects[i]);
+                    const projectManager = await MongooseModels.ProjectManager.findById(project.projectManager);
+                    project.projectManager.name = projectManager.name;
                     projects.push(project);
                 }
                 developer.projects = projects;

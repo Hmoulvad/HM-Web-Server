@@ -24,7 +24,6 @@ export const permissions = {
         unitManager: isAuthenticated,
         unit: isAuthenticated,
         units: isAuthenticated,
-        getReference: isAuthenticated,
     },
     Mutation: {
         createDeveloper: isAuthenticated,

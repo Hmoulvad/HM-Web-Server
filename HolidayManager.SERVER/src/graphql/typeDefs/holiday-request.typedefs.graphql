@@ -13,6 +13,7 @@ type HolidayRequest {
 
 type Query {
     getUserHolidayRequests(_id: String!): [HolidayRequest]
+    getPendingHolidayRequests(_id: String!): [HolidayRequest]
 }
 
 type Mutation {

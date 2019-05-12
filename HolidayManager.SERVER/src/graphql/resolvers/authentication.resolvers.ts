@@ -5,9 +5,9 @@ import { saveObjectToDB, findReferenceInDB } from "../helpers/database";
 import { IUserModel } from "../../database/schemas/user.schema";
 import * as Mongoose from "mongoose";
 import { IDeveloperModel } from "../../database/schemas/developer.schema";
-import { IUnitManager, IProjectManager } from "../../models/models";
 import { IUnitManagerModel } from "../../database/schemas/unit-manager.schema";
 import { IProjectManagerModel } from "../../database/schemas/project-manager.schema";
+import { IToken } from "../../models/shared";
 
 export default {
     Query: {
@@ -27,9 +27,6 @@ export default {
                 throw new Error("You're not logged in");
             }
         },   
-        getReference: async (parent, { referenceId }, { models }, context): Promise<IDeveloperModel | IUnitManagerModel | IProjectManagerModel> => {
-            return await findReferenceInDB(referenceId, models);   
-        },
         isTokenValid: async (parent, { token }, { models }, context): Promise<boolean> => {
             if ( jwt.verify(token, process.env.Jwt_Secret) ) {
                 return true;
@@ -54,7 +51,7 @@ export default {
                     }, 
                     process.env.Jwt_Secret, 
                     { 
-                        expiresIn: '1h' 
+                        expiresIn: '365days' 
                     });
                     return token;
                 }
@@ -66,9 +63,8 @@ export default {
             const { MongooseModels }: IDataModels = models;
             const { request }: any = req;
             const decodedJWT: any = await jwt.decode(request.headers.authorization);
-
             const ObjectID = Mongoose.Types.ObjectId;
-            const toObjectID = decodedJWT.data.toString().toLowerCase();
+            const toObjectID = (decodedJWT as IToken).data.id.toString().toLowerCase();
             if (!ObjectID.isValid(toObjectID)) {
                 throw new Error("String is not an ObjectID");
             }
