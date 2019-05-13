@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { DocumentNode } from 'graphql';
 import { Query } from 'react-apollo';
-import { IHolidayRequest } from '../../models/models';
-import { convertUnixToDate, dateDifference } from '../../helpers/date';
-import { holidayStatus } from '../../helpers/request';
+import { IHolidayRequest } from '../../../models/models';
+import { convertUnixToDate, dateDifference } from '../../../helpers/date';
+import { holidayStatus } from '../../../helpers/request';
 
 interface IRequestListProps {
     query: DocumentNode;
@@ -13,7 +13,7 @@ interface IRequestListProps {
     className?: string;
 }
 
-const RequestList: React.FC<IRequestListProps> = ({query, variables, toggleRequest, dataType, className = "request-list"}): JSX.Element => {
+const PendingRequestList: React.FC<IRequestListProps> = ({query, variables, toggleRequest, dataType, className = "pending-request-list"}): JSX.Element => {
     return (
       <>
         <div className={`${className}__headlines`}>
@@ -47,5 +47,5 @@ const RequestList: React.FC<IRequestListProps> = ({query, variables, toggleReque
     );
 }
 
-export default RequestList;
+export default PendingRequestList;
 

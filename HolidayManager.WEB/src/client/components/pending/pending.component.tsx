@@ -4,10 +4,9 @@ import GraphqlSchema from "../../graphql";
 import { AppContext } from '../../context/appContext';
 import { IHolidayRequest } from '../../models/models';
 import LayoutContainer from '../../layout';
-import { convertUnixToDate, dateDifference } from '../../helpers/date';
-import { holidayStatus } from '../../helpers/request';
 import Modal from '../../shared/modal/modal.component';
-import RequestList from '../../shared/request-list';
+import PendingRequestList from './pending-request-list';
+import { convertUnixToDate } from '../../helpers/date';
 
 const Pending: React.FC<any> = (props) => {
     const { objectRefId } = React.useContext(AppContext);
@@ -30,12 +29,14 @@ const Pending: React.FC<any> = (props) => {
                             <h5 className={`${className}__title`}>Pending Holiday Requests</h5>
                             <p className={`${className}__description`}>Get an overview of pending holiday requests that you can approve</p>
                         </div>
-                        <RequestList toggleRequest={toggleRequest} dataType={"getPendingHolidayRequests"} query={GraphqlSchema.GET_HOLIDAY_REQUESTS_MANAGER} variables={{_id: objectRefId}}/>
-                        <Modal className={`${className}__modal`} ref={ref}>
-                            <div className={`${className}__modal-response`}>
-                            
-                            </div>
-                        </Modal>
+                        <PendingRequestList toggleRequest={toggleRequest} dataType={"getPendingHolidayRequests"} query={GraphqlSchema.GET_HOLIDAY_REQUESTS_MANAGER} variables={{_id: objectRefId}}/>
+                        {activeRequest !== undefined && (
+                            <Modal className={`${className}__modal`} ref={ref}>
+                                <div className={`${className}__modal__header`}>Do you wish to approve or decline following Holiday Request?</div>
+                                <div className={`${className}__modal__request`}>{convertUnixToDate(activeRequest.from).toDateString()} to {convertUnixToDate(activeRequest.to).toDateString()}</div>
+                                <button className={`${className}__modal__button`}>Yes</button>
+                            </Modal>
+                        )}
                     </div>
                 </div>
             </LayoutContainer>
