@@ -30,12 +30,14 @@ export default {
             const allHolidayRequests = await MongooseModels.HolidayRequest.find({});
             if ( allHolidayRequests ) {
                 let specificHolidayRequests: IHolidayRequestModel[] = [];
-                allHolidayRequests.forEach((request: IHolidayRequestModel) => {
+                for (let request of allHolidayRequests) {
                     if ( request.unitManagerRef.toString() === _id || request.ref.toString() === _id) {
+                        const creator = await findReferenceInDB(request.creatorRef, models);
+                        request.creatorName = creator.name;
                         specificHolidayRequests.push(request);
                     }
-                });
-                return specificHolidayRequests;
+                };
+                return await specificHolidayRequests;
             } else {
                 new Error("No HolidayRequests exists for this manager ID")
             }

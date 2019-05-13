@@ -140,6 +140,7 @@ const GET_HOLIDAY_REQUESTS_MANAGER: DocumentNode = gql`
     {
         getPendingHolidayRequests(_id: $_id) {
             _id,
+            creatorName,
             unitManagerRef,
             unitManagerName
             unitManagerApproval,

@@ -8,6 +8,13 @@ type User {
 type Query {
     isLoggedIn: User
     isTokenValid(token: String!): Boolean!
+    decodeToken(token: String!): Token
+}
+
+type Token {
+    id: String!
+    role: String!
+    objectRefId: String!
 }
 
 type Mutation {

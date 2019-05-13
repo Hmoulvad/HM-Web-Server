@@ -1,6 +1,6 @@
 import { Role } from "./models";
 
-interface ITokenData {
+export interface ITokenData {
     id: string;
     role: Role;
     objectRefId: string;

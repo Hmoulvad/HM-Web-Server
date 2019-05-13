@@ -27,8 +27,10 @@ const AddRequest: React.FunctionComponent<IAddRequestProps> = (props) => {
     const [ activeProject, setActiveProject ] = React.useState<any | undefined>(undefined);
 
     React.useEffect(() => {
-        if ((user as IDeveloper).projects !== undefined) {
-          setActiveProject((user as IDeveloper).projects[0])
+        if ( user !== undefined ) {
+            if ((user as IDeveloper).projects !== undefined) {
+                setActiveProject((user as IDeveloper).projects[0])
+              }
         }
     }, [])
 
@@ -40,17 +42,22 @@ const AddRequest: React.FunctionComponent<IAddRequestProps> = (props) => {
 
     const handleDropdownChange = (value: string) => {
         const projects = (user as IDeveloper).projects;
-        const findProject = projects.find(s => s.projectManager.name === value);
-        setActiveProject(findProject);
+        if (projects !== undefined || null) {
+          const findProject = projects.find(s => s.projectManager.name === value);
+          setActiveProject(findProject);
+        }
     }
 
     function dropdownOptions(): any[] {
-        const projects = (user as IDeveloper).projects;
-        let options: any[] = [];
-        projects.forEach(project => {
-            options.push(project.projectManager.name)
-        });
-        return options;
+        if ( user !== undefined) {
+            const projects = (user as IDeveloper).projects;
+            let options: any[] = [];
+            projects.forEach(project => {
+                options.push(project.projectManager.name)
+            });
+            return options;
+        }
+        return [];
     }
 
     const handleResetClick = (): void => {

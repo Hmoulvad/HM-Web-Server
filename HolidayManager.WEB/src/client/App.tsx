@@ -9,7 +9,7 @@ import { isAuthenticated, getRefObject } from "./helpers/user";
 import Media from "react-media";
 import { IToken } from "./models/shared";
 import * as jwt from "jsonwebtoken";
-import { Role } from "./models/models";
+import { Role, IDeveloper } from "./models/models";
 
 interface IAppProps {}
 
@@ -39,8 +39,8 @@ class App extends React.PureComponent<IAppProps, IAppContext> {
 		},
 	}
 
-	async componentWillUpdate(prevState: IAppContext) {
-		const token = localStorage.getItem("token")
+	async componentWillUpdate() {
+		const token = localStorage.getItem("token");
 		if (!!token) {
 			const { data } = jwt.decode(token) as IToken;
 			this.setState({ userId: data.id, role: data.role, objectRefId: data.objectRefId})
@@ -65,14 +65,25 @@ class App extends React.PureComponent<IAppProps, IAppContext> {
 		if (urlParams.has("token")) {
 			const token = urlParams.get("token")
 			if ( !!token ) {
+				const { data } = jwt.decode(token) as IToken;
 				localStorage.setItem("token", token);
-				this.setState({isAuth: true})
+				this.setState({ userId: data.id, role: data.role, objectRefId: data.objectRefId, isAuth: true})
+				const { developer, unitManager, projectManager } = await getRefObject(data.role, data.objectRefId)
+				if (data.role === Role.developer) {
+					this.setState({ user: developer})
+				}
+				if (data.role === Role.projectManager) {
+					this.setState({ user: projectManager})
+				}
+				if (data.role === Role.unitManager) {
+					this.setState({ user: unitManager})
+				}
 			}
 		} else {
 			const token = localStorage.getItem("token")
 			if (!!token) {
 				const { data } = jwt.decode(token) as IToken;
-				this.setState({ userId: data.id, role: data.role})
+				this.setState({ userId: data.id, role: data.role, objectRefId: data.objectRefId})
 				const isAuth = await isAuthenticated();
 				if (isAuth) {
 					this.setState({isAuth: true})

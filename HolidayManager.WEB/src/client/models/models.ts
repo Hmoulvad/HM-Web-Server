@@ -1,4 +1,5 @@
 export interface IUser {
+    _id: string;
     username: string;
     password: string;
     ref?: string;
@@ -6,6 +7,7 @@ export interface IUser {
 }
 
 export interface IUnit {
+    _id: string;
     name: string;
     projects: IProject[];
     developers: IDeveloper[];
@@ -14,6 +16,7 @@ export interface IUnit {
 }
 
 export interface IProject {
+    _id: string;
     name: string;
     unit: IUnit;
     projectManager: IProjectManager;
@@ -27,6 +30,7 @@ export enum Role {
 }
 
 export interface IEmployee {
+    _id: string;
     name: string;
     holidayRequests?: IHolidayRequest[];
     ref?: string;
@@ -49,6 +53,7 @@ export interface IProjectManager extends IUnitEmployee {
 export interface IHolidayRequest {
     _id: string;
     creatorRef: string;
+    creatorName: string | undefined,
     unitManagerName?: string;
     unitManagerRef?: string;
     unitManagerApproval?: boolean;

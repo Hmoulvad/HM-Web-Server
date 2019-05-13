@@ -1,13 +1,10 @@
 import * as Bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
 import { IDataModels } from "../../database";
-import { saveObjectToDB, findReferenceInDB } from "../helpers/database";
+import { saveObjectToDB } from "../helpers/database";
 import { IUserModel } from "../../database/schemas/user.schema";
 import * as Mongoose from "mongoose";
-import { IDeveloperModel } from "../../database/schemas/developer.schema";
-import { IUnitManagerModel } from "../../database/schemas/unit-manager.schema";
-import { IProjectManagerModel } from "../../database/schemas/project-manager.schema";
-import { IToken } from "../../models/shared";
+import { IToken, ITokenData } from "../../models/shared";
 
 export default {
     Query: {
@@ -27,9 +24,17 @@ export default {
                 throw new Error("You're not logged in");
             }
         },   
-        isTokenValid: async (parent, { token }, { models }, context): Promise<boolean> => {
+        isTokenValid: async ({ token }): Promise<boolean> => {
             if ( jwt.verify(token, process.env.Jwt_Secret) ) {
                 return true;
+            } else {
+                throw new Error("Not a valid token")
+            }
+        },
+        decodeToken: async (parent, { token }, { models }): Promise<ITokenData> => {
+            if ( jwt.verify(token, process.env.Jwt_Secret )) {
+                const { data } = jwt.decode(token) as IToken;
+                return data;
             } else {
                 throw new Error("Not a valid token")
             }

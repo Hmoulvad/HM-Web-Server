@@ -48,6 +48,7 @@ export interface IProjectManager extends IUnitEmployee {
 
 export interface IHolidayRequest {
     creatorRef: string;
+    creatorName: string | undefined,
     unitManagerName?: string;
     unitManagerRef?: string;
     unitManagerApproval?: boolean;
