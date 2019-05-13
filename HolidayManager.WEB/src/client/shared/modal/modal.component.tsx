@@ -106,7 +106,7 @@ class Modal extends React.Component<IModalProps, IModalState> {
                                 !!includeExitButton ?
                                     <React.Fragment>
                                         <div onClick={() => this.close()} className="modal__exit-button">
-                                            {/* <SvgIcon iconName="material-design/clear" /> */}
+                                            <SvgIcon iconName="clear" />
                                         </div>
                                         {children}
                                     </React.Fragment>

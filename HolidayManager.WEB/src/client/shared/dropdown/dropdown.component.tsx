@@ -110,7 +110,7 @@ class Dropdown extends React.Component<IDropdown, IDropdownState> {
                         </select>
                         <div className="dropdown__spacer" style={{ backgroundColor: styles!.borderColor }} />
                         <div className="dropdown__icon-container" style={{ color: styles!.iconColor }}>
-                            {/* <SvgIcon className="dropdown__icon" iconName="" /> */}
+                            <SvgIcon className="dropdown__icon" iconName="arrowDown" />
                         </div>
                     </div>
                     :
@@ -121,7 +121,7 @@ class Dropdown extends React.Component<IDropdown, IDropdownState> {
                         <div className="dropdown__value">{dynamicSelectedValue}</div>
                         <div className="dropdown__spacer" style={{ backgroundColor: styles!.borderColor }} />
                         <div className="dropdown__icon-container" style={{ color: styles!.iconColor }}>
-                            {/* <SvgIcon className="dropdown__icon" iconName="material-design/arrow_down_thin" /> */}
+                            <SvgIcon className="dropdown__icon" iconName="arrowDown" />
                         </div>
                         {isOpen && options.length > 0 ?
                             <ul className="dropdown__list" style={{ backgroundColor: styles!.optionsBackgroundColor, color: styles!.optionsColor }}>
