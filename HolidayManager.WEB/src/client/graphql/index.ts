@@ -78,6 +78,13 @@ const GET_DEVELOPER: DocumentNode = gql `
     }
 `;
 
+const RESPOND_TO_HOLIDAY_REQUEST: DocumentNode = gql`
+    mutation respondToHolidayRequest($_id: String!, $role: String!, $refId: String!, $response: Boolean!)
+    {
+        respondToHolidayRequest(_id: $_id, role: $role, refId: $refId, response: $response)
+    }
+`;
+
 const GET_UNIT_MANAGER: DocumentNode = gql `
     query unitManager($_id: String!)
     {
@@ -158,7 +165,8 @@ const GraphQLSchema = {
     GET_UNIT_MANAGER,
     GET_PROJECT_MANAGER,
     DELETE_HOLIDAY_REQUEST,
-    GET_HOLIDAY_REQUESTS_MANAGER
+    GET_HOLIDAY_REQUESTS_MANAGER,
+    RESPOND_TO_HOLIDAY_REQUEST
 }
 
 export default GraphQLSchema;

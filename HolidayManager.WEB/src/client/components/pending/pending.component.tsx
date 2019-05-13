@@ -7,9 +7,11 @@ import LayoutContainer from '../../layout';
 import Modal from '../../shared/modal/modal.component';
 import PendingRequestList from './pending-request-list';
 import { convertUnixToDate } from '../../helpers/date';
+import { DocumentNode } from 'graphql';
+import client from '../../apolloClient';
 
 const Pending: React.FC<any> = (props) => {
-    const { objectRefId } = React.useContext(AppContext);
+    const { objectRefId, role } = React.useContext(AppContext);
     const [ activeRequest, setActiveRequest ] = React.useState<any>(undefined);
     const ref = React.createRef<Modal>();
 
@@ -18,6 +20,21 @@ const Pending: React.FC<any> = (props) => {
             ref.current.open();
         }
         setActiveRequest(data[index])
+    }
+
+    async function respondToHolidayRequest(response: boolean): Promise<void> {
+        let mutation: DocumentNode = GraphqlSchema.RESPOND_TO_HOLIDAY_REQUEST;
+        await client.mutate({
+            mutation,
+            variables: {
+                _id: activeRequest!._id,
+                role,
+                refId: objectRefId,
+                response
+            }
+        }).catch(e => {
+            console.log(e.message);
+        })
     }
 
     const className = "pending";
@@ -34,7 +51,8 @@ const Pending: React.FC<any> = (props) => {
                             <Modal className={`${className}__modal`} ref={ref}>
                                 <div className={`${className}__modal__header`}>Do you wish to approve or decline following Holiday Request?</div>
                                 <div className={`${className}__modal__request`}>{convertUnixToDate(activeRequest.from).toDateString()} to {convertUnixToDate(activeRequest.to).toDateString()}</div>
-                                <button className={`${className}__modal__button`}>Yes</button>
+                                <button onClick={() => respondToHolidayRequest(true)} className={`${className}__modal__button`}>Approve</button>
+                                <button onClick={() => respondToHolidayRequest(false)} className={`${className}__modal__button`}>Decline</button>
                             </Modal>
                         )}
                     </div>
