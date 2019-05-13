@@ -1,4 +1,4 @@
-import { IHolidayRequestModel } from "../../database/schemas/holiday-request.schema";
+import holidayRequestSchema, { IHolidayRequestModel } from "../../database/schemas/holiday-request.schema";
 import { IDataModels } from "../../database/index";
 import { Role, IHolidayRequest } from "../../models/models";
 import { saveObjectToDB, findReferenceInDB } from "../helpers/database";
@@ -112,6 +112,23 @@ export default {
                 creator.holidayRequests = requestsToBeSaved;
                 await saveObjectToDB(creator);
                 await holidayRequest.remove();
+            }
+        },
+        respondToHolidayRequest: async (parent, { _id, refId, role, response }, { models }): Promise<void> => {
+            const { MongooseModels }: IDataModels = models
+            const holidayRequest = await MongooseModels.HolidayRequest.findById(_id);
+            if ( holidayRequest ) {
+                const ref = await findReferenceInDB(refId, models);
+                if ( ref ) {
+                    if ( role === Role.projectManager ) {
+                        holidayRequest.refApproval = response;
+                        await saveObjectToDB(holidayRequest);
+                    }
+                    if ( role === Role.unitManager ) {
+                        holidayRequest.unitManagerApproval = response;
+                        await saveObjectToDB(holidayRequest);
+                    }
+                }
             }
         }
     }
