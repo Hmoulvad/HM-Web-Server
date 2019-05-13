@@ -1,0 +1,78 @@
+.active-request-list {
+    background-color: white;
+    width: 100%;
+    border-radius: 5px;
+    padding: 30px;
+
+    @include media-breakpoint-down(sm) {
+        padding: 15px;
+    }
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__header {
+        flex: 70%;
+    }
+
+    &__title {
+    }
+
+    &__description {
+    }
+
+    &__add-request {
+        border-radius: 5px;
+        align-self: center;
+    }
+
+    &__headlines {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 10px;
+    }
+
+    &__headline {
+        font-weight: 500;
+        flex: 22.5%;
+
+        &_days {
+            flex: 10%;
+        }
+    }
+
+    &__request {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        transition: 0.3s padding linear;
+        border-radius: 5px;
+        padding: 5px;
+
+        &:nth-child(2n) {
+            background-color: rgba($color: grey, $alpha: 0.5);
+        }
+
+        &:hover {
+            cursor: pointer;
+            padding: 15px 5px;
+        }
+
+        &-text {
+            flex: 22.5%;
+        }
+        &-days {
+            flex: 10%;
+        }
+
+        &-button {
+            position: absolute;
+            right: 10px;
+            top: -3px;
+            border-radius: 5px;
+            background-color: yellowgreen;
+        }
+    }
+}

@@ -4,8 +4,8 @@ import { AppContext } from '../../../context/appContext';
 import { IHolidayRequest } from '../../../models/models';
 import client from "../../../apolloClient";
 import { DocumentNode } from 'graphql';
-import RequestList from '../../../shared/request-list';
 import Modal from '../../../shared/modal/modal.component';
+import ActiveRequestList from './active-request-list';
 
 const ActiveRequest: React.FunctionComponent<any> = (props) => {
     const className = "active-request";
@@ -35,7 +35,7 @@ const ActiveRequest: React.FunctionComponent<any> = (props) => {
     return (
         <div className={`${className}`}>
             <h5 className={`${className}__title`}>Your active holiday requests</h5>
-            <RequestList dataType={"getUserHolidayRequests"} toggleRequest={toggleRequest} query={GraphqlSchema.GET_HOLIDAY_REQUESTS} variables={{_id: objectRefId}} />
+            <ActiveRequestList dataType={"getUserHolidayRequests"} toggleRequest={toggleRequest} query={GraphqlSchema.GET_HOLIDAY_REQUESTS} variables={{_id: objectRefId}} />
             {activeRequest !== undefined && (
                 <Modal className={`${className}__modal`} ref={ref}>
                     <div className={`${className}__modal-response`}>
