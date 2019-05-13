@@ -1,23 +1,22 @@
 import * as React from 'react';
 import LayoutContainer from '../../layout';
-import ActiveRequest from './active-request';
+import AddRequest from './add-request';
 
-const HolidayRequest: React.FunctionComponent<any> = (props) => {
-
-    const className = "holiday-request";
+const AddHolidayRequest: React.FC<any> = ({}) => {
+    const className = "add-holiday-request";
     return (
         <LayoutContainer>
             <div className={`${className}`}>
                 <div className={`${className}__wrapper`}>
                     <div className={`${className}__header`}>
-                        <h5 className={`${className}__title`}>Holiday Request</h5>
+                        <h5 className={`${className}__title`}>Add Holiday Request</h5>
                         <p className={`${className}__description`}>Get an overview of all your holiday requests and add a new if needed</p>
                     </div>
                 </div>
-                <ActiveRequest />
+                <AddRequest />
             </div>
         </LayoutContainer>
-    )
-};
+    );
+}
 
-export default HolidayRequest;
+export default AddHolidayRequest;

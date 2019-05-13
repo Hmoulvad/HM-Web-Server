@@ -28,13 +28,12 @@ const Links = () => {
         return (
             <React.Fragment>
                 <NavLink onClick={toggleMenu} exact={true} activeClassName="link--active" className={`${className}__link`} to="/">Home</NavLink>
-                <NavLink onClick={toggleMenu} activeClassName="link--active" className={`${className}__link`} to="/request">Holiday Request</NavLink>
-                {role !== Role.developer && (
-                    <>
-                    <NavLink onClick={toggleMenu} activeClassName="link--active" className={`${className}__link`} to="/overview">Overview</NavLink>
+                <NavLink onClick={toggleMenu} activeClassName="link--active" className={`${className}__link`} to="/holiday-request">Holiday Request</NavLink>
+                <NavLink onClick={toggleMenu} activeClassName="link--active" className={`${className}__link`} to="/add-request">Add Request</NavLink>
+                {role !== Role.developer && 
+                    // <NavLink onClick={toggleMenu} activeClassName="link--active" className={`${className}__link`} to="/overview">Overview</NavLink>
                     <NavLink onClick={toggleMenu} activeClassName="link--active" className={`${className}__link`} to="/pending">Pending Requests</NavLink>
-                    </>
-                )}
+                }
                 <div className={`${className}__link`} onClick={signOut} > Logout </div> 
             </React.Fragment>
         )
