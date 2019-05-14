@@ -16,7 +16,7 @@ interface IRangeState {
     to: Date;
 }
 
-const AddRequest: React.FunctionComponent<IAddRequestProps> = (props) => {
+const AddRequest: React.FunctionComponent<IAddRequestProps> = ({}) => {
     const className = "add-request";
     const initialState: IRangeState = {
         from: new Date,

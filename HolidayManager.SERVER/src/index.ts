@@ -1,8 +1,9 @@
 import { GraphQLServer } from "graphql-yoga";
 import { startDB, models } from "./database";
-import { default as typeDefs } from "./graphql/typeDefs";
-import { default as resolvers } from "./graphql/resolvers";
+import { default as schema } from "./graphql/typeDefs";
+import { default as resolversMap } from "./graphql/resolvers";
 import { permissions } from "./graphql/helpers/authentication";
+import { makeExecutableSchema } from 'graphql-tools';
 
 const db = startDB({
   user: process.env.MONGO_ATLAS_USER,
@@ -15,9 +16,13 @@ const context = (req : any) => ({
   req 
 });
 
+const executableSchema = makeExecutableSchema({
+  typeDefs: schema,
+  resolvers: resolversMap,
+});
+
 const server = new GraphQLServer({ 
-  typeDefs, 
-  resolvers,
+  schema: executableSchema,
   context,
   resolverValidationOptions :{
     requireResolversForResolveType: false

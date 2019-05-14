@@ -5,8 +5,9 @@
     "main": "index.js",
     "scripts": {
         "start": "nodemon --exec ts-node src/index.ts",
+        "test": "newman run ./tests/GraphQLEndpointTests.postman_collection.json",
         "build": "tsc",
-        "test": "newman run ./tests/GraphQLEndpointTests.postman_collection.json"
+        "run:build": "nodemon --exec node dist/index.js"
     },
     "keywords": [],
     "author": "HBM",
