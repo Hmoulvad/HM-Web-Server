@@ -5,16 +5,29 @@ const Home: React.FunctionComponent<any> = (props) => {
 
     return (
         <LayoutContainer>
-            <h3 className="home__header">Welcome to IMPACT’s Holiday Manager</h3>
-            <p className="home__description"> 
-                You could see there was text coming out of her eyes, 
-                text coming out of her wherever. My placeholder text, I think, 
-                is going to end up being very good with women. The other thing with 
-                Lorem Ipsum is that you have to take out its family. When other websites give you text, 
-                they’re not sending the best. They’re not sending you, they’re sending words that have 
-                lots of problems and they’re bringing those problems with us. They’re bringing mistakes. 
-                They’re bringing misspellings. They’re typists… And some, I assume, are good words.
-            </p>
+            <div className="home">
+                <h2 className="home__title">Welcome to IMPACT’s Holiday Manager</h2>
+                <h4 className="home__header">IMPACT's Holiday Manager is used as internally way of handling holiday requests. </h4>
+                <h5 className="home__subheader"> As a Developer</h5>
+                <p className="home__text"> 
+                    - You can add a new Holiday Request where you choose the date which you wish to have holiday.
+                </p>
+                <p className="home__text"> 
+                    - You can see all your active Holiday Requests and whether they are pending or have been approved/declined.
+                </p>
+                <h5 className="home__subheader"> 
+                    As a Project Manager or Unit Manager
+                </h5>
+                <p className="home__text"> 
+                    - You can also add a Holiday Request and the request will be send to your reference within the firm.
+                </p>
+                <p className="home__text"> 
+                    - You also have the ability to see all your active Holiday Requests and their status.
+                </p>
+                <p className="home__text"> 
+                    - You can see all pending Holiday Requests from Project Manager, Unit Manager or Developers and respond to them.
+                </p>
+            </div>
         </LayoutContainer>
 )
 };

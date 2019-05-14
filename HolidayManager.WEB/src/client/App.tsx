@@ -10,6 +10,7 @@ import Media from "react-media";
 import { IToken } from "./models/shared";
 import * as jwt from "jsonwebtoken";
 import { Role, IDeveloper } from "./models/models";
+import Footer from "./shell/footer";
 
 interface IAppProps {}
 
@@ -39,7 +40,7 @@ class App extends React.PureComponent<IAppProps, IAppContext> {
 		},
 	}
 
-	async componentWillUpdate() {
+	async componentDidUpdate() {
 		const token = localStorage.getItem("token");
 		if (!!token) {
 			const { data } = jwt.decode(token) as IToken;
@@ -99,12 +100,13 @@ class App extends React.PureComponent<IAppProps, IAppContext> {
 				<AppContext.Provider value={this.state}>
 					<Router>
 						<div className="app">
-							<Media query="(min-width: 576px)">
+							<Media query="(max-width: 900px)">
 								{matches =>
-									<React.Fragment>
-										{!isApp && <Navigation mobile={!matches} />}
-											<Routes />
-									</React.Fragment>
+								<>
+									{!isApp && <Navigation mobile={matches} />}
+										<Routes />
+									<Footer />
+								</>
 								}
 							</Media>
 						</div>

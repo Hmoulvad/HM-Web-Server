@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { AppContext } from '../../context/appContext';
 import Logo from "../../../assets/icons/menu.svg";
 import { Role } from '../../models/models';
+import SvgIcon from '../../shared/svg-icon';
 
 interface INavigationProps {
     mobile: boolean;
@@ -60,11 +61,16 @@ const Links = () => {
                 ) : 
                 (
                     <div className={`${className}`}>
-                        <img className={`${className}__icon`} src={Logo} onClick={toggleMenu} />
+                        <div onClick={toggleMenu}>
+                            <SvgIcon className={`${className}__icon`} iconName="menu" />
+                        </div>
                         <NavLink to="/" className={`${className}__logo`}>IMPACT</NavLink>
                         { isMenuOpen && (
                             <div className={`${className}__menu`}>
-                                <div className={`${className}__close`} onClick={toggleMenu}>Luk</div>
+                                <div className={`${className}__close`} onClick={toggleMenu}>
+                                    <SvgIcon iconName="back" />
+                                    Luk
+                                </div>
                                 <div className={`${className}__links`}>
                                     <Links />
                                 </div>
