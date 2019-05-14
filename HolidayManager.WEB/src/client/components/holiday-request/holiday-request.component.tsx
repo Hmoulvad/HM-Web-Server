@@ -10,8 +10,8 @@ const HolidayRequest: React.FunctionComponent<any> = (props) => {
             <div className={`${className}`}>
                 <div className={`${className}__wrapper`}>
                     <div className={`${className}__header`}>
-                        <h5 className={`${className}__title`}>Holiday Request</h5>
-                        <p className={`${className}__description`}>Get an overview of all your holiday requests and add a new if needed</p>
+                        <h4 className={`${className}__title`}>Your Holiday Requests</h4>
+                        <p className={`${className}__description`}>Get an overview of all your Holiday Requests, and delete one if wanted.</p>
                     </div>
                 </div>
                 <ActiveRequest />

@@ -29,5 +29,9 @@
         height: 22px;
         z-index: 2;
         cursor: pointer;
+
+        @include media-breakpoint-down(sm) {
+            top: 10px;
+        }
     }
 }

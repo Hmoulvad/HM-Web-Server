@@ -7,6 +7,7 @@ import { DocumentNode } from 'graphql';
 import Modal from '../../../shared/modal/modal.component';
 import ActiveRequestList from './active-request-list';
 import { convertUnixToDate } from '../../../helpers/date';
+import Button from '../../../shared/button';
 
 const ActiveRequest: React.FunctionComponent<any> = (props) => {
     const className = "active-request";
@@ -35,13 +36,24 @@ const ActiveRequest: React.FunctionComponent<any> = (props) => {
 
     return (
         <div className={`${className}`}>
-            <h5 className={`${className}__title`}>Your active holiday requests</h5>
             <ActiveRequestList dataType={"getUserHolidayRequests"} toggleRequest={toggleRequest} query={GraphqlSchema.GET_HOLIDAY_REQUESTS} variables={{_id: objectRefId}} />
             {activeRequest !== undefined && (
                 <Modal className={`${className}__modal`} ref={ref}>
-                    <div className={`${className}__modal__header`}>Do you wish to delete following Holiday Request?</div>
-                    <div className={`${className}__modal__request`}>{convertUnixToDate(activeRequest.from).toDateString()} to {convertUnixToDate(activeRequest.to).toDateString()}</div>
-                    <button onClick={deleteHolidayRequest} className={`${className}__modal__button`}>Yes</button>
+                    <h4 className={`${className}__modal__header`}>Delete Holiday Request</h4>
+                    <p className={`${className}__modal__description`}>Do you wish to delete the following Holiday Request?</p>
+                    <div className={`${className}__modal__request`}>
+                        Ranging from: 
+                        <span className={`${className}__modal__date`}>
+                            {convertUnixToDate(activeRequest.from).toDateString()}
+                        </span>
+                    </div>
+                    <div className={`${className}__modal__request`}>
+                        to:  
+                        <span className={`${className}__modal__date`}>
+                            {convertUnixToDate(activeRequest.to).toDateString()}
+                        </span>
+                    </div>
+                    <Button text="Yes" onClick={deleteHolidayRequest} className={`${className}__modal__button`} />
                 </Modal>
             )}
         </div>

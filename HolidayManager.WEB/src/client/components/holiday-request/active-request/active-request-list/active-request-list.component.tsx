@@ -30,13 +30,13 @@ const ActiveRequestLis: React.FC<IRequestListProps> = ({query, variables, toggle
                     if ( data ) return (data[dataType] as IHolidayRequest[]).map((request: IHolidayRequest, index: number) => {
                         return (
                             <div className={`${className}__request`} onClick={() => toggleRequest(data[dataType], index)} key={index}>
-                                <p className={`${className}__request-text`}>{convertUnixToDate(request.from).toLocaleDateString()} to {convertUnixToDate(request.to).toLocaleDateString()}</p>
-                                <p className={`${className}__request-days`}>{dateDifference(request.from, request.to)}</p>
-                                <p className={`${className}__request-text`}>{request.unitManagerName} - {holidayStatus(request.unitManagerApproval)}</p>
+                                <div className={`${className}__request-text`}>{convertUnixToDate(request.from).toLocaleDateString()} {convertUnixToDate(request.to).toLocaleDateString()}</div>
+                                <div className={`${className}__request-days`}>{dateDifference(request.from, request.to)}</div>
+                                <div className={`${className}__request-text`}>{request.unitManagerName} - <span className={`${className}__request-status`}>{holidayStatus(request.unitManagerApproval)}</span></div>
                                 {request.ref ? 
-                                <p className={`${className}__request-text`}>{request.refName} - {holidayStatus(request.refApproval)}</p> 
+                                <div className={`${className}__request-text`}>{request.refName} - <span className={`${className}__request-status`}>{holidayStatus(request.refApproval)}</span></div> 
                                 :  
-                                <p className={`${className}__request-text`}>NaN</p>}
+                                <div className={`${className}__request-text`}>NaN</div>}
                             </div>
                         )
                     })

@@ -7,10 +7,14 @@ $dropdown-box-shadow: 4px 4px 8px rgba(grey, 0.25);
     border: 1px solid grey;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 13px;
+    font-size: 15px;
 
     @include media-breakpoint-down(lg) {
         justify-content: flex-end;
+    }
+
+    @include media-breakpoint-down(sm) {
+        font-size: 13px;
     }
 
     &--inline {
