@@ -24,7 +24,8 @@ export default {
                 throw new Error("You're not logged in");
             }
         },   
-        isTokenValid: async ({ token }): Promise<boolean> => {
+        isTokenValid: async (parent, { token }): Promise<boolean> => {
+            console.log(token);
             if ( jwt.verify(token, process.env.Jwt_Secret) ) {
                 return true;
             } else {
