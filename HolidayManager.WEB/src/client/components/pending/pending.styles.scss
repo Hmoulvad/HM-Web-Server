@@ -54,6 +54,9 @@
 
         &__button {
             margin: 10px 0px;
+            @include media-breakpoint-up(md) {
+                margin-right: 10px;
+            }
         }
 
         &__button-decline {
