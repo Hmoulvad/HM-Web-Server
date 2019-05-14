@@ -4,7 +4,7 @@
     color: $Impact-White;
 
     @include media-breakpoint-down(sm) {
-        width: 90%;
+        width: 100%;
     }
     &__title {
         padding-bottom: 1.5%;
@@ -13,6 +13,7 @@
         padding-bottom: 1%;
     }
     &__subheader {
+        padding-top: 1%;
         padding-bottom: 0.5%;
     }
     &__text {

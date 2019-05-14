@@ -4,8 +4,49 @@
         border-radius: 5px;
     }
 
+    &__project {
+        margin: 5px 0px 15px 0px;
+    }
+
+    &__description {
+        margin: 15px 0;
+    }
+
     &__dropdown {
         &-wrapper {
+        }
+    }
+
+    &__selected {
+        padding-bottom: 10px;
+        &-header {
+            padding-bottom: 5px;
+            font-weight: bold;
+        }
+
+        &-dates {
+            display: flex;
+        }
+
+        &-date {
+            display: flex;
+            flex: 1;
+            justify-content: space-evenly;
+        }
+    }
+}
+
+.DayPicker {
+    &:focus {
+        outline: none;
+    }
+    &-Month {
+        margin: 0 !important;
+        margin-top: 1em !important;
+    }
+    &-Day {
+        &--today {
+            color: $Impact-Black !important;
         }
     }
 }
@@ -24,5 +65,4 @@
 }
 .Selectable .DayPicker-Day--end {
     border-top-right-radius: 50% !important;
-    border-bottom-right-radius: 50% !important;
 }

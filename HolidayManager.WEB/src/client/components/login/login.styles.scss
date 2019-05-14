@@ -13,7 +13,6 @@
         border-radius: 5px;
     }
 
-
     @include media-breakpoint-down(xs) {
         margin: 0 auto;
         @include make-col(12);
@@ -45,7 +44,7 @@
         border-bottom: 1px solid gray;
     }
 
-    &__submit {
-        border-radius: 5px;
+    &__button {
+        margin: 0 auto;
     }
 }

@@ -1,5 +1,5 @@
 .add-holiday-request {
-    background-color: white;
+    background-color: $Impact-White;
     width: 100%;
     border-radius: 5px;
     padding: 30px;
@@ -18,6 +18,7 @@
     }
 
     &__title {
+        font-weight: bold;
     }
 
     &__description {

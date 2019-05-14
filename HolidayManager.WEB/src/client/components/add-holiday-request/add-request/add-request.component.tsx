@@ -5,8 +5,9 @@ import 'react-day-picker/lib/style.css';
 import { Mutation } from 'react-apollo';
 import GraphqlSchema from "../../../graphql";
 import { AppContext } from '../../../context/appContext';
-import { Role, IProject, IDeveloper } from '../../../models/models';
+import { Role, IDeveloper } from '../../../models/models';
 import Dropdown from '../../../shared/dropdown/dropdown.component';
+import Button from '../../../shared/button';
 
 interface IAddRequestProps {
 }
@@ -67,48 +68,51 @@ const AddRequest: React.FunctionComponent<IAddRequestProps> = (props) => {
     const modifiers = { start: from, end: to};
     return (
         <div className={`${className}`}>
-          <p>
-            {!from && !to && 'Please select the first day.'}
-            {from && !to && 'Please select the last day.'}
-            {from &&
-              to && `Selected from ${from.toLocaleDateString()} to${to.toLocaleDateString()}`}{' '}
-            {from &&
-              to && (
-                <button className={`${className}__reset-button`} onClick={handleResetClick}>
-                  Reset
-                </button>
-              )}
-          </p>
-          <DayPicker.default
+            {role === Role.developer && (
+                <>
+                <div className={`${className}__project`}>Pick the Project Manager you want to refer to request to</div>
+                <Dropdown handleChange={handleDropdownChange} className={`${className}__dropdown`} options={dropdownOptions()}></Dropdown>
+                </>
+            )}
+            <p className={`${className}__description`}>Pick the dates you where you wish to have vacation </p>
+            <div className={`${className}__selected`}>
+                <div className={`${className}__selected-header`}>Selected Dates</div>
+                { from && to && (
+                    <div className={`${className}__selected-dates`}>
+                        <div className={`${className}__selected-date`}>{from.toLocaleDateString()}</div>
+                        <div className={`${className}__selected-date`}>-</div>
+                        <div className={`${className}__selected-date`}>{to.toLocaleDateString()}</div>
+                    </div>
+                )}
+            </div>
+        {from && to && <Button onClick={handleResetClick} text="Reset"/> }
+        <DayPicker.default
             className="Selectable"
             numberOfMonths={numberOfMonths}
             selectedDays={[from, { from, to }]}
             modifiers={modifiers}
             onDayClick={handleDayClick}
-          />
-          <Mutation mutation={GraphqlSchema.ADD_HOLIDAY_REQUEST}>
-          {( addHolidayRequest, { error }) => (
-            <button className={`${className}__add-button`} onClick={e => {
-              e.preventDefault();
-              addHolidayRequest({
-                variables: {
+        />
+        <Mutation mutation={GraphqlSchema.ADD_HOLIDAY_REQUEST}>
+            {( addHolidayRequest, { error }) => (
+                <Button text="Add Request" className={`${className}__add-button`} onClick={(e: any) => {
+                    e.preventDefault();
+                    addHolidayRequest({
+                    variables: {
                     _id: objectRefId,
                     role,
                     projectId: activeProject._id,
                     to,
                     from,
-                }
-              }).catch( e => {
-                  console.log(e.message);
-              })
-            }}>Add Request</button>
-          )}
-          </Mutation>
-          {role === Role.developer && (
-            <Dropdown handleChange={handleDropdownChange} className={`${className}__dropdown`} options={dropdownOptions()}></Dropdown>
-          )}
+                    }
+                }).catch( e => {
+                console.log(e.message);
+                })
+                }}/>
+            )}
+        </Mutation>
         </div>
-      );
+);
 };
 
 export default AddRequest;

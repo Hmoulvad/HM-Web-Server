@@ -18,14 +18,14 @@
 
     &__link {
         color: $Impact-White;
-        height: 24px;
+        height: 28px;
         margin: 0 20px;
         white-space: nowrap;
         letter-spacing: 1.5px;
         cursor: pointer;
 
         &:hover {
-            border-bottom: 2px solid $Impact-Brand;
+            border-bottom: 2px solid $Impact-Blue;
         }
     }
 }
@@ -53,6 +53,7 @@
         position: absolute;
         left: 0;
         top: 0;
+        min-width: 150px;
         max-width: 220px;
         z-index: 10;
         background-color: black;
@@ -83,5 +84,5 @@
 }
 
 .link--active {
-    border-bottom: 2px solid $Impact-Brand;
+    border-bottom: 2px solid $Impact-Blue;
 }

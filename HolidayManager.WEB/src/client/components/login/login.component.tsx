@@ -4,6 +4,7 @@ import { Mutation } from 'react-apollo';
 import { AppContext } from '../../context/appContext';
 import LayoutContainer from '../../layout';
 import { Redirect } from 'react-router';
+import Button from '../../shared/button';
 
 const LoginComponent: React.FC<any> = (props: any) => {
 	let emailRef: HTMLInputElement | null;
@@ -38,7 +39,7 @@ const LoginComponent: React.FC<any> = (props: any) => {
 						}}>
 							<input className="login__input" placeholder="E-mail address" type="email" ref={ node => emailRef = node }/>
 							<input className="login__input" placeholder="Password" type="password" ref={ node => passwordRef = node }/>
-							<button className="login__submit" type="submit">Login</button>
+								<Button className="login__input" text="Login" />
 							{ error && (
 							<p>{ error.message }</p>
 						)}

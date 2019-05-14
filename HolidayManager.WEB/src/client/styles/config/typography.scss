@@ -79,10 +79,10 @@ $font-size-normal: 17px;
 }
 
 @mixin logo {
-    font-family: PTSerif;
+    font-family: Raleway;
     font-weight: $font-weight-regular;
     font-size: 32px;
-    letter-spacing: 5px;
+    letter-spacing: 3px;
     line-height: 40px;
 
     @include media-breakpoint-down(sm) {

@@ -16,7 +16,7 @@ html {
 }
 
 p {
-    margin: 1rem 0;
+    margin: 5px 0;
 }
 
 input {
@@ -28,6 +28,11 @@ input {
 }
 
 button {
+    border: none;
+
+    &:focus {
+        outline: none;
+    }
 }
 
 a {
