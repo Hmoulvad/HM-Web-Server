@@ -28,8 +28,7 @@ input {
 }
 
 button {
-    border: none;
-
+    border: none !important;
     &:focus {
         outline: none;
     }

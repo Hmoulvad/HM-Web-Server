@@ -85,7 +85,7 @@ const AddRequest: React.FunctionComponent<IAddRequestProps> = (props) => {
                     </div>
                 )}
             </div>
-        {from && to && <Button onClick={handleResetClick} text="Reset"/> }
+        {from && to && <Button className={`${className}__reset-button`} onClick={handleResetClick} text="Reset"/> }
         <DayPicker.default
             className="Selectable"
             numberOfMonths={numberOfMonths}

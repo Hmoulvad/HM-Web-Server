@@ -9,7 +9,7 @@ interface IButton {
 
 const Button: React.FunctionComponent<IButton> = ({text, onClick, className = "", type = "submit"}) => {
   return (
-      <button type={type} className={`${className} button`} onClick={onClick !== undefined && onClick}>{text}</button>
+      <button type={type} className={`${className} button`} onClick={onClick !== undefined ? onClick : () => console.log()}>{text}</button>
   )
 };
 
