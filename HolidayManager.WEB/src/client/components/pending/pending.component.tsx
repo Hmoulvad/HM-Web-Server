@@ -9,6 +9,7 @@ import PendingRequestList from './pending-request-list';
 import { convertUnixToDate } from '../../helpers/date';
 import { DocumentNode } from 'graphql';
 import client from '../../apolloClient';
+import Button from '../../shared/button';
 
 const Pending: React.FC<any> = (props) => {
     const { objectRefId, role } = React.useContext(AppContext);
@@ -34,6 +35,10 @@ const Pending: React.FC<any> = (props) => {
             }
         }).catch(e => {
             console.log(e.message);
+        }).then(e => {
+            if (!!ref!.current) {
+                ref.current.close();
+            }
         })
     }
 
@@ -49,10 +54,24 @@ const Pending: React.FC<any> = (props) => {
                         <PendingRequestList toggleRequest={toggleRequest} dataType={"getPendingHolidayRequests"} query={GraphqlSchema.GET_HOLIDAY_REQUESTS_MANAGER} variables={{_id: objectRefId}}/>
                         {activeRequest !== undefined && (
                             <Modal className={`${className}__modal`} ref={ref}>
-                                <div className={`${className}__modal__header`}>Do you wish to approve or decline following Holiday Request?</div>
-                                <div className={`${className}__modal__request`}>{convertUnixToDate(activeRequest.from).toDateString()} to {convertUnixToDate(activeRequest.to).toDateString()}</div>
-                                <button onClick={() => respondToHolidayRequest(true)} className={`${className}__modal__button`}>Approve</button>
-                                <button onClick={() => respondToHolidayRequest(false)} className={`${className}__modal__button`}>Decline</button>
+                                <h4 className={`${className}__modal__header`}>Respond to Holiday Request</h4>
+                                <p className={`${className}__modal__description`}>Do you wish to approve or decline the following Holiday Request?</p>
+                                <div className={`${className}__modal__request`}>
+                                    Ranging from: 
+                                    <span className={`${className}__modal__date`}>
+                                        {convertUnixToDate(activeRequest.from).toDateString()}
+                                    </span>
+                                </div>
+                                <div className={`${className}__modal__request`}>
+                                    to:  
+                                    <span className={`${className}__modal__date`}>
+                                        {convertUnixToDate(activeRequest.to).toDateString()}
+                                    </span>
+                                </div>
+                                <div className={`${className}__modal__buttons`}>
+                                    <button onClick={() => respondToHolidayRequest(true)} className={`${className}__modal__button button`}>Approve</button>
+                                    <button onClick={() => respondToHolidayRequest(false)} className={`${className}__modal__button-decline button`}>Decline</button>
+                                </div>
                             </Modal>
                         )}
                     </div>

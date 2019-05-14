@@ -24,6 +24,8 @@ const ActiveRequest: React.FunctionComponent<any> = (props) => {
             }
         }).catch(e => {
             console.log(e.message);
+        }).then(e => {
+            ref.current!.close();
         })
     }
 

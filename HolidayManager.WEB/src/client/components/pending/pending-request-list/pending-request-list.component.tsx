@@ -17,14 +17,14 @@ interface IRequestListProps {
 const PendingRequestList: React.FC<IRequestListProps> = ({query, variables, toggleRequest, dataType, className = "pending-request-list"}): JSX.Element => {
     const { role } = React.useContext(AppContext);
 
-    const renderManagerName = (request: IHolidayRequest): string => {
-        let managerString: string = "";
-        if ( role === Role.projectManager) {
-            managerString = `${request.refName} - ${holidayStatus(request.refApproval)}`
-        } else {
-            managerString = `${request.unitManagerName} - ${holidayStatus(request.unitManagerApproval)}`
+    const renderManagerName = (request: IHolidayRequest): JSX.Element => {
+        if ( role === Role.unitManager) {
+            return <div className={`${className}__request-text`}>{request.refName} - <span className={`${className}__request-status`}>{holidayStatus(request.refApproval)}</span></div>
         }
-        return managerString;
+        if (role === Role.projectManager) {
+            return <div className={`${className}__request-text`}>{request.unitManagerName} - <span className={`${className}__request-status`}>{holidayStatus(request.unitManagerApproval)}</span></div>
+        }
+        return <div>"Nan"</div>;
     }
     return (
       <>
@@ -42,10 +42,10 @@ const PendingRequestList: React.FC<IRequestListProps> = ({query, variables, togg
                     if ( data ) return (data[dataType] as IHolidayRequest[]).map((request: IHolidayRequest, index: number) => {
                         return (
                             <div className={`${className}__request`} onClick={() => toggleRequest(data[dataType], index)} key={index}>
-                                <p className={`${className}__request-text`}>{convertUnixToDate(request.from).toLocaleDateString()} to {convertUnixToDate(request.to).toLocaleDateString()}</p>
+                                <p className={`${className}__request-text`}>{convertUnixToDate(request.from).toLocaleDateString()} - {convertUnixToDate(request.to).toLocaleDateString()}</p>
                                 <p className={`${className}__request-days`}>{dateDifference(request.from, request.to)}</p>
                                 <p className={`${className}__request-text`}>{request.creatorName}</p>
-                                <p className={`${className}__request-text`}>{renderManagerName(request)}</p>
+                                {renderManagerName(request)}
                             </div>
                         )
                     })
