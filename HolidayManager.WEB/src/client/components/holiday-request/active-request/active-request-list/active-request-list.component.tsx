@@ -13,7 +13,7 @@ interface IRequestListProps {
     className?: string;
 }
 
-const ActiveRequestLis: React.FC<IRequestListProps> = ({query, variables, toggleRequest, dataType, className = "active-request-list"}): JSX.Element => {
+const ActiveRequestList: React.FC<IRequestListProps> = ({query, variables, toggleRequest, dataType, className = "active-request-list"}): JSX.Element => {
     return (
       <>
         <div className={`${className}__headlines`}>
@@ -47,5 +47,5 @@ const ActiveRequestLis: React.FC<IRequestListProps> = ({query, variables, toggle
     );
 }
 
-export default ActiveRequestLis;
+export default ActiveRequestList;
 
