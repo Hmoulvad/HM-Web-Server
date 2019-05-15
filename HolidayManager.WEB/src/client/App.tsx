@@ -42,18 +42,23 @@ class App extends React.PureComponent<IAppProps, IAppContext> {
 
 	async componentDidUpdate() {
 		const token = localStorage.getItem("token");
-		if (!!token) {
+		if (!!token && this.state.isApp === false) {
 			const { data } = jwt.decode(token) as IToken;
 			this.setState({ userId: data.id, role: data.role, objectRefId: data.objectRefId})
-			const { developer, unitManager, projectManager } = await getRefObject(data.role, data.objectRefId)
-			if (data.role === Role.developer) {
-				this.setState({ user: developer})
-			}
-			if (data.role === Role.projectManager) {
-				this.setState({ user: projectManager})
-			}
-			if (data.role === Role.unitManager) {
-				this.setState({ user: unitManager})
+			const respond = await getRefObject(data.role, data.objectRefId)
+			if (!! respond) {
+				if (data.role === Role.developer) {
+					const { developer } = respond;
+					this.setState({ user: developer})
+				}
+				if (data.role === Role.projectManager) {
+					const { projectManager } = respond;
+					this.setState({ user: projectManager})
+				}
+				if (data.role === Role.unitManager) {
+					const { unitManager } = respond;
+					this.setState({ user: unitManager})
+				}
 			}
 		}
 	}
@@ -69,15 +74,20 @@ class App extends React.PureComponent<IAppProps, IAppContext> {
 				const { data } = jwt.decode(token) as IToken;
 				localStorage.setItem("token", token);
 				this.setState({ userId: data.id, role: data.role, objectRefId: data.objectRefId, isAuth: true})
-				const { developer, unitManager, projectManager } = await getRefObject(data.role, data.objectRefId)
-				if (data.role === Role.developer) {
-					this.setState({ user: developer})
-				}
-				if (data.role === Role.projectManager) {
-					this.setState({ user: projectManager})
-				}
-				if (data.role === Role.unitManager) {
-					this.setState({ user: unitManager})
+				const respond = await getRefObject(data.role, data.objectRefId)
+				if (!! respond) {
+					if (data.role === Role.developer) {
+						const { developer } = respond;
+						this.setState({ user: developer})
+					}
+					if (data.role === Role.projectManager) {
+						const { projectManager } = respond;
+						this.setState({ user: projectManager})
+					}
+					if (data.role === Role.unitManager) {
+						const { unitManager } = respond;
+						this.setState({ user: unitManager})
+					}
 				}
 			}
 		} else {

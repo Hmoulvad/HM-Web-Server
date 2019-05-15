@@ -11,7 +11,8 @@ describe("Helper Functions Unit Tests", () => {
         expect(dateDifference(startDate.getTime(), endDate.getTime())).toEqual(offSet);
     });
 
-    it("Expect to convert Unix to correct date with Convert Unit To Date Function", () => {
+    it("Expect to convert Unixtime to correct date with Convert Unit To Date Function"
+    , () => {
         const daysDate = new Date;
         const daysDateUnix = daysDate.getTime();
         expect(convertUnixToDate(daysDateUnix)).toEqual(daysDate);

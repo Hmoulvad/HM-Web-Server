@@ -20,7 +20,9 @@ describe("Button Component Tests", () => {
 
     it("Expects to run onClick function when button is pressed in the DOM", () => {
         const mockCallBackClick = jest.fn();
-        const wrapper = shallow(<Button onClick={mockCallBackClick} className="test" text="test"/>);
+        const wrapper = shallow(
+            <Button onClick={mockCallBackClick} className="test" text="test"/>
+        );
         wrapper.find('button').simulate('click');
         expect(mockCallBackClick.mock.calls.length).toEqual(1);
     });
