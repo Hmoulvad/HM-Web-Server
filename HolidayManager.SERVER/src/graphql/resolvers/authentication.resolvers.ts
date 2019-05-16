@@ -6,6 +6,8 @@ import { IUserModel } from "../../database/schemas/user.schema";
 import * as Mongoose from "mongoose";
 import { IToken, ITokenData } from "../../models/shared";
 
+const secret = "IMPACTERCHAMPS";
+
 export default {
     Query: {
         isLoggedIn: async (parent, args, { req, models }): Promise<IUserModel> => {
@@ -26,14 +28,14 @@ export default {
         },   
         isTokenValid: async (parent, { token }): Promise<boolean> => {
             console.log(token);
-            if ( jwt.verify(token, process.env.Jwt_Secret) ) {
+            if ( jwt.verify(token, secret) ) {
                 return true;
             } else {
                 throw new Error("Not a valid token")
             }
         },
         decodeToken: async (parent, { token }, { models }): Promise<ITokenData> => {
-            if ( jwt.verify(token, process.env.Jwt_Secret )) {
+            if ( jwt.verify(token, secret )) {
                 const { data } = jwt.decode(token) as IToken;
                 return data;
             } else {
@@ -55,7 +57,7 @@ export default {
                             role: User.role
                         }
                     }, 
-                    process.env.Jwt_Secret, 
+                    secret, 
                     { 
                         expiresIn: '365days' 
                     });
@@ -102,7 +104,7 @@ export default {
                             role: newUser.role
                         }
                     }, 
-                    process.env.Jwt_Secret, 
+                    secret, 
                     { 
                         expiresIn: '365days' 
                     });

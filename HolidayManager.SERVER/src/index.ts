@@ -6,9 +6,14 @@ import { permissions } from "./graphql/helpers/authentication";
 import { makeExecutableSchema } from 'graphql-tools';
 
 const db = startDB({
-  user: process.env.MONGO_ATLAS_USER,
-  pwd: process.env.MONGO_ATLAS_PW
+  user: "hm",
+  pwd: "1234"
 });
+
+// const db = startDB({
+//   user: process.env.MONGO_ATLAS_USER,
+//   pwd: process.env.MONGO_ATLAS_PW
+// });
 
 const context = (req : any) => ({
   models,

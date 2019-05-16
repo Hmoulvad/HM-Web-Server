@@ -4,7 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "nodemon --exec ts-node src/index.ts",
+        "start": "node index.js",
+        "start:ts": "nodemon --exec ts-node src/index.ts",
         "test": "newman run ./tests/GraphQLEndpointTests.postman_collection.json",
         "build": "tsc",
         "run:build": "nodemon --exec node dist/index.js"

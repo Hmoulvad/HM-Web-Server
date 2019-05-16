@@ -1,10 +1,12 @@
 
 import * as jwt from "jsonwebtoken";
 
+const secret = "IMPACTERCHAMPS"
+
 const isAuthenticated = async (resolve, parent, args, { req }) => {
     const { request }: any = req;
     if (request.headers.authorization !== undefined) { 
-        jwt.verify(request.headers.authorization, process.env.Jwt_Secret, function(err, decoded) {
+        jwt.verify(request.headers.authorization, secret, function(err, decoded) {
             if (err) {
                 throw new Error(err)
             } 

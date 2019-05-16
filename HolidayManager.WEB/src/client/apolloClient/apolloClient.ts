@@ -4,7 +4,7 @@ import { setContext } from "apollo-link-context";
 import { createHttpLink } from "apollo-link-http";
 
 const httpLink = createHttpLink({
-    uri: "http://localhost:4000/"
+    uri: "https://impact-hm-server.herokuapp.com/",
   });
   
 const authLink = setContext((_, { headers }: any) => {
